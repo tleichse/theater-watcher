@@ -16,11 +16,12 @@ or screen changes, update the step in the same change. -->
    uv run python manage.py migrate
    uv run python manage.py sync_sources
    ```
-   `sync_sources` reports how many sources it synced (about 300: the fixed sources plus every
-   theatre company in `collection/companies.csv` and every producer in
-   `collection/producers.csv` that has a website). After this, `collect` syncs by itself every
-   time it runs, so edits to `collection/sources.py` or either CSV are picked up without running
-   this again.
+   `sync_sources` reports how many sources it synced (about 590: the fixed sources plus every
+   organisation in `collection/companies.csv`, `producers.csv`, `venues.csv` and `schools.csv`
+   that has a website to collect). It also loads every organisation in those files into the
+   database, with its kind and region (*Organizações* in the admin). After this, `collect` syncs
+   by itself every time it runs, so edits to `collection/sources.py` or any of the CSVs are picked
+   up without running this again.
 2. Create your admin login. It asks for a password, so run it yourself:
    ```sh
    uv run python manage.py createsuperuser
@@ -169,12 +170,22 @@ from, and the full step-by-step process for finding new ones, is in
 - once a year, to recheck companies whose `last_active` year is about to fall out of the two-year
   "validated" window.
 
-## Now and then: look for new producers
-Film and TV producers, casting companies and dubbing studios are in `collection/producers.csv`.
-Where each one came from, and the process for finding new ones, is in
-[`collection/producer_lists/README.md`](collection/producer_lists/README.md). Run it with Claude
-Code (*"Let's look for new producers, following collection/producer_lists/README.md"*) once a
-year, or when APIT or the Film Commission directory changes.
+## Now and then: look for new producers, venues and schools
+The other organisations work the same way as the companies: each file has a lists folder with
+the original lists and the refresh steps. Run them with Claude Code (*"Let's look for new
+producers, following collection/producer_lists/README.md"*, and the same for venues and schools),
+about once a year:
+- producers, casting and agencies, dubbing studios and funders: `collection/producers.csv`, steps in
+  [`collection/producer_lists/README.md`](collection/producer_lists/README.md) (also when APIT, the
+  Film Commission directory or Cineguia change);
+- theatres, venues and festivals: `collection/venues.csv`, steps in
+  [`collection/venue_lists/README.md`](collection/venue_lists/README.md) (also when DGArtes adds venues
+  to the Rede de Teatros e Cineteatros);
+- schools: `collection/schools.csv`, steps in
+  [`collection/school_lists/README.md`](collection/school_lists/README.md).
+
+To keep an organisation as a contact without collecting its website (a town council's page, a site
+that refuses crawlers), set its `collect` column to `no`.
 
 ## When something goes wrong
 

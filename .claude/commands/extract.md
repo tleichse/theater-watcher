@@ -61,7 +61,9 @@ Action fields (leave out or use `null` when unknown):
   performing arts or film. Training unrelated to acting or voice (e.g. stop-motion building,
   podcast production).
 - **Not in Portugal:** shoots or productions abroad, unless the call explicitly seeks actors
-  based in Portugal for remote or self-tape work.
+  based in Portugal for remote or self-tape work. Exception: a grant, residency or touring call
+  that artists based in Portugal can apply for (e.g. Culture Moves Europe, Perform Europe) is in
+  scope as `grant`, region `national`, even though the work happens abroad.
 - **Closed or past:** the deadline is before `today`, the event already happened, or the page
   says it's sold out ("esgotado") or closed ("encerrado").
 - **Not an opportunity:** gossip, ratings, programme listings, results of past calls, news

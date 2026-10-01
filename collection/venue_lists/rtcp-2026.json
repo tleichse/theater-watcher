@@ -1,0 +1,730 @@
+[
+ {
+  "name": "A Moagem  Cidade do Engenho e das Artes",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/a-moagem-cidade-do-engenho-e-das-artes/",
+  "entity": "Câmara Municipal do Fundão",
+  "nuts3": "Beiras e Serra da Estrela",
+  "website": "https://amoagem.pt/"
+ },
+ {
+  "name": "Amarante Cine-Teatro",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/amarante-cine-teatro/",
+  "entity": "Câmara Municipal de Amarante",
+  "nuts3": "Tâmega e Sousa",
+  "website": "https://www.cm-amarante.pt/cineteatroamarante/"
+ },
+ {
+  "name": "Armazém 8",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/armazem-8/",
+  "entity": "Associ'arte",
+  "nuts3": "Alentejo Central",
+  "website": "https://armazem8.associarte.pt/"
+ },
+ {
+  "name": "Auditório Carlos do Carmo",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/auditorio-carlos-do-carmo/",
+  "entity": "Câmara Municipal de Lagoa",
+  "nuts3": "Algarve",
+  "website": "http://www.cm-lagoa.pt"
+ },
+ {
+  "name": "Auditório de Espinho",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/auditorio-de-espinho/",
+  "entity": "Academia de Música de Espinho",
+  "nuts3": "Área Metropolitana do Porto",
+  "website": "https://www.musica-esp.pt/auditorio-de-espinho-academia/programacao-bilheteira"
+ },
+ {
+  "name": "Auditório do Centro Cultural de Arronches",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/auditorio-do-centro-cultural-de-arronches/",
+  "entity": "Câmara Municipal de Arronches",
+  "nuts3": "Alto Alentejo",
+  "website": "https://cm-arronches.pt/"
+ },
+ {
+  "name": "Auditório João David Marques Pinheiro",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/auditorio-joao-david-marques-pinheiro/",
+  "entity": "Ateneu Artístico Vilafranquense",
+  "nuts3": "Grande Lisboa",
+  "website": "https://www.ateneu-vfxira.pt/"
+ },
+ {
+  "name": "Auditório Municipal Augusto Cabrita",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/auditorio-municipal-augusto-cabrita/",
+  "entity": "Câmara Municipal do Barreiro",
+  "nuts3": "Península de Setúbal",
+  "website": "https://www.cm-barreiro.pt/viver/contactos-de-servicos-e-equipamentos-municipais/poi/auditorio-municipal-augusto-cabrita-amac"
+ },
+ {
+  "name": "Auditório Municipal Beatriz Costa",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/auditorio-municipal-beatriz-costa/",
+  "entity": "Câmara Municipal de Mafra",
+  "nuts3": "Grande Lisboa",
+  "website": "www.cm-mafra.pt"
+ },
+ {
+  "name": "Auditório Municipal de Gaia",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/auditorio-municipal-de-gaia/",
+  "entity": "Câmara Municipal de Vila Nova de Gaia",
+  "nuts3": "Área Metropolitana do Porto",
+  "website": "https://www.cm-gaia.pt/pt/cidade/cultura/equipamentos-municipais/auditorio-municipal/"
+ },
+ {
+  "name": "Auditório Municipal de Portel",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/auditorio-municipal-de-portel/",
+  "entity": "Câmara Municipal de Portel",
+  "nuts3": "Alentejo Central",
+  "website": "https://www.cm-portel.pt/locais/auditorio-municipal-de-portel/"
+ },
+ {
+  "name": "Casa da Criatividade",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/casa-da-criatividade/",
+  "entity": "Câmara Municipal de São João da Madeira",
+  "nuts3": "Área Metropolitana do Porto",
+  "website": "https://www.casadacriatividade.com"
+ },
+ {
+  "name": "Casa da Cultura - Teatro Stephens",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/casa-da-cultura-teatro-stephens/",
+  "entity": "Câmara Municipal da Marinha Grande",
+  "nuts3": "Região de Leiria",
+  "website": "https/www.teatrostephens.pt"
+ },
+ {
+  "name": "Casa da Cultura de Ílhavo",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/casa-da-cultura-de-ilhavo/",
+  "entity": "Câmara Munciipal de Ílhavo",
+  "nuts3": "Região de Aveiro",
+  "website": "https://www.23milhas.pt/"
+ },
+ {
+  "name": "Casa da Cultura Santa Comba Dão",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/casa-da-cultura-santa-comba-dao/",
+  "entity": "Câmara Municipal de Santa Comba Dão",
+  "nuts3": "Viseu Dão Lafões",
+  "website": "https://cm-santacombadao.pt/"
+ },
+ {
+  "name": "Casa das Artes de Miranda do Corvo",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/casa-das-artes-de-miranda-do-corvo/",
+  "entity": "Câmara Municipal de Miranda do Corvo",
+  "nuts3": "Região de Coimbra",
+  "website": "https://cm-mirandadocorvo.pt/menu/168/casa-das-artes"
+ },
+ {
+  "name": "Casa das Artes de Vila Nova de Famalicão",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/casa-das-artes-de-vila-nova-de-famalicao/",
+  "entity": "Câmara Municipal de Vila Nova de Famalicão",
+  "nuts3": "Ave",
+  "website": "http://www.casadasartes.org"
+ },
+ {
+  "name": "Casa Municipal da Cultura de Seia",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/casa-municipal-da-cultura-de-seia/",
+  "entity": "Câmara Municipal de Seia",
+  "nuts3": "Beiras e Serra da Estrela",
+  "website": "https://www.casadaculturadeseia.pt/"
+ },
+ {
+  "name": "Centro Cultural da Malaposta",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-da-malaposta/",
+  "entity": "Câmara Municipal de Odivelas",
+  "nuts3": "Grande Lisboa",
+  "website": "www.cm-odivelas.pt"
+ },
+ {
+  "name": "Centro Cultural de Carregal do Sal",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-de-carregal-do-sal/",
+  "entity": "Câmara Municipal de Carregal do Sal",
+  "nuts3": "Viseu Dão Lafões",
+  "website": "https://www.cm-carregal.pt/"
+ },
+ {
+  "name": "Centro Cultural de Lagos",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-de-lagos/",
+  "entity": "Câmara Municipal de Lagos",
+  "nuts3": "Algarve",
+  "website": "http://www.cm-lagos.pt"
+ },
+ {
+  "name": "Centro Cultural de Macedo de Cavaleiros",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-de-macedo-de-cavaleiros/",
+  "entity": "Câmara Municipal de Macedo de Cavaleiros",
+  "nuts3": "Terras de Trás-os-Montes",
+  "website": "https://www.centrocultural-macedodecavaleiros.pt/"
+ },
+ {
+  "name": "Centro Cultural de Paredes de Coura",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-de-paredes-de-coura/",
+  "entity": "Município de Paredes de Coura",
+  "nuts3": "Alto Minho",
+  "website": "https://www.paredesdecoura.pt/"
+ },
+ {
+  "name": "Centro Cultural de Redondo",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-de-redondo/",
+  "entity": "Câmara Municipal de Redondo",
+  "nuts3": "Alentejo Central",
+  "website": "https://www.cm-redondo.pt/"
+ },
+ {
+  "name": "Centro Cultural e de Congressos das Caldas da Rainha",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-e-de-congressos-das-caldas-da-rainha/",
+  "entity": "Câmara Municipal de Caldas da Rainha",
+  "nuts3": "Oeste",
+  "website": "https://www.ccc.com.pt/"
+ },
+ {
+  "name": "Centro Cultural Gil Vicente",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-gil-vicente/",
+  "entity": "Câmara Municipal de Sardoal",
+  "nuts3": "Médio Tejo",
+  "website": "http://www.cm-sardoal.pt/index.php/pt/viver/cultura/centro-cultural-gil-vicente "
+ },
+ {
+  "name": "Centro Cultural Olga Cadaval",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-olga-cadaval/",
+  "entity": "Câmara Municipal de Sintra",
+  "nuts3": "Grande Lisboa",
+  "website": "https://ccolgacadaval.pt/"
+ },
+ {
+  "name": "Centro Cultural Raiano",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-raiano/",
+  "entity": "Idanha-a-Nova",
+  "nuts3": "Beira Baixa",
+  "website": "https://www.cm-idanhanova.pt/areas/cultura/centro-cultural-raiano"
+ },
+ {
+  "name": "Centro Cultural Vila Flor",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-cultural-vila-flor/",
+  "entity": "A Oficina",
+  "nuts3": "Ave",
+  "website": "http://www.ccvf.pt"
+ },
+ {
+  "name": "Centro das Artes e do Espectáculo  Sever do Vouga",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-das-artes-e-do-espectaculo-sever-do-vouga/",
+  "entity": "Câmara Municipal de Sever do Vouga",
+  "nuts3": "Região de Aveiro",
+  "website": "https://www.cm-sever.pt/pages/559?news_id=586"
+ },
+ {
+  "name": "Centro de Arte de Ovar",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-de-arte-de-ovar/",
+  "entity": "Câmara Municipal de Ovar",
+  "nuts3": "Região de Aveiro",
+  "website": "http://cultura.cm-ovar.pt"
+ },
+ {
+  "name": "Centro de Artes de Águeda (CAA)",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-de-artes-de-agueda-caa/",
+  "entity": "Câmara Municipal de Águeda",
+  "nuts3": "Região de Aveiro",
+  "website": "https://www.centroartesagueda.pt"
+ },
+ {
+  "name": "Centro de Artes do Espectáculo de Portalegre",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-de-artes-do-espectaculo-de-portalegre/",
+  "entity": "Câmara Municipal de Portalegre",
+  "nuts3": "Alto Alentejo",
+  "website": "www.caeportalegre.blogspot.pt"
+ },
+ {
+  "name": "Centro de Artes e Espectáculos (CAE)",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/centro-de-artes-e-espectaculos-cae/",
+  "entity": "Câmara Municipal da Figueira da Foz",
+  "nuts3": "Região de Coimbra",
+  "website": " http://www.cae.pt"
+ },
+ {
+  "name": "Cine Granadeiro",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-granadeiro/",
+  "entity": "Câmara Municipal de Grândola",
+  "nuts3": "Alentejo Litoral",
+  "website": "https://www.cm-grandola.pt/viver/cultura/poi/cine-granadeiro-auditorio-municipal"
+ },
+ {
+  "name": "Cine Teatro João Verde",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-joao-verde/",
+  "entity": "Município de Monção",
+  "nuts3": "Alto Minho",
+  "website": "https://ctjv.moncao.pt/"
+ },
+ {
+  "name": "Cine Teatro São João",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-sao-joao/",
+  "entity": "Câmara Municipal de Palmela",
+  "nuts3": "Península de Setúbal",
+  "website": "www.cm-palmela.pt"
+ },
+ {
+  "name": "Cine-Teatro Avenida",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-avenida/",
+  "entity": "Câmara Municipal de Castelo Branco",
+  "nuts3": "Beira Baixa",
+  "website": "https://www.facebook.com/cineteatroavenida"
+ },
+ {
+  "name": "Cine-Teatro de Alcobaça",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-de-alcobaca/",
+  "entity": "Câmara Municipal de Alcobaça",
+  "nuts3": "Oeste",
+  "website": "https://www.cm-alcobaca.pt/"
+ },
+ {
+  "name": "Cine-Teatro de Benavente",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-de-benavente/",
+  "entity": "Câmara Municipal de Benavente",
+  "nuts3": "Lezíria do Tejo",
+  "website": "https://www.cm-benavente.pt/servicos-municipais/cultura/cine-teatro-de-benavente"
+ },
+ {
+  "name": "Cine-Teatro de Estarreja",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-de-estarreja/",
+  "entity": "Câmara Municipal de Estarreja",
+  "nuts3": "Região de Aveiro",
+  "website": "https://www.cineteatroestarreja.com/"
+ },
+ {
+  "name": "Cine-Teatro de Mação",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-de-macao/",
+  "entity": "Município de Mação",
+  "nuts3": "Médio Tejo",
+  "website": "https://www.cm-macao.pt/"
+ },
+ {
+  "name": "Cine-Teatro de Sobral de Monte Agraço",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-de-sobral-de-monte-agraco/",
+  "entity": "Câmara Municipal de Sobral de Monte Agraço",
+  "nuts3": "Oeste",
+  "website": "http://www.cm-sobral.pt/cine-teatro/"
+ },
+ {
+  "name": "Cine-Teatro Garrett",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-garrett/",
+  "entity": "Município da Póvoa de Varzim",
+  "nuts3": "Área Metropolitana do Porto",
+  "website": "https://www.cm-pvarzim.pt/territorio/povoa-cultural/cine-teatro-garrett/ "
+ },
+ {
+  "name": "Cine-teatro Paraíso",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-paraiso/",
+  "entity": "Câmara Municipal de Tomar",
+  "nuts3": "Médio Tejo",
+  "website": "https://cineteatro.cm-tomar.pt/"
+ },
+ {
+  "name": "Cine-Teatro São Pedro de Alcanena",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-sao-pedro-de-alcanena/",
+  "entity": "Câmara Municipal de Alcanena",
+  "nuts3": "Médio Tejo",
+  "website": "http://cm-alcanena.pt/index.php/pt/viver/culturalazer/cine-teatro-sao-pedro"
+ },
+ {
+  "name": "Cine-Teatro Sousa Telles",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cine-teatro-sousa-telles/",
+  "entity": "Câmara Municipal de Ourique",
+  "nuts3": "Baixo Alentejo",
+  "website": "http://www.cm-ourique.pt/pt/Default.aspx"
+ },
+ {
+  "name": "Cinema-Teatro Joaquim dAlmeida",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cinema-teatro-joaquim-dalmeida/",
+  "entity": "Câmara Municipal do Montijo",
+  "nuts3": "Península de Setúbal",
+  "website": "www.mun-montijo.pt"
+ },
+ {
+  "name": "Cineteatro Alba",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cineteatro-alba/",
+  "entity": "Câmara Municipal de Albergaria-a-Velha",
+  "nuts3": "Região de Aveiro",
+  "website": "https://www.cm-albergaria.pt/p/cineteatroalba "
+ },
+ {
+  "name": "Cineteatro Bento Martins",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cineteatro-bento-martins/",
+  "entity": "Teatro Experimental Flaviense",
+  "nuts3": "Alto Tâmega",
+  "website": "https://www.teatroexperimentalflaviense.pt/"
+ },
+ {
+  "name": "Cineteatro Curvo Semedo",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cineteatro-curvo-semedo/",
+  "entity": "Câmara Municipal de Montemor-o-Novo",
+  "nuts3": "Alentejo Central",
+  "website": "https://www.cm-montemornovo.pt/locais/cineteatro-curvo-semedo/"
+ },
+ {
+  "name": "Cineteatro de Torre de Moncorvo",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cineteatro-de-torre-de-moncorvo/",
+  "entity": "Câmara Municipal de Torre de Moncorvo",
+  "nuts3": "Douro",
+  "website": "https://www.cm-moncorvo.pt/p/cineteatro"
+ },
+ {
+  "name": "Cineteatro Louletano",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cineteatro-louletano/",
+  "entity": "Câmara Municipal de Loulé",
+  "nuts3": "Algarve",
+  "website": "www.cm-loule.pt"
+ },
+ {
+  "name": "Cineteatro Messias",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cineteatro-messias/",
+  "entity": "Município da Mealhada",
+  "nuts3": "Região de Coimbra",
+  "website": "https://cineteatromessias.cm-mealhada.pt/"
+ },
+ {
+  "name": "Cineteatro Mouzinho da Silveira",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cineteatro-mouzinho-da-silveira/",
+  "entity": "Câmara Municipal de Castelo de Vide",
+  "nuts3": "Alto Alentejo",
+  "website": "https://www.cm-castelo-vide.pt/"
+ },
+ {
+  "name": "Cineteatro Municipal João Mota",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/cineteatro-municipal-joao-mota/",
+  "entity": "Câmara Municipal de Sesimbra",
+  "nuts3": "Península de Setúbal",
+  "website": "https://www.sesimbra.pt/viver/cultura/cineteatro-municipal-joao-mota"
+ },
+ {
+  "name": "Coliseu Micaelense",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/coliseu-micaelense/",
+  "entity": "Câmara Municipal de Ponta Delgada",
+  "nuts3": "Região Autónoma dos Açores",
+  "website": "http://www.coliseumicaelense.pt"
+ },
+ {
+  "name": "Coliseu Porto Ageas",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/coliseu-porto-ageas/",
+  "entity": "Associação Amigos do Coliseu do Porto",
+  "nuts3": "Área Metropolitana do Porto",
+  "website": "www.coliseu.pt"
+ },
+ {
+  "name": "Convento São Francisco",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/convento-sao-francisco/",
+  "entity": "Câmara Municipal de Coimbra",
+  "nuts3": "Região de Coimbra",
+  "website": "http://coimbraconvento.pt/pt/"
+ },
+ {
+  "name": "CTAL  Cineteatro António Lamoso",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/ctal-cineteatro-antonio-lamoso/",
+  "entity": "Câmara Municipal de Santa Maria da Feira",
+  "nuts3": "Área Metropolitana do Porto",
+  "website": "https://cineteatro.cm-feira.pt/"
+ },
+ {
+  "name": "Favo das Artes",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/favo-das-artes/",
+  "entity": "Câmara Municipal de Mondim de Basto",
+  "nuts3": "Ave",
+  "website": "https://favodasartes.mondimdebasto.pt/"
+ },
+ {
+  "name": "Fórum Cultural de Alcochete",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/forum-cultural-de-alcochete/",
+  "entity": "Câmara Municipal de Alcochete",
+  "nuts3": "Península de Setúbal",
+  "website": " https://www.cm-alcochete.pt/viver/cultura/forum-cultural-de-alcochete"
+ },
+ {
+  "name": "Fórum Cultural José Manuel Figueiredo",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/forum-cultural-jose-manuel-figueiredo/",
+  "entity": "Câmara Municipal da Moita",
+  "nuts3": "Península de Setúbal",
+  "website": "https://www.cm-moita.pt/viver/cultura/recursos-e-equipamentos/poi/forum-cultural-jose-manuel-figueiredo"
+ },
+ {
+  "name": "Fórum Municipal Luísa Todi",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/forum-municipal-luisa-todi/",
+  "entity": "Câmara Municipal de Setúbal",
+  "nuts3": "Península de Setúbal",
+  "website": "https://www.forumluisatodi.pt/"
+ },
+ {
+  "name": "gnration",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/gnration/",
+  "entity": "Câmara Municipal de Braga",
+  "nuts3": "Cávado",
+  "website": "http://www.gnration.pt"
+ },
+ {
+  "name": "Musibéria",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/musiberia/",
+  "entity": "Câmara Municipal de Serpa",
+  "nuts3": "Baixo Alentejo",
+  "website": "https://www.cm-serpa.pt/pt/menu/398/musiberia.aspx"
+ },
+ {
+  "name": "Novo Ciclo ACERT",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/novo-ciclo-acert/",
+  "entity": "ACERT",
+  "nuts3": "Viseu Dão Lafões",
+  "website": "https://acert.pt/a-acert/novo-ciclo-acert/"
+ },
+ {
+  "name": "Oficina Municipal do Teatro (OMT)",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/oficina-municipal-do-teatro-omt/",
+  "entity": "Câmara Municipal de Coimbra / Teatrão",
+  "nuts3": "Região de Coimbra",
+  "website": "http://oteatrao.com"
+ },
+ {
+  "name": "Pax Júlia Teatro Municipal",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/pax-julia-teatro-municipal/",
+  "entity": "Câmara Municipal de Beja",
+  "nuts3": "Baixo Alentejo",
+  "website": "http://www.cm-beja.pt"
+ },
+ {
+  "name": "Quartel das Artes",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/quartel-das-artes/",
+  "entity": "Câmara Municipal de Oliveira do Bairro",
+  "nuts3": "Região de Aveiro",
+  "website": "http://quarteldasartes.pt/"
+ },
+ {
+  "name": "Teatro Académico de Gil Vicente",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-academico-de-gil-vicente/",
+  "entity": "Universidade de Coimbra",
+  "nuts3": "Região de Coimbra",
+  "website": "https://tagv.pt/"
+ },
+ {
+  "name": "Teatro Aveirense",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-aveirense/",
+  "entity": "Câmara Municipal de Aveiro",
+  "nuts3": "Região de Aveiro",
+  "website": "https://www.teatroaveirense.pt/pt/"
+ },
+ {
+  "name": "Teatro Bernardim Ribeiro",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-bernardim-ribeiro/",
+  "entity": "Câmara Municipal de Estremoz",
+  "nuts3": "Alentejo Central",
+  "website": "https://www.cm-estremoz.pt/"
+ },
+ {
+  "name": "Teatro Campo Alegre",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-campo-alegre/",
+  "entity": "Teatro Municipal do Porto",
+  "nuts3": "Área Metropolitana do Porto",
+  "website": "https://www.teatromunicipaldoporto.pt/pt/"
+ },
+ {
+  "name": "Teatro Cine de Gouveia",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-cine-de-gouveia/",
+  "entity": "Câmara Municipal de Gouveia",
+  "nuts3": "Beiras e Serra da Estrela",
+  "website": "http://www.cm-gouveia.pt/teatro-cine-de-gouveia/"
+ },
+ {
+  "name": "Teatro da Cerca de São Bernardo",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-da-cerca-de-sao-bernardo/",
+  "entity": "Câmara Municipal de Coimbra / A Escola da Noite",
+  "nuts3": "Região de Coimbra",
+  "website": "http://weblog.aescoladanoite.pt/?fbclid=IwAR13GOtNLxW1RkqU4g_QTQZD4pw1tEf2xlEys8wAWjgAxlhSJovacS67eEg"
+ },
+ {
+  "name": "Teatro das Figuras",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-das-figuras/",
+  "entity": "Câmara Municipal de Faro",
+  "nuts3": "Algarve",
+  "website": "https://www.teatrodasfiguras.pt/pt/Default.aspx"
+ },
+ {
+  "name": "Teatro Diogo Bernardes",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-diogo-bernardes/",
+  "entity": "Câmara Municipal de Ponte de Lima",
+  "nuts3": "Alto Minho",
+  "website": "https://www.cm-pontedelima.pt/pages/410"
+ },
+ {
+  "name": "Teatro Independente de Oeiras (TIO)",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-independente-de-oeiras-tio/",
+  "entity": "Pura Comédia",
+  "nuts3": "Grande Lisboa",
+  "website": "https://www.teatrodeoeiras.com/"
+ },
+ {
+  "name": "Teatro José Lúcio da Silva",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-jose-lucio-da-silva/",
+  "entity": "Câmara Municipal de Leiria",
+  "nuts3": "Região de Leiria",
+  "website": "https://www.teatrojlsilva.pt/"
+ },
+ {
+  "name": "Teatro Lethes",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-lethes/",
+  "entity": "A Companhia de Teatro do Algarve  ACTA",
+  "nuts3": "Algarve",
+  "website": "http://www.teatrolethes.com"
+ },
+ {
+  "name": "Teatro Micaelense",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-micaelense/",
+  "entity": "Teatro Micaelense",
+  "nuts3": "Região Autónoma dos Açores",
+  "website": "https://www.teatromicaelense.pt/"
+ },
+ {
+  "name": "Teatro Miguel Franco",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-miguel-franco/",
+  "entity": "Câmara Municipal de Leiria",
+  "nuts3": "Região de Leiria",
+  "website": "https://www.teatrojlsilva.pt/evento/equipamento/teatro-miguel-franco/"
+ },
+ {
+  "name": "Teatro Municipal Baltazar Dias",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-municipal-baltazar-dias/",
+  "entity": "Câmara Municipal do Funchal",
+  "nuts3": "Região Autónoma da Madeira",
+  "website": "https://teatro.cm-funchal.pt/"
+ },
+ {
+  "name": "Teatro Municipal da Covilhã",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-municipal-da-covilha/",
+  "entity": "Câmara Municipal da Covilhã",
+  "nuts3": "Beiras e Serra da Estrela",
+  "website": null
+ },
+ {
+  "name": "Teatro Municipal da Guarda",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-municipal-da-guarda/",
+  "entity": "Câmara Municipal da Guarda",
+  "nuts3": "Beiras e Serra da Estrela",
+  "website": "https://www.tmg.com.pt/"
+ },
+ {
+  "name": "Teatro Municipal da Lousã",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-municipal-da-lousa/",
+  "entity": "Câmara Municipal da Lousã",
+  "nuts3": "Região de Coimbra",
+  "website": "https://cm-lousa.pt/"
+ },
+ {
+  "name": "Teatro Municipal de Matosinhos Constantino Nery",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-municipal-de-matosinhos-constantino-nery/",
+  "entity": "Câmara Municipal de Matosinhos",
+  "nuts3": "Área Metropolitana do Porto",
+  "website": "https://www.teatromunicipaldematosinhos.pt/"
+ },
+ {
+  "name": "Teatro Municipal de Ourém",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-municipal-de-ourem/",
+  "entity": "Câmara Municipal de Ourém",
+  "nuts3": "Médio Tejo",
+  "website": "https://teatromunicipal.ourem.pt/brevemente/ "
+ },
+ {
+  "name": "Teatro Municipal de Vila Real",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-municipal-de-vila-real/",
+  "entity": "Câmara Municipal de Vila Real",
+  "nuts3": "Douro",
+  "website": "http://www.teatrodevilareal.com"
+ },
+ {
+  "name": "Teatro Municipal Garcia de Resende",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-municipal-garcia-de-resende/",
+  "entity": "Câmara Municipal de Évora",
+  "nuts3": "Alentejo Central",
+  "website": "https://www.facebook.com/AgendaCulturalEvora"
+ },
+ {
+  "name": "Teatro Municipal Joaquim Benite",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-municipal-joaquim-benite/",
+  "entity": "Câmara Municipal de Almada",
+  "nuts3": "Península de Setúbal",
+  "website": "https://ctalmada.pt/"
+ },
+ {
+  "name": "Teatro Ribeiro Conceição",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-ribeiro-conceicao/",
+  "entity": "Câmara Municipal de Lamego",
+  "nuts3": "Douro",
+  "website": "https://trc.cm-lamego.pt/"
+ },
+ {
+  "name": "Teatro Rivoli",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-rivoli/",
+  "entity": "Teatro Municipal do Porto",
+  "nuts3": "Área Metropolitana do Porto",
+  "website": "https://www.teatromunicipaldoporto.pt/pt/"
+ },
+ {
+  "name": "Teatro Sá da Bandeira",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-sa-da-bandeira/",
+  "entity": "Santarém Cultura",
+  "nuts3": "Lezíria do Tejo",
+  "website": "https://www.santaremcultura.pt/"
+ },
+ {
+  "name": "Teatro Sá de Miranda",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-sa-de-miranda/",
+  "entity": "Câmara Municipal de Viana do Castelo",
+  "nuts3": "Alto Minho",
+  "website": "https://tmsm.pt/"
+ },
+ {
+  "name": "Teatro Virgínia",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-virginia/",
+  "entity": "Câmara Municipal de Torres Novas",
+  "nuts3": "Médio Tejo",
+  "website": "https://teatrovirginia.pt/"
+ },
+ {
+  "name": "Teatro Viriato",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-viriato/",
+  "entity": "Centro de Artes do Espetáculo de Viseu, Associação Cultural e Pedagógica",
+  "nuts3": "Viseu Dão Lafões",
+  "website": "https://www.teatroviriato.com/"
+ },
+ {
+  "name": "Teatro-Cine de Pombal",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-cine-de-pombal/",
+  "entity": "Câmara Municipal de Pombal",
+  "nuts3": "Região de Leiria",
+  "website": "https://www.cm-pombal.pt/viver/espacos-municipais-edificio-dos-pacos-do-concelho/espacos-municipais-espacos-culturais/teatro-cine-de-pombal/"
+ },
+ {
+  "name": "Teatro-Cine de Torres Vedras",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-cine-de-torres-vedras/",
+  "entity": "Câmara Municipal de Torres Vedras",
+  "nuts3": "Oeste",
+  "website": "https://teatrocine-tvedras.pt/ "
+ },
+ {
+  "name": "Teatro-Cinema de Fafe",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/teatro-cinema-de-fafe/",
+  "entity": "Câmara Municipal de Fafe",
+  "nuts3": "Ave",
+  "website": "http://www.cm-fafe.pt"
+ },
+ {
+  "name": "TEMPO  Teatro Municipal de Portimão",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/tempo-teatro-municipal-de-portimao/",
+  "entity": "Câmara Municipal de Portimão",
+  "nuts3": "Algarve",
+  "website": "https://teatromunicipaldeportimao.pt/"
+ },
+ {
+  "name": "Theatro Circo",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/theatro-circo/",
+  "entity": "Câmara Municipal de Braga",
+  "nuts3": "Cávado",
+  "website": "http://www.theatrocirco.com"
+ },
+ {
+  "name": "Theatro Gil Vicente",
+  "rtcp_url": "https://www.rtcp.pt/pt/espacos/theatro-gil-vicente/",
+  "entity": "Câmara Municipal de Barcelos",
+  "nuts3": "Cávado",
+  "website": "https://www.cm-barcelos.pt/ "
+ }
+]

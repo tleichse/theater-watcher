@@ -13,22 +13,26 @@ A refresh adds a new section with a new ID (e.g. `apit-2027`) and never rewrites
 later change to an old section is added as a dated note. -->
 
 ## `producers.csv` columns
-- `name`: the public name, used as the organisation name. It must not repeat a name in
-  `companies.csv`.
-- `kind`: `producer` (film, TV or advertising production company), `casting` (casting company or
-  agency), or `dubbing` (dubbing studio).
-- `region`: `north`, `centre`, `south` or `islands`, from the Film Commission directory. Blank when
-  the only source is GEDIPE or APIT (they give no region) or when the directory lists several.
-- `website`: the site that's collected, as the `pr-<slug>` source. Blank if there's none, or if it
-  no longer loads.
+- `name`: the public name, used as the organisation name. It must not repeat a name in any of the
+  four organisation CSVs (a test checks).
+- `kind`: `producer` (film, TV, advertising or animation production company), `casting` (casting
+  company, actors' agency or casting director), `dubbing` (dubbing studio or voice agency), or
+  `funder` (a body that funds or runs open calls).
+- `region`: `north`, `centre`, `south` or `islands`, from the Film Commission directory or the
+  Cineguia profile's town. Blank when no list gives one, or when the directory lists several.
+- `website`: the organisation's site. Blank if there's none, or if it no longer loads.
+- `collect`: blank to collect the website as a `pr-<slug>` source; `no` to keep it as a contact
+  only (robots.txt refuses, the site is broken, a mirror, a news site, or another source already
+  collects it).
 - `lists`: the IDs of the lists below that include it, separated by `;`.
 - `last_active`: the most recent year of activity found: membership of the current APIT list,
   the year the Film Commission profile was last updated, or the latest year on the homepage
   (ignoring © lines).
 
-`sync_sources` (which `collect` runs first) turns every row with a website into a `pr-` source
-using the `site_watch` adapter, and creates or updates every row as an `Organisation`, validated
-when `last_active` is within the last two years. It's the same code path as `companies.csv`.
+`sync_sources` (which `collect` runs first) turns every row with a website (and `collect` not `no`)
+into a `pr-` source using the `site_watch` adapter, and creates or updates every row as an
+`Organisation` with its `kind` and `region`, validated when `last_active` is within the last two
+years. It's the same code path as `companies.csv`, `venues.csv` and `schools.csv`.
 
 ## How to look for new producers
 1. **Re-read the lists.** APIT and GEDIPE are short web pages; the Film Commission directory is
@@ -101,3 +105,47 @@ Coral on the next refresh: they're among the biggest fiction producers.
 **Not looked at yet:** dubbing studios (the [wikidobragens](https://wikidobragens.fandom.com/pt/)
 list of about 45 Portuguese studios, plus voice agencies like ZOV), advertising producers outside
 the Film Commission directory, and casting directors who work on their own.
+
+*Note, 2026-10-01 (later):* with the new `collect` column, the eight sites blanked after the first
+collect got their websites back where the site still exists (Ukbar, Coral, The Makkina, Vitec,
+Hiperfocal, Ocidental), with `collect` set to `no`. Beactive and Hibrid stay blank (their domains
+don't resolve).
+
+## `cineguia`
+- **What:** Cineguia Portugal, a public directory of film, TV and advertising professionals
+  resident in Portugal. 374 profiles from 13 categories: *Produtora* (203), *Produtora-Services*
+  (67), *Agências* (37), *Festivais de Cinema* (32), *Formador área Audiovisual* (27), *Diretor de
+  Casting* (25), *Agentes* (19), *Produtora de animação* (18), *Escola de Teatro* (6), and a few
+  TV channels, funders and one dubbing studio. Only the name, categories, town and website were
+  kept; the profiles' emails and phone numbers weren't stored.
+- **Original:** [cineguiaportugal.pt](https://www.cineguiaportugal.pt/) (`?c=<category>`, profiles
+  at `?a=<id>`). robots.txt disallows only admin paths. Read one page a second.
+- **Copy:** [`cineguia.json`](cineguia.json). Read on 2026-10-01.
+- **Added:** about 130 new producers (79 more were already on the GEDIPE, APIT or Film Commission
+  lists and got `cineguia` added to `lists`), 37 casting companies and agencies, 3 funders, 1
+  dubbing studio. Festivals went to [`venues.csv`](../venue_lists/README.md) and schools to
+  [`schools.csv`](../school_lists/README.md).
+- **Skipped:** 30 individuals with no website (mostly casting directors and assistants: a name
+  alone isn't a usable contact, and it's personal data); 25 technical trainers (editing, camera,
+  sound); 11 modelling agencies (Blu, Central, DXL, Eclipse, Elite, Face, Fashion Studio, Karacter,
+  Models Factory, Models Lab, Only Fashion); 2 TV-channel staff; 15 stale sites (Ambar, Basilisco,
+  Hit Management, Other Features, PAHD, Pipsqueak, Zoe Films Europe and others; nothing after 2019).
+
+## `manual-dubbing-2026`
+Dubbing studios and voice agencies, read on 2026-10-01. The starting point was the
+[wikidobragens](https://wikidobragens.fandom.com/pt/) studio category (about 45 studios, many
+historic) plus the voice agencies found in T-002 and by search. **23 added**, among them Iyuno, VSI
+Lisbon, 112 Studios, Audio In, BlueLab, Buggin Media, DLM International, Estúdios Origami, On Air,
+Pim Pam Pum, PSB, Santa Claus, Somnorte, Sound Station, SoundTrap, Via Satélite, ZOV, Addvoices,
+Voz-Off, Locutores.com.pt and Voices & Media Solutions. Not added: closed studios (Dialectus 2013,
+Xangrilá 2014, Tobis, and Matinha, which is now Iyuno), studios with no site found (Citysom,
+Graficine, Quevídeo, Trigital, Videoplano and others), guessed domains that belong to someone else
+(a domain for sale, a fruit shop, a Spanish school, a music school, an engineering firm),
+Cinemágica (a "coming soon" page), ZOO Digital (no Portuguese operation found), and stale sites:
+Estúdios Rangel (2018), VOZ ON (2008), Novaga (2004), Vozes Mágicas (2016).
+
+## `manual-funders-2026`
+The main funders and open-call bodies, as contacts: DGArtes, Fundação GDA, Europa Criativa (Desk
+Portugal), Culture Moves Europe, Perform Europe and Iberescena have `collect` set to `no` (each is
+already a hand-configured source in `sources.py`, or its site can't be read); Fundação Calouste
+Gulbenkian and SPA (Sociedade Portuguesa de Autores) are collected. ICA came from Cineguia.

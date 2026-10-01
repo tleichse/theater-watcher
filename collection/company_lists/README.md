@@ -185,3 +185,24 @@ the steps and reports back. Steps 1 and 9 are the user's call; Claude Code does 
   found); music, dance-only and publishing-only applicants.
 - **Known collection problem:** OUTRO (`outro.pt`) links to a members-only `/portal` page. The
   link matches the keywords, the page returns 401, and the whole source fails. *Fixed the same day:* `site_watch` now skips a followed page that fails.
+
+## `arquivo-companhias`
+- **What:** the *Companhias de teatro ativas* sheet of the open dataset *Teatro em Portugal:
+  websites e histórico no Arquivo.pt* (August 2026): 62 active companies with websites. See the
+  [venue lists](../venue_lists/README.md#arquivo-espacos-arquivo-festivais) for the other sheets.
+- **Original:**
+  [dados.gov.pt/datasets/teatro-em-portugal-websites-e-historico-no-arquivo-pt](https://dados.gov.pt/datasets/teatro-em-portugal-websites-e-historico-no-arquivo-pt)
+- **Copy:** [`arquivo-companhias.csv`](arquivo-companhias.csv). Read on 2026-10-01.
+- 38 were already in the CSV and got `arquivo-companhias` added to `lists`. Five more were the same
+  company under another name and were folded in: Formiga Atómica, Varazim Teatro, Cães do Mar (its
+  website `caesdomar.pt` was filled in), ASTA = albiASTA (website `aasta.info` filled in), and
+  Cendrev.
+- **12 added:** A Barraca, Teatro do Mar, Companhia Caótica, Teatro O Sonho, Nó de Teatro, Companhia
+  de Teatro do Chapitô, A Tarumba, Bonifrates, Actos À Lá Gardé, Projecto Humanos, Companhia de
+  Teatro de Santo André, Companhia Nacional de Espectáculos. Region is blank where the list doesn't
+  give one.
+- **Moved elsewhere:** Teatro Nacional D. Maria II and Força de Produção (a producer) to
+  `venues.csv`, Buzico! (an actors' agency) to `producers.csv`.
+- **Skipped as stale sites:** Vidas de A a Z (2018), Cirac (2019), Le Persil Noir (2012). Teatro de
+  Marionetas do Porto and Astro Fingido showed old pages here, but both are already in the CSV with
+  their current sites.

@@ -35,8 +35,20 @@
 3. Run `collect` on the three sources and `/extract`, and record the yield here.
 
 ## Acceptance criteria
-- [ ] The three sources collect without errors
+- [x] The three sources collect without errors
 - [ ] Mobility grants for Portugal-based artists come through as `grant` actions
-- [ ] Verdicts for the skipped candidates are recorded here
+- [x] Verdicts for the skipped candidates are recorded here
 
 ## Implementation
+**2026-10-01.** Built as part of the user's goal of an exhaustive database
+([T-015](T-015-exhaustive-contacts.md)), which took this ask as a go-ahead.
+- `ec-culture` (the EC's culture RSS, filtered to calls, mobility, residencies and funding),
+  `perform-europe` (its RSS, filtered to calls) and `on-the-move` (`html_list` on the news page).
+  On the Move's robots.txt forbids its discipline filter (`?f[0]=...`), so the link pattern keeps
+  only calls whose address mentions Portugal, theatre, performing arts, acting or Culture Moves
+  Europe.
+- `extract.md` now keeps grants, residencies and touring calls that Portugal-based artists can apply
+  for, even though the work happens abroad, as `grant` with region `national`.
+- First collect: 3 listings from the EC, 4 from Perform Europe, 2 from On the Move.
+- Europa Criativa and Iberescena, skipped as sources, are in `producers.csv` as contacts (kind
+  `funder`, `collect` set to `no`). Erasmus+ Youth stays out, for the reason in the deep dive.

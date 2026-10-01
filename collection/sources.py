@@ -3,8 +3,13 @@ from pathlib import Path
 
 from django.utils.text import slugify
 
-COMPANIES_FILE = Path(__file__).with_name('companies.csv')
-PRODUCERS_FILE = Path(__file__).with_name('producers.csv')
+# Each file lists organisations that might post a call; a row with a website becomes a source.
+ORGANISATION_FILES = {
+    'co-': 'companies.csv',
+    'pr-': 'producers.csv',
+    've-': 'venues.csv',
+    'sc-': 'schools.csv',
+}
 
 INSTITUTION_KEYWORDS = (
     r'audiç|casting|elenco|candidatura|open call|oficina|workshop|formaç|estágio|masterclass'
@@ -125,6 +130,32 @@ SOURCES = [
         },
     },
     {
+        'slug': 'ec-culture', 'name': 'Comissão Europeia (Cultura e Criatividade)', 'tier': 'B', 'method': 'rss',
+        'url': 'https://culture.ec.europa.eu/',
+        'adapter': 'rss',
+        'config': {
+            'feed_url': 'https://culture.ec.europa.eu/rss.xml',
+            'keywords': r'call|mobility|residenc|funding|grant|culture moves',
+            'fetch_detail': True,
+        },
+    },
+    {
+        'slug': 'perform-europe', 'name': 'Perform Europe', 'tier': 'B', 'method': 'rss',
+        'url': 'https://performeurope.eu/',
+        'adapter': 'rss',
+        'config': {'feed_url': 'https://performeurope.eu/feed/', 'keywords': r'call|apply|open', 'fetch_detail': True},
+    },
+    {
+        'slug': 'on-the-move', 'name': 'On the Move', 'tier': 'B', 'method': 'html',
+        'url': 'https://on-the-move.org/news',
+        'adapter': 'html_list',
+        # robots.txt forbids the discipline filter, so the call's slug does the filtering.
+        'config': {
+            'list_url': 'https://on-the-move.org/news',
+            'link_pattern': r'^/news/[a-z0-9-]*(portugal|theatre|theater|performing|perform|actor|acting|drama|culture-moves)[a-z0-9-]*$',
+        },
+    },
+    {
         'slug': 'gda', 'name': 'Fundação GDA', 'tier': 'A', 'method': 'rss',
         'url': 'https://www.fundacaogda.pt/',
         'adapter': 'rss',
@@ -151,16 +182,8 @@ SOURCES = [
 
 
 
-def load_companies():
-    return _load_csv(COMPANIES_FILE)
-
-
-def load_producers():
-    return _load_csv(PRODUCERS_FILE)
-
-
-def _load_csv(path):
-    with path.open(encoding='utf-8', newline='') as handle:
+def load_organisations(prefix):
+    with Path(__file__).with_name(ORGANISATION_FILES[prefix]).open(encoding='utf-8', newline='') as handle:
         return list(csv.DictReader(handle))
 
 
@@ -176,10 +199,11 @@ def company_sources(companies, prefix='co-'):
             'config': {'url': company['website'], 'keywords': INSTITUTION_KEYWORDS},
         }
         for company in companies
-        if company['website']
+        if company['website'] and company.get('collect') != 'no'
     ]
 
 
-SOURCES += company_sources(load_companies()) + company_sources(load_producers(), prefix='pr-')
+for prefix in ORGANISATION_FILES:
+    SOURCES += company_sources(load_organisations(prefix), prefix)
 
 BY_SLUG = {source['slug']: source for source in SOURCES}

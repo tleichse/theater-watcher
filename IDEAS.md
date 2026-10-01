@@ -131,3 +131,7 @@ today's date that ends with `→ folded into T-XXX`. -->
   run, so that you cover all the important sources covering producers, theater companies,
   national theatres, and other players" → folded into
   [T-013](tasks/T-013-producer-and-company-sources.md)
+- "to have all the possible contacts for casting, auditions and opportuinites for theatre,
+  cinema, TV, publicity, dubbing, and training (all we have now) in Portugal. We want an
+  exhaustive database." then "don't forget the rede de teatros"
+  → [T-015](tasks/T-015-exhaustive-contacts.md)

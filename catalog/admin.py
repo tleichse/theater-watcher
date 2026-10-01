@@ -15,8 +15,8 @@ class SourceAdmin(admin.ModelAdmin):
 
 @admin.register(Organisation)
 class OrganisationAdmin(admin.ModelAdmin):
-    list_display = ['name', 'validated', 'website']
-    list_filter = ['validated']
+    list_display = ['name', 'kind', 'region', 'validated', 'website']
+    list_filter = ['kind', 'region', 'validated']
     search_fields = ['name']
 
 

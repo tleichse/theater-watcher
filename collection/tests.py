@@ -14,7 +14,7 @@ from .collect import collect_source, prune_raw_text, sync_sources
 from .extraction import export_pending, import_drafts
 from .http import Disallowed, Fetcher
 from .models import RawListing
-from .sources import SOURCES, company_sources, load_companies, load_producers
+from .sources import ORGANISATION_FILES, SOURCES, company_sources, load_organisations
 
 
 class FakeResponse:
@@ -328,8 +328,8 @@ class ExtractionTests(TestCase):
         self.assertIsNotNone(self.listing.extracted_at)
 
     def test_matches_existing_organisation_ignoring_case_and_accents(self):
-        existing = Organisation.objects.create(name='Teatro Nacional São João')
-        self.run_import({'listing_id': self.listing.pk, 'actions': [self.draft(organisation='teatro nacional sao joao')]})
+        existing = Organisation.objects.create(name='Associação Fictícia de Ensaio')
+        self.run_import({'listing_id': self.listing.pk, 'actions': [self.draft(organisation='associacao ficticia de ensaio')]})
         self.assertEqual(Action.objects.get().organisation, existing)
 
     def test_skip_marks_listing_and_records_reason(self):
@@ -410,7 +410,7 @@ class CompanySourceTests(TestCase):
         self.assertEqual([listing.url for listing in listings], ['https://co.pt/noticias/audicoes-2027'])
 
     def test_companies_file_becomes_sources_with_unique_short_slugs(self):
-        companies = load_companies()
+        companies = load_organisations('co-')
         sources = company_sources(companies)
         self.assertEqual(len(sources), sum(1 for company in companies if company['website']))
         slugs = [source['slug'] for source in sources]
@@ -420,23 +420,42 @@ class CompanySourceTests(TestCase):
         self.assertEqual(len(all_slugs), len(set(all_slugs)))
 
     def test_producers_file_becomes_sources_with_their_own_prefix(self):
-        producers = load_producers()
+        producers = load_organisations('pr-')
         sources = company_sources(producers, prefix='pr-')
-        self.assertEqual(len(sources), sum(1 for producer in producers if producer['website']))
+        self.assertEqual(len(sources), sum(1 for producer in producers if producer['website'] and producer['collect'] != 'no'))
         self.assertTrue(all(len(source['slug']) <= 50 and source['slug'].startswith('pr-') for source in sources))
-        names = [row['name'] for row in load_companies() + producers]
+
+    def test_row_marked_not_collected_keeps_its_website_but_gets_no_source(self):
+        rows = [
+            {'name': 'Cine-Teatro X', 'website': 'https://www.cm-x.pt/', 'collect': 'no'},
+            {'name': 'Teatro Y', 'website': 'https://teatroy.pt/', 'collect': ''},
+        ]
+        self.assertEqual([source['slug'] for source in company_sources(rows, prefix='ve-')], ['ve-teatro-y'])
+
+    def test_organisation_files_have_unique_names_and_known_kinds_and_regions(self):
+        rows = [row for prefix in ORGANISATION_FILES for row in load_organisations(prefix)]
+        names = [row['name'] for row in rows]
         self.assertEqual(len(names), len(set(names)))
+        for row in rows:
+            self.assertIn(row.get('kind') or 'company', Organisation.Kind.values, row['name'])
+            self.assertIn(row['region'], Organisation.Region.values + [''], row['name'])
 
     def test_sync_validates_companies_active_in_the_last_two_years(self):
         Organisation.objects.create(name='Razões Pessoais')
         year = dj_timezone.now().year
-        with patch('collection.collect.load_companies', return_value=[
-            {'name': 'Razões Pessoais', 'website': '', 'last_active': str(year - 2)},
-            {'name': 'Cassefaz', 'website': 'https://cassefaz.com/', 'last_active': str(year - 3)},
-            {'name': 'Teatro do Elefante', 'website': '', 'last_active': ''},
-        ]):
+        companies = [
+            {'name': 'Razões Pessoais', 'region': 'centre', 'website': '', 'last_active': str(year - 2)},
+            {'name': 'Cassefaz', 'region': 'centre', 'website': 'https://cassefaz.com/', 'last_active': str(year - 3)},
+            {'name': 'Teatro do Elefante', 'region': 'centre', 'website': '', 'last_active': ''},
+        ]
+        venues = [{'name': 'Teatro Viriato', 'kind': 'venue', 'region': 'centre', 'website': '', 'last_active': str(year)}]
+        lists = {'co-': companies, 've-': venues}
+        with patch('collection.collect.load_organisations', side_effect=lambda prefix: lists.get(prefix, [])):
             sync_sources()
         self.assertTrue(Organisation.objects.get(name='Razões Pessoais').validated)
         self.assertFalse(Organisation.objects.get(name='Cassefaz').validated)
         self.assertFalse(Organisation.objects.get(name='Teatro do Elefante').validated)
+        self.assertEqual(Organisation.objects.get(name='Cassefaz').kind, Organisation.Kind.COMPANY)
+        viriato = Organisation.objects.get(name='Teatro Viriato')
+        self.assertEqual((viriato.kind, viriato.region), ('venue', 'centre'))
 

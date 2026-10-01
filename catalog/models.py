@@ -36,7 +36,25 @@ class Source(models.Model):
 
 
 class Organisation(models.Model):
+    class Kind(models.TextChoices):
+        COMPANY = 'company', 'Companhia de teatro'
+        PRODUCER = 'producer', 'Produtora'
+        CASTING = 'casting', 'Casting e agenciamento'
+        DUBBING = 'dubbing', 'Dobragem e voz'
+        VENUE = 'venue', 'Teatro ou sala'
+        FESTIVAL = 'festival', 'Festival'
+        SCHOOL = 'school', 'Escola e formação'
+        FUNDER = 'funder', 'Apoios e financiamento'
+
+    class Region(models.TextChoices):
+        NORTH = 'north', 'Norte'
+        CENTRE = 'centre', 'Centro'
+        SOUTH = 'south', 'Sul'
+        ISLANDS = 'islands', 'Ilhas'
+
     name = models.CharField('nome', max_length=200, unique=True)
+    kind = models.CharField('tipo', max_length=10, choices=Kind, blank=True)
+    region = models.CharField('região', max_length=10, choices=Region, blank=True)
     website = models.URLField('sítio web', max_length=500, blank=True)
     validated = models.BooleanField(
         'validada',
