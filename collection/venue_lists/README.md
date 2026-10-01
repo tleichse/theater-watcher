@@ -93,3 +93,8 @@ Teatro Carlos Alberto (part of TNSJ, same site), Yellow Star Company (a "coming 
 
 **Not looked at yet:** municipal cultural centres outside RTCP, cinema clubs (*cineclubes*), and
 amateur theatre festivals beyond those in the open dataset.
+
+*Note, 2026-10-01 (after the first extraction):* the council-site rule only caught `cm-*.pt` and
+`municipio.*` hosts. Councils also use their plain name (`paredesdecoura.pt`, `sesimbra.pt`) or
+`mun-*.pt` (`mun-montijo.pt`); those three venues now have `collect` set to `no`. Check for this when
+adding venues.

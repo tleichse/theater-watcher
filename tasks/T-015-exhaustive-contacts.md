@@ -110,3 +110,11 @@
   more than a normal week, so the next `/collect-extract` will take several rounds.
 - Four organisations created and then removed during the merge were deleted from the database by
   hand (no action pointed to them); see GOTCHAS.
+- **First `/collect-extract` over the full database (2026-10-01):** 979 listings extracted, 10
+  actions created. Most of the backlog was archive pages that the new sources expose once: Teatro
+  Viriato's whole programme archive (220 pages), Make Me A Star's casting sheets (159, collected
+  before it was set to `collect` = `no`; skipped as T-002 tier C), festival news going back to 2014,
+  and school admissions pages. Later runs only see new pages. Six sources were then set to `collect`
+  = `no`: two hacked sites serving spam (BMAGIC, Favo Studio), a producer that became an AI
+  consultancy (Comprimido), and three venues whose website is the town council's site under a name
+  the council-site rule didn't catch (`paredesdecoura.pt`, `mun-montijo.pt`, `sesimbra.pt`).

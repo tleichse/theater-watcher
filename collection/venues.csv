@@ -40,7 +40,7 @@ Centro Cultural de Belém,venue,,https://www.ccb.pt/,,manual-2026,2026
 Centro Cultural de Carregal do Sal,venue,centre,https://www.cm-carregal.pt/,no,rtcp-2026;arquivo-espacos,2026
 Centro Cultural de Lagos,venue,south,https://www.cm-lagos.pt/,no,rtcp-2026;arquivo-espacos,2026
 Centro Cultural de Macedo de Cavaleiros,venue,north,https://www.centrocultural-macedodecavaleiros.pt/,,rtcp-2026;arquivo-espacos,2026
-Centro Cultural de Paredes de Coura,venue,north,https://www.paredesdecoura.pt/,,rtcp-2026;arquivo-espacos,2026
+Centro Cultural de Paredes de Coura,venue,north,https://www.paredesdecoura.pt/,no,rtcp-2026;arquivo-espacos,2026
 Centro Cultural de Redondo,venue,south,https://www.cm-redondo.pt/,no,rtcp-2026,2026
 Centro Cultural e de Congressos das Caldas da Rainha,venue,centre,https://www.ccc.com.pt/,,rtcp-2026;arquivo-espacos,2026
 Centro Cultural Gil Vicente,venue,centre,,,rtcp-2026;arquivo-espacos,2026
@@ -69,7 +69,7 @@ Cine-Teatro São Pedro de Alcanena,venue,centre,,,rtcp-2026;arquivo-espacos,2026
 Cine-Teatro Sousa Telles,venue,south,,,rtcp-2026,2026
 CINECOA - Festival Internacional de Cinema de V.N. de Foz Côa,festival,north,https://cinecoa.pt/,,cineguia,2026
 Cinema São Jorge,venue,,https://cinemasaojorge.pt/,,manual-2026,2026
-Cinema-Teatro Joaquim dAlmeida,venue,centre,http://www.mun-montijo.pt,,rtcp-2026;arquivo-espacos,2026
+Cinema-Teatro Joaquim dAlmeida,venue,centre,http://www.mun-montijo.pt,no,rtcp-2026;arquivo-espacos,2026
 Cineteatro Alba,venue,centre,https://www.cm-albergaria.pt/p/cineteatroalba,no,rtcp-2026;arquivo-espacos,2026
 Cineteatro Bento Martins,venue,north,https://www.teatroexperimentalflaviense.pt/,,rtcp-2026,2026
 Cineteatro Curvo Semedo,venue,south,https://www.cm-montemornovo.pt/locais/cineteatro-curvo-semedo/,no,rtcp-2026;arquivo-espacos,2026
@@ -77,7 +77,7 @@ Cineteatro de Torre de Moncorvo,venue,north,https://www.cm-moncorvo.pt/p/cinetea
 Cineteatro Louletano,venue,south,https://www.cm-loule.pt/pt/Default.aspx,no,rtcp-2026;arquivo-espacos,2026
 Cineteatro Messias,venue,centre,https://cineteatromessias.cm-mealhada.pt/,no,rtcp-2026;arquivo-espacos,2026
 Cineteatro Mouzinho da Silveira,venue,south,https://www.cm-castelo-vide.pt/,no,rtcp-2026;arquivo-espacos,2026
-Cineteatro Municipal João Mota,venue,centre,https://www.sesimbra.pt/viver/cultura/cineteatro-municipal-joao-mota,,rtcp-2026;arquivo-espacos,2026
+Cineteatro Municipal João Mota,venue,centre,https://www.sesimbra.pt/viver/cultura/cineteatro-municipal-joao-mota,no,rtcp-2026;arquivo-espacos,2026
 Cineteatro Sousa Telles,venue,,,,arquivo-espacos,
 CITEMOR – Festival de Artes Performativas,festival,,https://www.citemor.com/,,arquivo-festivais,2026
 Coliseu Micaelense,venue,islands,https://coliseumicaelense.pt/,,rtcp-2026;arquivo-espacos,2026
