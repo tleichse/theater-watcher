@@ -103,3 +103,5 @@ today's date that ends with `→ folded into T-XXX`. -->
   actions?" → folded into [T-013](tasks/T-013-producer-and-company-sources.md)
 - "fix the encoding" (accents garbled as "Ã§" on JAT and A Oficina) → folded into
   [T-013](tasks/T-013-producer-and-company-sources.md)
+- "do we also have a /collect?" then "could we have a singlecommand to run collect and /extract?"
+  → folded into [T-010](tasks/T-010-send-and-weekly-run.md) (`/collect-extract`)

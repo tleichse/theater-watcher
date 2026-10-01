@@ -107,3 +107,9 @@ publishing the Google app failed because the homepage must be on a domain the us
 days; proposed: `send_digest` reopens the browser login by itself when it has expired) or a
 **GitHub Pages** site verified in Search Console. (2) After that, the first real send with
 `send_digest --test`. `run_week` isn't started yet.
+
+**2026-10-01, `/collect-extract`:** the user asked for a single command that runs collect and
+`/extract`. It's a Claude Code slash command (`.claude/commands/collect-extract.md`): it runs
+`collect`, reports the totals, then follows `extract.md`, which it points to rather than
+copying. This covers the first half of `run_week` (steps 1–2 of the Monday routine). The
+review, preview and send steps are still separate.

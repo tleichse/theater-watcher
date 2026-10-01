@@ -75,6 +75,10 @@ week: Coffeepaste only shows about the last 5 days of posts
 
 ## Monday morning
 
+**Shortcut for steps 1 and 2:** open Claude Code in this repo and type `/collect-extract`. It
+runs the collect, reports what came in, then does the whole extraction. Or do the two steps
+by hand, as below.
+
 ### 1. Collect
 ```sh
 uv run python manage.py collect
