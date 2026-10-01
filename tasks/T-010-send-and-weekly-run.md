@@ -17,6 +17,8 @@
 - Which address receives the digest, and has the app password been created?
   **Partly answered (2026-10-01):** the user will put both in `.env` themselves (HOWTO.md,
   one-time setup step 3). They were deliberately not shared in chat.
+- If the digest must be sent from the work network (which blocks SMTP), should delivery
+  switch to the Gmail API over HTTPS? That needs a one-time Google Cloud OAuth setup.
 - Can `run_week` launch extraction itself through Claude Code's non-interactive mode
   (`claude -p "/extract"`), or should it stop and ask the user to run `/extract`? To be
   checked when building it.
@@ -64,3 +66,9 @@ this task stays in progress.
 - Tests: 8 new, 61 in total, all pass. Without Gmail settings, the real command refuses with a
   clear message, as checked on this machine.
 - **Still open:** a real send to the user's inbox (needs their app password), and `run_week`.
+**2026-10-01, first real send:** failed on the user's work network. Email ports are blocked, or
+intercepted by a firewall (see the gotcha "The work network blocks sending email"). The code
+and settings weren't at fault: the connection was cut before login. `send_digest` now turns
+connection and login failures into a short message saying nothing was recorded, instead of a
+traceback. Next step: retry from a network that allows SMTP. If sending must work from the
+work network, decide on a delivery path over HTTPS (open question below).

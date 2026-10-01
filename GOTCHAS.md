@@ -63,6 +63,21 @@ deprecated and go away in Django 7.0. Found while connecting Gmail in
 **Fix:** configure `MAILERS['default']` as in `config/settings.py`. In tests Django swaps
 every mailer for the in-memory one, so tests never send real email.
 
+## Email delivery
+
+### The work network blocks sending email (SMTP)
+On the user's work laptop and network, `send_digest` failed with `SMTPServerDisconnected:
+Connection unexpectedly closed: [WinError 10054]` before Gmail even greeted. Probing
+`smtp.gmail.com` showed ports 587 and 25 reset immediately, and port 465 answering with a
+**self-signed certificate in the chain** (a firewall intercepting the traffic, not Gmail).
+HTTPS (443) works, which is why collection and Gmail in the browser are fine. Credentials
+were never reached, so this isn't a password problem. Found on the first real send in
+[T-010](tasks/T-010-send-and-weekly-run.md).
+**Fix:** send from a network that allows SMTP (home Wi-Fi, a phone hotspot). If sending has to
+work from the work network, it needs a delivery path over HTTPS (e.g. the Gmail API), which
+is a separate decision. Don't try to get around the firewall's certificate: that inspection
+is the network owner's policy.
+
 ## Repository & paths
 
 ### Project name is spelled two ways

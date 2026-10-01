@@ -1,4 +1,5 @@
 from datetime import datetime
+from smtplib import SMTPAuthenticationError, SMTPException
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
@@ -21,6 +22,13 @@ class Command(BaseCommand):
             rendered, selection = send_issue(send_at, test=options['test'])
         except CannotSend as error:
             raise CommandError(str(error))
+        except SMTPAuthenticationError as error:
+            raise CommandError(f'Gmail refused the login, so check GMAIL_APP_PASSWORD. Nothing was recorded. ({error})')
+        except (SMTPException, OSError) as error:
+            raise CommandError(
+                f'Could not reach Gmail ({error}). Nothing was recorded. If this network blocks email '
+                'ports (see GOTCHAS.md), send from another network.'
+            )
         html_path, _ = write(rendered, send_at)
         self.stdout.write(f'Sent "{rendered.subject}" to {settings.DIGEST_RECIPIENT}: {selection.total} items.')
         self.stdout.write('Test send: nothing recorded.' if options['test'] else f'Recorded as issue #{rendered.number}. Copy kept at {html_path}')
