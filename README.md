@@ -23,6 +23,9 @@ uv run python manage.py sync_sources   # load or refresh the sources from collec
 uv run python manage.py collect        # fetch new listings (optionally --source <slug>)
 ```
 
+Then, in Claude Code, run `/extract`. It exports the new listings in batches, writes draft
+actions, and imports them as "Por rever" for review in the admin.
+
 Run `collect` twice a week: on Monday and once mid-week. Coffeepaste only shows about 5 days of
 posts (see [GOTCHAS.md](GOTCHAS.md)).
 

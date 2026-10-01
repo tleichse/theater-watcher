@@ -18,6 +18,6 @@ one merged later renumbers its task.
 | T-005 | Data models and review admin | done | backend | [T-005](tasks/T-005-models-and-review-admin.md) |
 | T-006 | Require a traceable poster on every shared action | done | backend | [T-006](tasks/T-006-traceable-poster.md) |
 | T-007 | Collectors for every source on the final list | done | collection | [T-007](tasks/T-007-collectors.md) |
-| T-008 | Extraction: raw listings to draft actions via Claude Code | new | collection | [T-008](tasks/T-008-extraction.md) |
+| T-008 | Extraction: raw listings to draft actions via Claude Code | done | collection | [T-008](tasks/T-008-extraction.md) |
 | T-009 | Digest builder: selection rules and email rendering | new | digest | [T-009](tasks/T-009-digest-builder.md) |
 | T-010 | Send through Gmail and the weekly run command | new | digest | [T-010](tasks/T-010-send-and-weekly-run.md) |

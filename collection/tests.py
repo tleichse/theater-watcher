@@ -4,10 +4,12 @@ from datetime import datetime, timedelta, timezone
 from django.test import SimpleTestCase, TestCase
 from django.utils import timezone as dj_timezone
 
-from catalog.models import Source
+from catalog.models import Action, Organisation, Source
+from digest.schedule import LISBON
 
 from .adapters import coffeepaste, html_list, ica, rss, wordpress
 from .collect import collect_source, prune_raw_text, sync_sources
+from .extraction import export_pending, import_drafts
 from .http import Disallowed, Fetcher
 from .models import RawListing
 from .sources import SOURCES
@@ -194,9 +196,10 @@ class CollectTests(TestCase):
             'https://act-escoladeactores.com/2': (200, '<main>Outro</main>'),
         }
 
-    def test_sync_is_idempotent(self):
+    def test_sync_is_idempotent_and_applies_active_flag(self):
         self.assertEqual(sync_sources(), len(SOURCES))
         self.assertEqual(Source.objects.count(), len(SOURCES))
+        self.assertFalse(Source.objects.get(slug='ica').active)
 
     def test_new_then_unchanged(self):
         self.assertEqual(self.run_with(self.feed('Workshop')).new, 2)
@@ -231,3 +234,85 @@ class CollectTests(TestCase):
         pruned = RawListing.objects.get(url__endswith='/1')
         self.assertEqual(pruned.raw_text, '')
         self.assertEqual(self.run_with(self.feed('Changed')).new, 0)
+
+
+class ExtractionTests(TestCase):
+    def setUp(self):
+        sync_sources()
+        self.listing = RawListing.objects.create(
+            source=Source.objects.get(slug='encast'), url='https://www.encast.pro/casting-call/x',
+            raw_title='Atores para curta', raw_text='Procuramos atores em Braga.',
+            fetched_at=datetime(2026, 9, 30, 9, tzinfo=timezone.utc),
+        )
+
+    def draft(self, **fields):
+        return {
+            'kind': 'casting', 'pillar': 'cinema', 'title': 'Atores 25–40 anos — curta em Braga',
+            'summary': 'Curta-metragem procura atores.', 'region': 'north',
+            'organisation': 'Paloma Filmes', 'deadline_at': '2026-10-10', **fields,
+        }
+
+    def run_import(self, *entries):
+        return import_drafts({'results': list(entries)})
+
+    def test_export_lists_only_listings_waiting_for_extraction(self):
+        RawListing.objects.create(source=self.listing.source, url='https://e.pt/done', extracted_at=dj_timezone.now(), raw_text='x')
+        RawListing.objects.create(source=self.listing.source, url='https://e.pt/pruned', raw_text='')
+        data = export_pending()
+        self.assertEqual([listing['id'] for listing in data['listings']], [self.listing.pk])
+
+    def test_creates_pending_action_with_lisbon_deadline(self):
+        result = self.run_import({'listing_id': self.listing.pk, 'actions': [self.draft()]})
+        self.assertEqual((result.created, result.errors), (1, []))
+        action = Action.objects.get()
+        self.assertEqual(action.status, 'pending_review')
+        self.assertEqual(action.organisation.name, 'Paloma Filmes')
+        self.assertEqual(action.source_url, self.listing.url)
+        self.assertEqual(action.first_seen_at, self.listing.fetched_at)
+        self.assertEqual(action.deadline_at, datetime(2026, 10, 10, 23, 59, tzinfo=LISBON))
+        self.listing.refresh_from_db()
+        self.assertIsNotNone(self.listing.extracted_at)
+
+    def test_matches_existing_organisation_ignoring_case_and_accents(self):
+        existing = Organisation.objects.create(name='Teatro Nacional São João')
+        self.run_import({'listing_id': self.listing.pk, 'actions': [self.draft(organisation='teatro nacional sao joao')]})
+        self.assertEqual(Action.objects.get().organisation, existing)
+
+    def test_skip_marks_listing_and_records_reason(self):
+        result = self.run_import({'listing_id': self.listing.pk, 'skip_reason': 'figuração'})
+        self.assertEqual((result.skipped, Action.objects.count()), (1, 0))
+        self.listing.refresh_from_db()
+        self.assertIsNotNone(self.listing.extracted_at)
+        self.assertEqual(self.listing.skip_reason, 'figuração')
+
+    def test_invalid_entry_is_reported_and_listing_stays_pending(self):
+        result = self.run_import(
+            {'listing_id': self.listing.pk, 'actions': [self.draft(), self.draft(title='Outra', region='abroad')]}
+        )
+        self.assertEqual(len(result.errors), 1)
+        self.assertIn('region', result.errors[0])
+        self.assertEqual(Action.objects.count(), 0)
+        self.listing.refresh_from_db()
+        self.assertIsNone(self.listing.extracted_at)
+
+    def test_entry_needs_actions_or_skip_reason(self):
+        result = self.run_import({'listing_id': self.listing.pk, 'actions': []})
+        self.assertIn('skip_reason', result.errors[0])
+
+    def test_duplicates_refresh_the_existing_action(self):
+        self.run_import({'listing_id': self.listing.pk, 'actions': [self.draft()]})
+        original = Action.objects.get()
+        other = RawListing.objects.create(source=Source.objects.get(slug='coffeepaste'), url='https://c.pt/1', raw_text='x')
+        third = RawListing.objects.create(source=Source.objects.get(slug='coffeepaste'), url='https://c.pt/2', raw_text='x')
+        result = self.run_import(
+            {'listing_id': other.pk, 'actions': [{'duplicate_of': original.pk}]},
+            {'listing_id': third.pk, 'actions': [self.draft(title='Atores 25-40 anos: curta em Braga!')]},
+        )
+        self.assertEqual((result.created, result.duplicates), (0, 2))
+        self.assertEqual(Action.objects.count(), 1)
+
+    def test_reimport_is_ignored(self):
+        entry = {'listing_id': self.listing.pk, 'actions': [self.draft()]}
+        self.run_import(entry)
+        self.assertEqual(self.run_import(entry).already_imported, 1)
+        self.assertEqual(Action.objects.count(), 1)

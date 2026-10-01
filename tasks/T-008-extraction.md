@@ -35,11 +35,40 @@
 4. Tests for the import (validation, dedup, organisation matching, a date-only deadline).
 
 ## Acceptance criteria
-- [ ] One command exports, `/extract` produces drafts, and one command imports them
-- [ ] Drafts are pt-PT, carry no copied text or contact details, and name the poster
+- [x] One command exports, `/extract` produces drafts, and one command imports them
+- [x] Drafts are pt-PT, carry no copied text or contact details, and name the poster
   whenever the listing does
-- [ ] Out-of-scope listings are skipped with a recorded reason
-- [ ] The same opportunity found on two sources becomes one action
-- [ ] Tests pass
+- [x] Out-of-scope listings are skipped with a recorded reason
+- [x] The same opportunity found on two sources becomes one action
+- [x] Tests pass
 
 ## Implementation
+**2026-10-01:** built, and the first real extraction ran over all 153 collected listings
+(Claude Code in this session, following `.claude/commands/extract.md`).
+- **What was built:** `collection/extraction.py`, the `export_listings` and `import_drafts`
+  commands, and the `/extract` command. The command runs the whole loop itself (export,
+  read, write drafts, import, repeat) in batches of 25.
+- **Divergences from the plan:**
+  - The export also lists the **open actions**, so `/extract` can mark a repeat with
+    `duplicate_of` instead of relying only on the fingerprint. Titles are written fresh by the
+    model, so the same call on two sites rarely gets an identical title. The fingerprint stays
+    as a fallback.
+  - One listing can produce **several actions** (a page announcing two workshops).
+  - **Skip reasons are stored** on `RawListing.skip_reason` and shown in the admin, so the
+    reviewer can see why something was dropped. This was added after the first run, so that
+    run's reasons weren't kept.
+  - A test caught a bug in `normalise()`: it deleted non-ASCII punctuation instead of turning
+    it into a space, so "25–40" and "25-40" got different fingerprints.
+- **First run:** 153 listings → **11 actions**, 1 duplicate (the same somatic-practice
+  workshop on Fundação GDA and Coffeepaste), 141 skipped. Most skips were archive content seen
+  for the first time: MAGG articles from 2022–2025 (17), ICA's list of finished films (35),
+  Plural news about productions already filming (10), closed enCAST calls (11), non-acting
+  jobs and dance on Coffeepaste, visual-arts calls on DGArtes, and workshops with no dates yet
+  on ACT. Later runs only see new items, so the yield should be much higher.
+- **ICA was switched off** (`active: False` in `collection/sources.py`, which `sync_sources`
+  now applies). Its "filmes produzidos" table lists films already delivered, so no casting
+  follows. Better ICA pages ("Projetos em Curso", "Vistos de rodagem") are listed for the TV
+  producers check in the inbox.
+- **Traceability working as designed:** the enCAST musical-theatre call names only "Associação
+  Cultural", so its action has no poster and can't be approved until the reviewer finds one.
+- Tests: 8 new, 42 in total, all pass.

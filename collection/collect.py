@@ -24,7 +24,10 @@ def sync_sources():
     for entry in SOURCES:
         Source.objects.update_or_create(
             slug=entry['slug'],
-            defaults={field: entry[field] for field in ('name', 'url', 'tier', 'method')},
+            defaults={
+                **{field: entry[field] for field in ('name', 'url', 'tier', 'method')},
+                'active': entry.get('active', True),
+            },
         )
     return len(SOURCES)
 

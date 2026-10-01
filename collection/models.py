@@ -14,6 +14,7 @@ class RawListing(models.Model):
     published_at = models.DateTimeField('publicado em', null=True, blank=True)
     fetched_at = models.DateTimeField('recolhido em', default=timezone.now)
     extracted_at = models.DateTimeField('extraído em', null=True, blank=True)
+    skip_reason = models.CharField('motivo de exclusão', max_length=200, blank=True)
 
     class Meta:
         verbose_name = 'anúncio recolhido'

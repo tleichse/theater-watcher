@@ -11,6 +11,9 @@ the task to `done`. -->
 ## 2026-10-01
 
 ### Features
+- [collection] Collected listings become draft opportunities through the `/extract` command in
+  Claude Code: pt-PT titles and summaries, the poster, region, dates and pay, with duplicates
+  across sources merged and out-of-scope items skipped with a reason.
 - [collection] Listings are collected from all 16 sources (castings, TV and film production
   news, funding calls, and training) with one `collect` command. It respects each site's
   robots.txt and crawl delay.

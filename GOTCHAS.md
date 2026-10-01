@@ -41,6 +41,17 @@ private CMS endpoint (`repeater.bondlayer.com/fetch`) that rejects a hand-built 
 those items as structured JSON, and collect often enough that no more than about 20 posts
 appear between runs (about every 5 days at current volume).
 
+## Extraction
+
+### A feed's publish date can be years older than the offer
+ACT Escola de Actores reuses the same post for each new edition of a workshop, so its RSS
+`pubDate` is from 2024 even when the page lists October 2026 dates (or "Datas a anunciar").
+Under the 30-day rule ([T-003](tasks/T-003-digest-architecture.md) step 1), an action with no
+deadline or event date but an old `published_at` expires on import and never reaches the
+digest. Found during the first extraction ([T-008](tasks/T-008-extraction.md)).
+**Fix:** take dates from the page text, not the feed. A workshop with no dates at all is
+skipped ("dates to be announced") instead of imported with a stale publish date.
+
 ## Repository & paths
 
 ### Project name is spelled two ways

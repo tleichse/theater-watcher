@@ -67,6 +67,8 @@ SOURCES = [
     {
         'slug': 'ica', 'name': 'ICA (filmes produzidos)', 'tier': 'signal', 'method': 'html',
         'url': 'https://ica-ip.pt/',
+        # Lists films already delivered, so no casting follows; see T-008.
+        'active': False,
         'adapter': 'ica',
         'config': {
             'url': 'https://ica-ip.pt/pt/tabelas/filmes-produzidos-{year}/',
