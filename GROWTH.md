@@ -21,6 +21,12 @@ file). Re-rank by adding a new dated snapshot instead of rewriting old ones. -->
   ([T-006](tasks/T-006-traceable-poster.md)). That rules out the anonymous aggregators, where
   most of the advertising volume is.
 
+**Update (2026-10-01, after [T-012](tasks/T-012-film-school-sources.md)):** film schools
+don't publish their students' castings on their own sites. Those calls already reach us
+through Coffeepaste and enCAST, or stay in Facebook and Instagram groups. So #2 adds no new
+sources, and getting more student castings depends on #1 (asking cinema departments to
+forward calls to a submission channel). #1 moves up.
+
 ## Opportunities, ranked
 
 | # | Opportunity | Why it matters | Effort | Task |
