@@ -164,6 +164,7 @@ class RenderTests(DigestDataMixin, TestCase):
         rendered = render(select(SEND_AT))
         self.assertNotIn('>Teatro</span>', rendered.html)
         self.assertIn('>Cinema</span>', rendered.html)
+        self.assertNotIn('</span><span', rendered.html)
         self.assertNotIn('  Teatro · ', rendered.text)
         self.assertIn('  Cinema · ', rendered.text)
 

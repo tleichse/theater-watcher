@@ -155,3 +155,6 @@ block and to rename the newsletter to "relATOR".
   `######## … ########`. The user asked for a clearer break between these parts. A plain line
   was considered and rejected as too weak a signal. Filtering by region inside an email isn't
   possible; personalised editions per reader were suggested for later.
+- Badges were glued together wherever the pillar badge shows (e.g. Últimos dias): Jinja's
+  `trim_blocks` ate the line break after `{% endif %}`. Each badge now has a 4 px right margin
+  and a space inside its `{% if %}`.

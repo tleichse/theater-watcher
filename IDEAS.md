@@ -119,3 +119,5 @@ today's date that ends with `→ folded into T-XXX`. -->
   UI is impossible in an email, for example to filter by region?" then "yes please" (to the
   three-block layout) → folded into [T-010](tasks/T-010-send-and-weekly-run.md). Personalised
   editions per reader (e.g. by region) were suggested and not yet taken up.
+- "the acoes tags are on top of each other in the ultimos dias section. Make the space separation
+  as in the other sections" → folded into [T-010](tasks/T-010-send-and-weekly-run.md)
