@@ -86,6 +86,12 @@ new browser login almost every week. Found while planning the Gmail API switch i
 **Fix:** publish the app (Audience › **Publish app**, "In production") without submitting it
 for verification. That's fine for personal use, at the cost of a one-time "unverified app"
 warning. If it ever expires anyway, `send_digest` says to run `authorize_gmail`.
+**Recurred:** 2026-10-01, [T-010](tasks/T-010-send-and-weekly-run.md). Publishing turned out to
+be blocked. "In production" needs a homepage and a privacy policy URL on a domain **you've
+proven you own**, and `https://github.com/<user>/<repo>` was rejected ("not registered to
+you"). Without your own verified site (GitHub Pages verified in Search Console, or a paid
+domain), the practical fix is to stay in **Testing**, add your address under **Test users**,
+and accept a new login roughly every week.
 
 ## Repository & paths
 
