@@ -135,3 +135,6 @@ today's date that ends with `→ folded into T-XXX`. -->
   cinema, TV, publicity, dubbing, and training (all we have now) in Portugal. We want an
   exhaustive database." then "don't forget the rede de teatros"
   → [T-015](tasks/T-015-exhaustive-contacts.md)
+- "i just approced the atores 25-80 anos para campanha de nataland it is not appearing in the
+  newsletter. I have to remove all the sources from the newsletter and state that the sources are
+  gathered by the relATOR team." → folded into [T-010](tasks/T-010-send-and-weekly-run.md)

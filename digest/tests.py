@@ -158,6 +158,14 @@ class RenderTests(DigestDataMixin, TestCase):
         self.assertNotIn('<style', rendered.html)
         self.assertIn('style="', rendered.html)
 
+    def test_footer_credits_the_team_instead_of_listing_sources(self):
+        self.make(title='Audição para nova peça')
+        rendered = render(select(SEND_AT))
+        for output in (rendered.html, rendered.text):
+            self.assertIn('recolhidas pela equipa relATOR', output)
+            self.assertNotIn('Fontes', output)
+            self.assertNotIn(self.source.name, output)
+
     def test_pillar_tag_only_outside_pillar_sections(self):
         self.make(title='Audição para nova peça', pillar='theatre')
         self.make(title='Workshop de câmara', kind='training', pillar='cinema')

@@ -34,5 +34,5 @@ Sem novidades esta semana.
 
 --
 Cada oportunidade é resumida por nós e revista antes de seguir. Os detalhes e a candidatura estão sempre na página original.
-Fontes: {% for source in sources %}{{ source.name }}{{ ', ' if not loop.last else '.' }}{% endfor %}
+As oportunidades são recolhidas pela equipa relATOR. Só partilhamos oportunidades que identificam quem as publica.
 

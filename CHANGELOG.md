@@ -17,6 +17,8 @@ the task to `done`. -->
   who posts are used.
 
 ### Fixes
+- [digest] The email footer no longer lists every source; it says the opportunities are
+  gathered by the relATOR team.
 - [collection] Wider keyword pre-filter on TNSJ, TNDM, and the TV news feeds, so calls worded
   differently ("Procuram-se intérpretes…", "Recrutamento…", "Concurso…") still reach
   extraction.

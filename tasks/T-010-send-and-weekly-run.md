@@ -158,3 +158,11 @@ block and to rename the newsletter to "relATOR".
 - Badges were glued together wherever the pillar badge shows (e.g. Últimos dias): Jinja's
   `trim_blocks` ate the line break after `{% endif %}`. Each badge now has a 4 px right margin
   and a space inside its `{% if %}`.
+- The footer no longer lists the sources: with about 590 sources it had become a wall of names,
+  and the user wants them kept private. It now reads "As oportunidades são recolhidas pela equipa
+  relATOR. Só partilhamos oportunidades que identificam quem as publica.", which keeps the
+  traceability promise from T-006 (HTML and text versions, with a test).
+- Asked the same day why an approved casting (Hand Creative Chain, closing Monday 5 October at
+  10:00) wasn't in the issue: the selection rule from T-003 leaves out actions that close less than
+  24 hours after the Monday 09:00 send, so readers always have a day to apply. The admin's "falha a
+  próxima edição" filter shows these. The rule was left as it is, pending the user's call.

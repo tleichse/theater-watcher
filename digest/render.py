@@ -5,7 +5,7 @@ from django.conf import settings
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from premailer import transform
 
-from catalog.models import Action, Source
+from catalog.models import Action
 
 from .models import Digest
 from .schedule import LISBON
@@ -70,7 +70,6 @@ def render(selection):
         'sections': _sections(selection),
         'colours': COLOURS,
         'pillar_colours': PILLAR_COLOURS,
-        'sources': Source.objects.filter(active=True).order_by('name'),
         'facts': facts,
         'deadline_chip': lambda action: deadline_chip(action, selection.send_at),
     }
