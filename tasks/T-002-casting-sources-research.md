@@ -56,7 +56,10 @@
   Or should the section stay thin?~~ **Answer (2026-10-01):** no. Its posters are anonymous,
   which breaks the traceability rule (see the "validated" answer above). The Marketing
   section stays thin.
-- Is **VSI Lisbon** the "VS Digital Media" the user meant? If not, which studio was it?
+- ~~Is **VSI Lisbon** the "VS Digital Media" the user meant? If not, which studio was it?~~
+  **Parked (2026-10-01):** not answered before the task closed. VSI publishes nothing usable
+  either way. Revisit with the TV producers check that's waiting in the inbox (IDEAS.md,
+  2026-10-01).
 
 ## Deep dive: source catalogue (first pass, 2026-09-30)
 
@@ -308,7 +311,7 @@ listed in the open questions.
 - [x] The legal and terms-of-service position on collection and republishing is settled
 - [x] Verified sources found for Marketing and Dubbing, or a recorded finding that none exist
 - [x] Verified training sources in the catalogue
-- [ ] Final source list agreed. It becomes the input to the collector task (not yet created).
+- [x] Final source list agreed. It becomes the input to the collector task (not yet created).
 
 ## Implementation
 **2026-09-30:** first pass done: steps 1–3. Each source above was found by web search. These
@@ -338,3 +341,7 @@ Added three training and support sources (ACT, Vocare, Fundação GDA), and Coff
 Formação category comes through the existing collector. Dubbing and Marketing turned out to
 have no dedicated public source: studios and agencies cast from their own pools. The user's
 "VS Digital Media" lead was probably VSI Lisbon, which publishes nothing usable.
+**2026-10-01 (closing):** the user agreed the final list ("let's do all sources we have at
+the moment"), and it's now the registry in `collection/sources.py`, built in
+[T-007](T-007-collectors.md). Done. Follow-ups stay in the inbox, not here: the TV producers
+check (RTP/SIC/TVI producers, plus ICA's "Projetos em Curso" and "Vistos de rodagem" pages).

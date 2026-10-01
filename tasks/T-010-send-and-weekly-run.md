@@ -101,3 +101,9 @@ work network, decide on a delivery path over HTTPS (open question below).
   message. On this machine, `authorize_gmail` without the client file explains where to put
   it.
 - **Still open:** the user's Google Cloud setup and the first real send, and `run_week`.
+**2026-10-01, blocked:** waiting on the user. (1) Choose how to keep the Gmail authorisation:
+publishing the Google app failed because the homepage must be on a domain the user owns
+(GOTCHAS.md). The options on the table are **test user** (works now, new login about every 7
+days; proposed: `send_digest` reopens the browser login by itself when it has expired) or a
+**GitHub Pages** site verified in Search Console. (2) After that, the first real send with
+`send_digest --test`. `run_week` isn't started yet.

@@ -53,4 +53,7 @@ each component. Waiting on the user's run in Claude Design.
 "watcher") whose iris is split into the five pillar colours from `COLOURS`, on the header navy
 `#1F1A3A`, inside a rounded square. It reads at 120 px. It was rendered once with Pillow (not a
 project dependency). The Claude Design round can keep it, refine it, or replace it.
-
+**2026-10-01, blocked:** waiting on the user to fill in "My answers" (name, tone, references)
+in `design/email-brief.md`, run it in Claude Design, and pick a direction. Then apply the
+design system to `digest/email/issue.html` and `COLOURS`, and check it in a real inbox
+(needs T-010's send working).

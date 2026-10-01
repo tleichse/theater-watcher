@@ -10,6 +10,12 @@ the task to `done`. -->
 
 ## 2026-10-01
 
+### Docs
+- [research] Final source list for the digest: castings (Coffeepaste, enCAST, TNSJ, TNDM,
+  São Luiz, Plural), production news (Plural, the Film Commission, TV news), funding
+  (DGArtes, Fundação GDA), and training (ACT, Vocare, Coffeepaste). Only sources that name
+  who posts are used.
+
 ### Features
 - [digest] `build_digest` renders the weekly issue as an email-ready HTML page plus a
   plain-text version, in pt-PT: Últimos dias, the five pillars, Formação, Apoios, No radar,
