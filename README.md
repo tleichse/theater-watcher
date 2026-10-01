@@ -40,5 +40,5 @@ One Django app per pipeline stage. The reasoning is in [T-004](tasks/T-004-proje
 | [`IDEAS.md`](IDEAS.md) | Inbox of raw asks, by date |
 | [`TASKS.md`](TASKS.md) | Task index and status |
 | [`tasks/`](tasks/) | One file per task, plus `_TEMPLATE.md` |
-| [`design/`](design/) | Design briefs, e.g. the [email brief](design/email-brief.md) for Claude Design |
+| [`design/`](design/) | Design briefs (e.g. the [email brief](design/email-brief.md) for Claude Design) and the [logo](design/logo/) |
 | [`CHANGELOG.md`](CHANGELOG.md) | What shipped |

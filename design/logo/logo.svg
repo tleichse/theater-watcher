@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="theater-watcher">
+  <defs><clipPath id="eye"><path d="M72 256.0 Q256.0 88 440 256.0 Q256.0 424 72 256.0Z"/></clipPath></defs>
+  <rect width="512" height="512" rx="104" fill="#1F1A3A"/>
+  <path d="M72 256.0 Q256.0 88 440 256.0 Q256.0 424 72 256.0Z" fill="#FFFFFF"/>
+  <g clip-path="url(#eye)">
+    <path d="M256.0 256.0L256.00 164.00A92 92 0 0 1 343.50 227.57Z" fill="#C2255C"/><path d="M256.0 256.0L343.50 227.57A92 92 0 0 1 310.08 330.43Z" fill="#3B5BDB"/><path d="M256.0 256.0L310.08 330.43A92 92 0 0 1 201.92 330.43Z" fill="#7048E8"/><path d="M256.0 256.0L201.92 330.43A92 92 0 0 1 168.50 227.57Z" fill="#E67700"/><path d="M256.0 256.0L168.50 227.57A92 92 0 0 1 256.00 164.00Z" fill="#0C8599"/>
+  </g>
+  <circle cx="256.0" cy="256.0" r="38" fill="#1F1A3A"/>
+  <circle cx="270.0" cy="242.0" r="13" fill="#FFFFFF"/>
+</svg>

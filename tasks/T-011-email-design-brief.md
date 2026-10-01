@@ -47,3 +47,10 @@ structure and card anatomy, the email-client constraints, three directions to ex
 request for one dense section with 6 cards), and the deliverables: mockups in round 1, then
 colour tokens with contrast ratios, typography, spacing, and table-based HTML snippets for
 each component. Waiting on the user's run in Claude Design.
+
+**2026-10-01, logo:** the user asked for a quick logo. `design/logo/` has `logo.svg` plus
+`logo-512.png` and `logo-120.png` (120 x 120 is the size Google asks for). It's an eye (the
+"watcher") whose iris is split into the five pillar colours from `COLOURS`, on the header navy
+`#1F1A3A`, inside a rounded square. It reads at 120 px. It was rendered once with Pillow (not a
+project dependency). The Claude Design round can keep it, refine it, or replace it.
+
