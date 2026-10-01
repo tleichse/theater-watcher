@@ -8,6 +8,12 @@ Enhancements / Ops. Write one bullet per shipped change, starting with `[area]` 
 the result a user sees, not internal reasoning. Add the bullet in the same change that flips
 the task to `done`. -->
 
+## 2026-10-01
+
+### Ops
+- [repo] The project now runs locally: a Django app (one app each for catalogue, collection,
+  and digest) with SQLite, settings in `.env`, and the admin in European Portuguese.
+
 ## 2026-09-30
 
 ### Docs

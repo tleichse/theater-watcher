@@ -14,3 +14,4 @@ one merged later renumbers its task.
 | T-001 | Bootstrap the documentation system | done | repo | [T-001](tasks/T-001-bootstrap-doc-system.md) |
 | T-002 | Research validated sources of casting opportunities in Portugal | in-progress | research | [T-002](tasks/T-002-casting-sources-research.md) |
 | T-003 | Digest architecture: actions data model and email structure | done | architecture | [T-003](tasks/T-003-digest-architecture.md) |
+| T-004 | Project skeleton and directory layout | done | repo | [T-004](tasks/T-004-project-skeleton.md) |

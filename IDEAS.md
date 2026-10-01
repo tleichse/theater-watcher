@@ -38,6 +38,9 @@ today's date that ends with `→ folded into T-XXX`. -->
 
 ## 2026-10-01
 
+- "consider T-003. What are the next steps? Can we just figure rapidly a robust and simple
+  directory management strucutre and start with implementation?"
+  → [T-004](tasks/T-004-project-skeleton.md)
 - Answers to T-002's open points: "1. yes 2. no, just use it 3. Find them. 4. Let'sgo!" (approve
   link-out; don't ask Coffeepaste/enCAST; find Marketing and Dubbing sources; research training
   sources) → folded into [T-002](tasks/T-002-casting-sources-research.md)

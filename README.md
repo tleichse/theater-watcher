@@ -5,9 +5,29 @@ sources. It covers five pillars: **Theatre**, **Cinema** (films, series, documen
 **TV** (soap operas), **Marketing** (TV and radio ads and sketches) and **Dubbing**.
 
 ## Getting started
-There's no code yet. Once the stack is chosen, add the setup and run steps here.
+A Django app that runs locally (see [T-003](tasks/T-003-digest-architecture.md) for why).
+Requires [uv](https://docs.astral.sh/uv/); it installs the pinned Python (3.12) itself.
 
-## Map
+```sh
+uv sync
+cp .env.example .env        # then set DJANGO_SECRET_KEY
+uv run python manage.py migrate
+uv run python manage.py createsuperuser
+uv run python manage.py runserver   # admin at http://localhost:8000/admin/
+```
+
+## Code layout
+One Django app per pipeline stage. The reasoning is in [T-004](tasks/T-004-project-skeleton.md).
+
+| Where | What's there |
+|---|---|
+| `config/` | Django project settings and URLs |
+| `catalog/` | Sources, organisations, actions, and the review admin |
+| `collection/` | Raw listings, one adapter per source, collection and extraction commands |
+| `digest/` | Issues and what each one shared, selection rules, email templates, build and send |
+| `data/` | Git-ignored: the SQLite database and extraction files |
+
+## Docs map
 
 | Where | What's there |
 |---|---|
