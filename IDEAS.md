@@ -19,3 +19,25 @@ today's date that ends with `→ folded into T-XXX`. -->
   (Theatre, Cinema, TV, Marketing and Dubbing). We can gather info from validated sources in
   Portugal. We first need to make a complete search on that."
   → [T-002](tasks/T-002-casting-sources-research.md)
+- "some other sources are alse dgartes and maybe also gepac" → folded into
+  [T-002](tasks/T-002-casting-sources-research.md)
+- "before committing, i want to think about the architecture of this dgiest. I think we will
+  need a database of so called "actions" that define the entries that I want to share with the
+  people that will get the digest. What are the main info that is importatn? One thing that i
+  have in mind is that we need to now what opportuinites were already shared, when, when were
+  they published and when do they end / until when it is necessary to do something about it
+  (for example, an application). As i said, i want to format an email in jinja with an artistic
+  and colorful design following a design system (I will create that using claude design), and
+  only the actions that are still open will appear in the digest. What is the strucutre you
+  recommend for this digest? I want to have the pillars i talked about in separate sections of
+  the email. Actions cna also be training possibilities, free or paid. It would be important to
+  also gather that info. What do you recommend more? et's think in steaps. ask question for
+  validation whenever needed."
+  → [T-003](tasks/T-003-digest-architecture.md). Finding sources for training is folded into
+  [T-002](tasks/T-002-casting-sources-research.md).
+
+## 2026-10-01
+
+- Answers to T-002's open points: "1. yes 2. no, just use it 3. Find them. 4. Let'sgo!" (approve
+  link-out; don't ask Coffeepaste/enCAST; find Marketing and Dubbing sources; research training
+  sources) → folded into [T-002](tasks/T-002-casting-sources-research.md)

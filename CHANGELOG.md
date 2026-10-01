@@ -10,6 +10,12 @@ the task to `done`. -->
 
 ## 2026-09-30
 
+### Docs
+- [architecture] Defined how the digest works: an "actions" data model with sharing history
+  and deadlines; rules for which actions are open, new, or closing soon; the email layout
+  (Últimos dias, the five pillars, Formação, Apoios, No radar, permanent calls); and a local,
+  zero-cost stack (Django + SQLite, extraction through Claude Code, and sending through Gmail).
+
 ### Ops
 - [repo] Set up the project's documentation system: README map, working agreement
   (`CLAUDE.md`), pitfalls log, ideas inbox, task index with a per-task template, and this

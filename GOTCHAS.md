@@ -8,6 +8,17 @@ and why, then a **Fix:** line. Where a mistake happened again, add a **Recurred:
 each date and task. Entries are only added or amended, never deleted. If one stops applying,
 add **Obsolete since YYYY-MM-DD:** with the reason. -->
 
+## Sources & research
+
+### Search results point to source pages that no longer exist
+Search engines kept showing `tndm.pt/pt/audicao/` and `tndm.pt/pt/` after TNDM relaunched its
+site, and both now return 404. People Stars' `/castings` page looks active, but its newest call
+closed in 2024. A catalogue built only from search results, or from summaries of pages
+nobody opened, will list dead or stale sources. Found in
+[T-002](tasks/T-002-casting-sources-research.md).
+**Fix:** before adding a source to the catalogue, load it directly with `curl`, check the HTTP
+status, and check the date of the newest listing.
+
 ## Repository & paths
 
 ### Project name is spelled two ways
