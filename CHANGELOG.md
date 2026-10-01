@@ -10,6 +10,11 @@ the task to `done`. -->
 
 ## 2026-10-01
 
+### Features
+- [backend] Opportunities can be stored and reviewed in the admin: sources, organisations,
+  and actions, each tagged with a region (Norte, Centro, Sul, Ilhas, Nacional), plus filters,
+  bulk approve and reject, and a flag for actions that would close before the next issue.
+
 ### Ops
 - [repo] The project now runs locally: a Django app (one app each for catalogue, collection,
   and digest) with SQLite, settings in `.env`, and the admin in European Portuguese.

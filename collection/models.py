@@ -1,3 +1,26 @@
 from django.db import models
+from django.utils import timezone
 
-# Create your models here.
+from catalog.models import Source
+
+
+class RawListing(models.Model):
+    source = models.ForeignKey(
+        Source, on_delete=models.PROTECT, related_name='raw_listings', verbose_name='fonte'
+    )
+    url = models.URLField('endereço', max_length=500)
+    raw_title = models.CharField('título original', max_length=500, blank=True)
+    raw_text = models.TextField('texto original', blank=True)
+    fetched_at = models.DateTimeField('recolhido em', default=timezone.now)
+    extracted_at = models.DateTimeField('extraído em', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'anúncio recolhido'
+        verbose_name_plural = 'anúncios recolhidos'
+        ordering = ['-fetched_at']
+        constraints = [
+            models.UniqueConstraint(fields=['source', 'url'], name='unique_raw_listing_per_source'),
+        ]
+
+    def __str__(self):
+        return self.raw_title or self.url

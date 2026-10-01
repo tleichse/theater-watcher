@@ -44,3 +44,8 @@ today's date that ends with `→ folded into T-XXX`. -->
 - Answers to T-002's open points: "1. yes 2. no, just use it 3. Find them. 4. Let'sgo!" (approve
   link-out; don't ask Coffeepaste/enCAST; find Marketing and Dubbing sources; research training
   sources) → folded into [T-002](tasks/T-002-casting-sources-research.md)
+- "let's go. As for training, some studios as "VS Digital Media" in lisbon are great for
+  training. Can we find something there? It would be great if we could categorize the
+  opportunities by geography (north, center (including Lisbon), south, or national)"
+  → [T-005](tasks/T-005-models-and-review-admin.md) for the geography field; the training
+  lead is folded into [T-002](tasks/T-002-casting-sources-research.md)

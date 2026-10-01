@@ -99,6 +99,7 @@ appears in several issues while it stays open (see the "repeats" answer above).
 - **Who and where:**
   - `organisation_id`
   - `location` and `remote` (for self-tape or online)
+  - `region` *(added 2026-10-01, defined in [T-005](T-005-models-and-review-admin.md))*
   - Profile: `age_min`, `age_max`, `gender`, `languages`
 - **Money:**
   - `pay`: `paid` | `unpaid` | `expenses` | `unknown`, plus `fee_text`
@@ -146,8 +147,9 @@ For an issue sent at time *T* (the scheduled send time):
 
 **Card anatomy:** pillar badge, "Novo" badge, title, organisation, a row of key facts
 (place · pay · ages), a deadline chip ("Fecha em 3 dias" / "Candidaturas até 12 out"), and a
-"Ver e candidatar" button linking to `source_url`. The visual design comes from the user's
-design system.
+"Ver e candidatar" button linking to `source_url`. *Amended 2026-10-01:* the key facts
+also carry a region badge ([T-005](T-005-models-and-review-admin.md)). The visual design
+comes from the user's design system.
 
 **Rendering constraint:** email clients (Outlook especially) don't support CSS variables or
 flexbox, handle web fonts unreliably, and change colours in dark mode. The design system needs
