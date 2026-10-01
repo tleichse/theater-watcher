@@ -52,6 +52,17 @@ digest. Found during the first extraction ([T-008](tasks/T-008-extraction.md)).
 **Fix:** take dates from the page text, not the feed. A workshop with no dates at all is
 skipped ("dates to be announced") instead of imported with a stale publish date.
 
+## Django
+
+### Django 6.1 configures email with `MAILERS`, not `EMAIL_*`
+`startproject` on Django 6.1 generates a `MAILERS` setting. SMTP settings go in its
+`OPTIONS` (`host`, `port`, `username`, `password`, `use_tls`), not in the `EMAIL_HOST`,
+`EMAIL_HOST_USER`, ... settings that most guides and older code still use. Those are
+deprecated and go away in Django 7.0. Found while connecting Gmail in
+[T-010](tasks/T-010-send-and-weekly-run.md).
+**Fix:** configure `MAILERS['default']` as in `config/settings.py`. In tests Django swaps
+every mailer for the in-memory one, so tests never send real email.
+
 ## Repository & paths
 
 ### Project name is spelled two ways

@@ -132,8 +132,28 @@ COLLECTOR_USER_AGENT = 'theater-watcher/0.1 (+https://github.com/tleichse/theate
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
+GMAIL_ADDRESS = os.environ.get('GMAIL_ADDRESS', '')
+DIGEST_RECIPIENT = os.environ.get('DIGEST_RECIPIENT', '')
+DEFAULT_FROM_EMAIL = f'theater-watcher <{GMAIL_ADDRESS}>' if GMAIL_ADDRESS else 'webmaster@localhost'
+
+# Without Gmail credentials in .env, mail is printed to the console instead of sent.
+if GMAIL_ADDRESS:
+    MAILERS = {
+        'default': {
+            'BACKEND': 'django.core.mail.backends.smtp.EmailBackend',
+            'OPTIONS': {
+                'host': 'smtp.gmail.com',
+                'port': 587,
+                'use_tls': True,
+                'username': GMAIL_ADDRESS,
+                'password': os.environ.get('GMAIL_APP_PASSWORD', ''),
+                'timeout': 30,
+            },
+        },
+    }
+else:
+    MAILERS = {
+        'default': {
+            'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        },
+    }

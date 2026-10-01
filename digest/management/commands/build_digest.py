@@ -3,7 +3,7 @@ from datetime import datetime
 from django.core.management.base import BaseCommand
 
 from digest.render import render, write
-from digest.schedule import LISBON, next_send_at
+from digest.schedule import LISBON, current_issue_at
 from digest.selection import select
 
 
@@ -11,10 +11,10 @@ class Command(BaseCommand):
     help = 'Render the next issue to data/digests/ (HTML and plain text) without sending it.'
 
     def add_arguments(self, parser):
-        parser.add_argument('--at', help='Send time in Lisbon, e.g. 2026-10-05T09:00 (default: next Monday 09:00).')
+        parser.add_argument('--at', help='Send time in Lisbon, e.g. 2026-10-05T09:00 (default: the current issue, Monday 09:00).')
 
     def handle(self, *args, **options):
-        send_at = datetime.fromisoformat(options['at']).replace(tzinfo=LISBON) if options['at'] else next_send_at()
+        send_at = datetime.fromisoformat(options['at']).replace(tzinfo=LISBON) if options['at'] else current_issue_at()
         selection = select(send_at)
         rendered = render(selection)
         html_path, text_path = write(rendered, send_at)

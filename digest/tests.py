@@ -6,14 +6,17 @@ from decimal import Decimal
 from pathlib import Path
 from unittest import mock
 
-from django.core.management import call_command
-from django.test import SimpleTestCase, TestCase
+from smtplib import SMTPException
+
+from django.core import mail
+from django.core.management import CommandError, call_command
+from django.test import SimpleTestCase, TestCase, override_settings
 
 from catalog.models import Action, Organisation, Source
 
 from .models import Digest, DigestItem
 from .render import deadline_chip, facts, render
-from .schedule import LISBON, misses_next_issue, next_send_at
+from .schedule import LISBON, current_issue_at, misses_next_issue, next_send_at
 from .selection import Section, select
 
 
@@ -36,6 +39,15 @@ class NextSendAtTests(SimpleTestCase):
 
     def test_across_dst_change(self):
         self.assertEqual(next_send_at(lisbon(2026, 10, 24, 12)), lisbon(2026, 10, 26, 9))
+
+
+class CurrentIssueAtTests(SimpleTestCase):
+    def test_monday_after_the_slot_still_belongs_to_that_issue(self):
+        self.assertEqual(current_issue_at(lisbon(2026, 10, 5, 10, 30)), SEND_AT)
+        self.assertEqual(current_issue_at(lisbon(2026, 10, 6, 8)), SEND_AT)
+
+    def test_later_in_the_week_points_to_next_monday(self):
+        self.assertEqual(current_issue_at(lisbon(2026, 10, 7, 12)), lisbon(2026, 10, 12, 9))
 
 
 class MissesNextIssueTests(SimpleTestCase):
@@ -156,3 +168,63 @@ class RenderTests(DigestDataMixin, TestCase):
             call_command('build_digest', at='2026-10-05T09:00', stdout=io.StringIO())
         self.assertEqual(sorted(path.name for path in output.iterdir()), ['issue-1-2026-10-05.html', 'issue-1-2026-10-05.txt'])
         self.assertEqual(Digest.objects.count(), 0)
+
+
+@override_settings(GMAIL_ADDRESS='sender@example.org', DIGEST_RECIPIENT='reader@example.org')
+class SendDigestTests(DigestDataMixin, TestCase):
+    def send(self, *args):
+        output = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, output)
+        out = io.StringIO()
+        with mock.patch('digest.render.OUTPUT_DIR', output):
+            call_command('send_digest', '--at', '2026-10-05T09:00', *args, stdout=out)
+        return out.getvalue()
+
+    def test_sends_html_and_text_then_records_the_issue(self):
+        shared = self.make(title='Audição para nova peça')
+        closing = self.make(title='Fecha já', days=3)
+        self.send()
+        self.assertEqual(len(mail.outbox), 1)
+        message = mail.outbox[0]
+        self.assertEqual(message.to, ['reader@example.org'])
+        self.assertEqual(message.subject, 'theater-watcher #1 · 2 novas, 1 a fechar')
+        self.assertIn('Audição para nova peça', message.body)
+        self.assertIn('Audição para nova peça', message.alternatives[0].content)
+        digest = Digest.objects.get()
+        self.assertEqual((digest.number, digest.scheduled_for), (1, SEND_AT))
+        recorded = {(item.action, item.section, item.was_new) for item in digest.items.all()}
+        self.assertEqual(recorded, {(shared, 'theatre', True), (closing, 'closing_soon', True)})
+        next_week = select(SEND_AT + timedelta(days=7)).sections[Section.THEATRE]
+        self.assertEqual([(item.action, item.is_new) for item in next_week], [(shared, False)])
+
+    def test_refuses_to_send_the_same_issue_twice(self):
+        self.make()
+        self.send()
+        with self.assertRaisesMessage(CommandError, 'already sent'):
+            self.send()
+        self.assertEqual(len(mail.outbox), 1)
+
+    def test_test_send_records_nothing(self):
+        self.make()
+        self.send('--test')
+        self.assertTrue(mail.outbox[0].subject.startswith('[TESTE] '))
+        self.assertEqual(Digest.objects.count(), 0)
+
+    def test_failed_send_records_nothing(self):
+        self.make()
+        with mock.patch('digest.send.EmailMultiAlternatives.send', side_effect=SMTPException('auth failed')):
+            with self.assertRaises(SMTPException):
+                self.send()
+        self.assertEqual(Digest.objects.count(), 0)
+
+    def test_refuses_when_nothing_is_approved(self):
+        self.make(status='pending_review')
+        with self.assertRaisesMessage(CommandError, 'Nothing to send'):
+            self.send()
+
+    @override_settings(GMAIL_ADDRESS='')
+    def test_refuses_without_gmail_settings(self):
+        self.make()
+        with self.assertRaisesMessage(CommandError, 'GMAIL_ADDRESS'):
+            self.send()
+        self.assertEqual(len(mail.outbox), 0)

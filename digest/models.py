@@ -5,7 +5,7 @@ from catalog.models import Action
 
 class Digest(models.Model):
     number = models.PositiveIntegerField('número', unique=True)
-    scheduled_for = models.DateTimeField('agendada para')
+    scheduled_for = models.DateTimeField('agendada para', unique=True)
     sent_at = models.DateTimeField('enviada em', null=True, blank=True)
     subject = models.CharField('assunto', max_length=200)
 

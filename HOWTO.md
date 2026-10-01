@@ -22,6 +22,23 @@ or screen changes, update the step in the same change. -->
    ```sh
    uv run python manage.py createsuperuser
    ```
+3. Connect Gmail for sending:
+   1. In your Google Account, turn on **2-Step Verification** (Security).
+   2. Go to **Security › App passwords**, create one called "theater-watcher", and copy the
+      16-character password.
+   3. In `.env`, fill in:
+      ```
+      GMAIL_ADDRESS=you@gmail.com
+      GMAIL_APP_PASSWORD=the16characterpassword
+      DIGEST_RECIPIENT=where-the-digest-goes@example.com
+      ```
+      `.env` is git-ignored. Never commit it, and never paste the password into a chat.
+   4. Check the connection by sending yourself the current issue as a test (nothing gets
+      recorded):
+      ```sh
+      uv run python manage.py send_digest --test
+      ```
+      It should print `Sent "[TESTE] theater-watcher #…"`, and the email should arrive.
 
 ## Mid-week (e.g. Thursday): collect only
 
@@ -88,15 +105,21 @@ wrong, fix the action in the admin and run `build_digest` again. It only writes 
 you can repeat it as often as you like.
 
 ### 5. Send
-**Not automated yet.** `send_digest` (Gmail, plus recording what was sent) arrives with
-[T-010](tasks/T-010-send-and-weekly-run.md). Until then:
-1. Open the `.html` preview in Chrome, press **Ctrl+A** and then **Ctrl+C**.
-2. In Gmail, start a new message, paste the content into the body, and use the subject that
-   `build_digest` printed.
-3. Send it.
+Optional: send yourself a test copy first, to see it in your inbox. Nothing gets recorded:
+```sh
+uv run python manage.py send_digest --test
+```
+When you're happy with it, send the real issue:
+```sh
+uv run python manage.py send_digest
+```
+It prints `Sent "theater-watcher #N · …" to <recipient>` and `Recorded as issue #N`. Recording
+is what makes next week's **Novo** badges correct. An issue can only be sent once. Running it
+again says `already sent`.
 
-Because a hand-sent issue isn't recorded, next week's issue will mark everything still open
-as **Novo** again. That gets fixed once `send_digest` exists.
+The "current issue" is this Monday's 09:00 slot, until Tuesday morning. If you build or send
+later in the week, it's the next Monday's issue. To send a specific one, add
+`--at 2026-10-05T09:00`.
 
 ## When something goes wrong
 
@@ -105,4 +128,7 @@ as **Novo** again. That gets fixed once `send_digest` exists.
 | `collect` shows a source in red every week | The site probably changed. Note it in [IDEAS.md](IDEAS.md) so it becomes a task. |
 | `/extract` reports import errors | It fixes and re-imports them itself. If errors remain, they're listed with the listing id. Ask Claude Code to fix those entries. |
 | An action can't be approved | It has no **Organização** (see step 3). |
-| `build_digest` shows `0 items` | Nothing is approved, or every approved action closes within 24 hours of the send time. |
+| `build_digest` shows `0 items`, or `send_digest` says "Nothing to send" | Nothing is approved, or every approved action closes within 24 hours of the send time. |
+| `send_digest` says "Set GMAIL_ADDRESS…" | Fill in the three Gmail lines in `.env` (one-time setup, step 3). |
+| `send_digest` fails with `SMTPAuthenticationError` | The app password is wrong or was revoked. Create a new one (one-time setup, step 3). Nothing was recorded, so just run it again. |
+| `send_digest` warns the HTML is over 100 KB | Gmail will show "Mensagem cortada" with a link to the rest. Fine occasionally. If it happens every week, tell Claude so the template gets lighter. |

@@ -20,4 +20,5 @@ one merged later renumbers its task.
 | T-007 | Collectors for every source on the final list | done | collection | [T-007](tasks/T-007-collectors.md) |
 | T-008 | Extraction: raw listings to draft actions via Claude Code | done | collection | [T-008](tasks/T-008-extraction.md) |
 | T-009 | Digest builder: selection rules and email rendering | done | digest | [T-009](tasks/T-009-digest-builder.md) |
-| T-010 | Send through Gmail and the weekly run command | new | digest | [T-010](tasks/T-010-send-and-weekly-run.md) |
+| T-010 | Send through Gmail and the weekly run command | in-progress | digest | [T-010](tasks/T-010-send-and-weekly-run.md) |
+| T-011 | Email visual design: brief for Claude Design | in-progress | design | [T-011](tasks/T-011-email-design-brief.md) |

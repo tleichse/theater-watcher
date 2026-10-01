@@ -15,6 +15,8 @@
 
 ## Open questions
 - Which address receives the digest, and has the app password been created?
+  **Partly answered (2026-10-01):** the user will put both in `.env` themselves (HOWTO.md,
+  one-time setup step 3). They were deliberately not shared in chat.
 - Can `run_week` launch extraction itself through Claude Code's non-interactive mode
   (`claude -p "/extract"`), or should it stop and ask the user to run `/extract`? To be
   checked when building it.
@@ -32,9 +34,33 @@
 
 ## Acceptance criteria
 - [ ] A real issue reaches the recipient's inbox
-- [ ] `digests` and `digest_items` are written only after a successful send
-- [ ] The same issue can't be sent twice
+- [x] `digests` and `digest_items` are written only after a successful send
+- [x] The same issue can't be sent twice
 - [ ] `run_week` guides the whole Monday routine
 - [ ] Tests pass
 
 ## Implementation
+**2026-10-01, sending:** built `send_digest` (`digest/send.py`). `run_week` isn't built yet, so
+this task stays in progress.
+- **Gmail settings** come from `.env` (`GMAIL_ADDRESS`, `GMAIL_APP_PASSWORD`,
+  `DIGEST_RECIPIENT`) into Django 6.1's `MAILERS` setting (see the gotcha). Without
+  `GMAIL_ADDRESS`, the mailer prints to the console and `send_digest` refuses to run, so an
+  issue is never *recorded* as sent when it wasn't.
+- **Order:** select, render, send the HTML and text versions, then write `Digest` and its
+  `DigestItem` rows (section, position, `was_new`) in one transaction. If the send fails,
+  nothing is recorded. If recording failed after a successful send, the email would be out but
+  unrecorded. That's accepted as very unlikely with SQLite on the same machine.
+- **Twice-sending** is blocked twice: `send_issue` checks for the slot, and
+  `Digest.scheduled_for` is now unique.
+- **`--test`** sends the real issue with a "[TESTE]" subject and records nothing. It checks
+  the connection, and lets the user see the design in a real inbox (useful for
+  [T-011](T-011-email-design-brief.md)).
+- **Which issue:** both `build_digest` and `send_digest` default to `current_issue_at()`, which
+  is the Monday 09:00 slot until a day after it, then the next one. Before this,
+  `build_digest` used `next_send_at()`, so building at 09:30 on a Monday would have previewed
+  the *following* week.
+- A warning is printed when the HTML goes over 100 KB, Gmail's clipping limit. The first issue
+  is 29.5 KB for 10 cards.
+- Tests: 8 new, 61 in total, all pass. Without Gmail settings, the real command refuses with a
+  clear message, as checked on this machine.
+- **Still open:** a real send to the user's inbox (needs their app password), and `run_week`.
