@@ -167,6 +167,20 @@ class RenderTests(DigestDataMixin, TestCase):
         self.assertNotIn('  Teatro · ', rendered.text)
         self.assertIn('  Cinema · ', rendered.text)
 
+    def test_blocks_are_split_by_labelled_bands(self):
+        self.make(title='Fecha já', days=3)
+        self.make(title='Audição para nova peça')
+        self.make(title='Workshop de câmara', kind='training')
+        rendered = render(select(SEND_AT))
+        html, text = rendered.html, rendered.text
+        self.assertLess(html.index('Últimos dias'), html.index('Castings e audições'))
+        self.assertLess(html.index('Castings e audições'), html.index('>Teatro</p>'))
+        self.assertLess(html.index('>Dobragem</p>'), html.index('Formação e outras oportunidades'))
+        self.assertLess(html.index('Formação e outras oportunidades'), html.index('>Formação</p>'))
+        self.assertEqual(html.count('Castings e audições'), 1)
+        self.assertIn('######## CASTINGS E AUDIÇÕES ########', text)
+        self.assertIn('######## FORMAÇÃO E OUTRAS OPORTUNIDADES ########', text)
+
     def test_empty_optional_sections_are_left_out(self):
         rendered = render(select(SEND_AT))
         self.assertNotIn('Formação', rendered.html)

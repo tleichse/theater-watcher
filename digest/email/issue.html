@@ -14,6 +14,8 @@
   .issue { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #C9C2E8; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 8px 0; }
   .lede { font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 22px; color: #FFFFFF; margin: 12px 0 0 0; }
   .section { padding: 28px 32px 4px 32px; }
+  .section-urgent { background: #FFF4E6; border-bottom: 1px solid #FFD8A8; padding-bottom: 16px; }
+  .band { background: #1F1A3A; padding: 12px 32px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 18px; font-weight: bold; color: #FFFFFF; letter-spacing: 1.5px; text-transform: uppercase; }
   .section-title { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 26px; font-weight: bold; margin: 0 0 14px 0; padding-left: 12px; }
   .empty { font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #868E96; font-style: italic; margin: 0 0 8px 12px; }
   .card { border: 1px solid #E9E4F2; border-radius: 10px; margin: 0 0 14px 0; }
@@ -53,7 +55,11 @@
     <p class="lede">Oportunidades para atores em Portugal. Esta semana: <strong>{{ counts }}</strong>.</p>
   </td></tr>
   {% for section in sections %}
-  <tr><td class="section">
+  {% if section.band %}
+  <tr><td style="padding: 36px 0 0 0; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+  <tr><td class="band">{{ section.band }}</td></tr>
+  {% endif %}
+  <tr><td class="section{{ ' section-urgent' if section.block == 'urgent' else '' }}">
     <p class="section-title" style="border-left: 5px solid {{ colours[section.key] }}; color: {{ colours[section.key] }};">{{ section.label }}</p>
     {% if not section['items'] %}
     <p class="empty">Sem novidades esta semana.</p>

@@ -113,3 +113,9 @@ today's date that ends with `→ folded into T-XXX`. -->
 - "when the actions are under their sections, they do not need the section tag - only the
   others", "after "novas" also add "ações"", and "Also, add the logo to the email header" →
   folded into [T-010](tasks/T-010-send-and-weekly-run.md)
+- "i need a clearer difference betweenthen "Ultimos Dias" section and the different pillars, and
+  then also between the pillars and "formacao" section (and the others to the end). I think that a
+  clear horizontal line could make it clearer, but what do you suggest? Dynamic filtering via the
+  UI is impossible in an email, for example to filter by region?" then "yes please" (to the
+  three-block layout) → folded into [T-010](tasks/T-010-send-and-weekly-run.md). Personalised
+  editions per reader (e.g. by region) were suggested and not yet taken up.

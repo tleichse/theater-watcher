@@ -149,3 +149,9 @@ block and to rename the newsletter to "relATOR".
 - The logo (`design/logo/logo-120.png`, shown at 56 px) sits next to the name in the header.
   It's embedded in the email, so it doesn't depend on hosting (see GOTCHAS). The email is now
   about 68 KB, under Gmail's 100 KB clip.
+- The body reads as three blocks: "Últimos dias" in a tinted panel, then a dark labelled band
+  "Castings e audições" before the pillars, and another, "Formação e outras oportunidades",
+  before the rest (`BLOCK_BANDS` in `digest/render.py`). The text version marks the bands with
+  `######## … ########`. The user asked for a clearer break between these parts. A plain line
+  was considered and rejected as too weak a signal. Filtering by region inside an email isn't
+  possible; personalised editions per reader were suggested for later.

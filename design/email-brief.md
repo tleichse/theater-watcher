@@ -33,21 +33,29 @@ My answers: name = relATOR (written exactly like that: "rel" in lower case, "ATO
 
 ## The structure is fixed: please design it, don't change it
 From top to bottom:
-1. **Header:** name, issue number and date ("N.º 1 · 5 out 2026"), and one line such as "Esta
-   semana: 10 novas, 2 a fechar".
-2. **Últimos dias:** opportunities that close within 7 days (any pillar).
-3. **Five pillar sections, always present, in this order:** Teatro, Cinema, Televisão,
-   Publicidade, Dobragem. An empty one shows "Sem novidades esta semana".
-4. **Formação** (training), **Apoios e oportunidades** (grants), and **No radar** (news of
-   upcoming productions). These appear only when they have items.
+1. **Header:** logo, name, issue number and date ("N.º 1 · 5 out 2026"), and one line such as
+   "Esta semana: 10 novas ações, 2 a fechar".
+
+The body reads as **three blocks**, and readers must see at a glance where one ends and the next
+begins. Today the first block sits in a tinted panel, and the other two each open with a dark,
+full-width labelled band:
+
+2. **Block 1, Últimos dias:** opportunities that close within 7 days (any pillar).
+3. **Block 2, band "Castings e audições":** five pillar sections, always present, in this order:
+   Teatro, Cinema, Televisão, Publicidade, Dobragem. An empty one shows "Sem novidades esta
+   semana". Cards here don't repeat the pillar badge, because the heading already says it.
+4. **Block 3, band "Formação e outras oportunidades":** **Formação** (training), **Apoios e
+   oportunidades** (grants), and **No radar** (news of upcoming productions). These appear only
+   when they have items.
 5. **Candidaturas permanentes:** a compact list of links (not cards) to always-open sign-up
    forms.
 6. **Footer:** a short note on how we pick and summarise opportunities, and the list of
    sources.
 
 **Card anatomy** (Últimos dias, pillar sections, Formação, Apoios, No radar):
-- Badges: **pillar** (Teatro / Cinema / Televisão / Publicidade / Dobragem), **Novo** (first
-  time shown), **region** (Norte / Centro / Sul / Ilhas / Nacional)
+- Badges: **pillar** (Teatro / Cinema / Televisão / Publicidade / Dobragem; only outside the
+  pillar sections), **Novo** (first time shown), **region** (Norte / Centro / Sul / Ilhas /
+  Nacional)
 - **Title** (up to about 90 characters)
 - **Organisation**: who posted it. Always shown, because it's what makes a call trustworthy.
 - **Summary**: 1–2 sentences

@@ -36,6 +36,9 @@ PAY_LABELS = {
 }
 
 NAME = 'relATOR'
+# The email reads as three blocks: what closes this week, then castings by pillar, then the rest.
+# Each later block opens with a labelled band.
+BLOCK_BANDS = {'pillars': 'Castings e audições', 'more': 'Formação e outras oportunidades'}
 
 
 @dataclass
@@ -92,7 +95,15 @@ def _sections(selection):
         items = selection.sections[section]
         if items or section in PILLAR_SECTIONS:
             # In a pillar section the heading already says the pillar, so items don't repeat it.
-            sections.append({'key': section.value, 'label': section.label, 'items': items, 'is_pillar': section in PILLAR_SECTIONS})
+            is_pillar = section in PILLAR_SECTIONS
+            block = 'urgent' if section == Section.CLOSING_SOON else 'pillars' if is_pillar else 'more'
+            sections.append({
+                'key': section.value, 'label': section.label, 'items': items,
+                'is_pillar': is_pillar, 'block': block, 'band': None,
+            })
+    for previous, section in zip([None] + sections, sections):
+        if previous is None or previous['block'] != section['block']:
+            section['band'] = BLOCK_BANDS.get(section['block'])
     return sections
 
 
