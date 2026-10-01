@@ -3,11 +3,11 @@ from datetime import timedelta
 
 from django.utils import timezone
 
-from catalog.models import Source
+from catalog.models import Organisation, Source
 
 from .adapters import ADAPTERS
 from .models import RawListing
-from .sources import BY_SLUG, SOURCES
+from .sources import BY_SLUG, SOURCES, load_companies
 
 RAW_TEXT_RETENTION = timedelta(days=60)
 
@@ -28,6 +28,10 @@ def sync_sources():
                 **{field: entry[field] for field in ('name', 'url', 'tier', 'method')},
                 'active': entry.get('active', True),
             },
+        )
+    for company in load_companies():
+        Organisation.objects.update_or_create(
+            name=company['name'], defaults={'website': company['website'], 'validated': True}
         )
     return len(SOURCES)
 

@@ -1,3 +1,10 @@
+import csv
+from pathlib import Path
+
+from django.utils.text import slugify
+
+COMPANIES_FILE = Path(__file__).with_name('companies.csv')
+
 INSTITUTION_KEYWORDS = (
     r'audiç|casting|elenco|candidatura|open call|oficina|workshop|formaç|estágio|masterclass'
     r'|residência|bolsa|intérpret|ator|atriz|actor|actriz|procura|recrut|concurso|seleç|convocat'
@@ -140,5 +147,30 @@ SOURCES = [
         },
     },
 ]
+
+
+
+def load_companies():
+    with COMPANIES_FILE.open(encoding='utf-8', newline='') as handle:
+        return list(csv.DictReader(handle))
+
+
+def company_sources(companies):
+    return [
+        {
+            'slug': f"co-{slugify(company['name'])}"[:50],
+            'name': company['name'],
+            'tier': 'A',
+            'method': 'html',
+            'url': company['website'],
+            'adapter': 'site_watch',
+            'config': {'url': company['website'], 'keywords': INSTITUTION_KEYWORDS},
+        }
+        for company in companies
+        if company['website']
+    ]
+
+
+SOURCES += company_sources(load_companies())
 
 BY_SLUG = {source['slug']: source for source in SOURCES}

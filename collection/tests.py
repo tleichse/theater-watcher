@@ -7,12 +7,12 @@ from django.utils import timezone as dj_timezone
 from catalog.models import Action, Organisation, Source
 from digest.schedule import LISBON
 
-from .adapters import coffeepaste, html_list, ica, rss, wordpress
+from .adapters import coffeepaste, html_list, ica, rss, site_watch, wordpress
 from .collect import collect_source, prune_raw_text, sync_sources
 from .extraction import export_pending, import_drafts
 from .http import Disallowed, Fetcher
 from .models import RawListing
-from .sources import SOURCES
+from .sources import SOURCES, company_sources, load_companies
 
 
 class FakeResponse:
@@ -333,3 +333,48 @@ class ExtractionTests(TestCase):
         self.run_import(entry)
         self.assertEqual(self.run_import(entry).already_imported, 1)
         self.assertEqual(Action.objects.count(), 1)
+
+
+class CompanySourceTests(TestCase):
+    def test_site_with_a_feed_is_read_through_the_feed(self):
+        homepage = """<html><head>
+        <link rel="alternate" type="application/rss+xml" href="/comments/feed/">
+        <link rel="alternate" type="application/rss+xml" href="/feed/"></head><body></body></html>"""
+        fetcher = fetcher_for({
+            'https://co.pt/': (200, homepage),
+            'https://co.pt/feed/': (200, RSS.replace('https://a.pt/', 'https://co.pt/')),
+            'https://co.pt/1': (200, '<main><h1>Audições para nova peça</h1><p>Até 20 out</p></main>'),
+        })
+        config = {'url': 'https://co.pt/', 'keywords': 'audiç'}
+        listings = list(site_watch.collect(fetcher, config, set()))
+        self.assertEqual([listing.url for listing in listings], ['https://co.pt/1'])
+        self.assertIn('Até 20 out', listings[0].text)
+
+    def test_site_without_a_feed_follows_matching_own_links(self):
+        homepage = """<a href="/noticias/audicoes-2027">Audições 2027</a>
+        <a href="/espetaculos/hamlet">Hamlet</a>
+        <a href="https://facebook.com/co">Audições no Facebook</a>"""
+        fetcher = fetcher_for({
+            'https://co.pt/': (200, homepage),
+            'https://co.pt/noticias/audicoes-2027': (200, '<main><h1>Audições 2027</h1><p>Elenco jovem</p></main>'),
+        })
+        listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç'}, set()))
+        self.assertEqual([listing.url for listing in listings], ['https://co.pt/noticias/audicoes-2027'])
+
+    def test_companies_file_becomes_sources_with_unique_short_slugs(self):
+        companies = load_companies()
+        sources = company_sources(companies)
+        self.assertEqual(len(sources), sum(1 for company in companies if company['website']))
+        slugs = [source['slug'] for source in sources]
+        self.assertEqual(len(slugs), len(set(slugs)))
+        self.assertTrue(all(len(slug) <= 50 and slug.startswith('co-') for slug in slugs))
+        all_slugs = [source['slug'] for source in SOURCES]
+        self.assertEqual(len(all_slugs), len(set(all_slugs)))
+
+    def test_sync_marks_funded_companies_as_validated_organisations(self):
+        Organisation.objects.create(name='Razões Pessoais')
+        sync_sources()
+        company = Organisation.objects.get(name='Razões Pessoais')
+        self.assertTrue(company.validated)
+        self.assertEqual(Organisation.objects.filter(validated=True).count(), len(load_companies()))
+
