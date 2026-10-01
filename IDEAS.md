@@ -64,3 +64,8 @@ today's date that ends with `→ folded into T-XXX`. -->
 - Answers to T-007's open points: "2. twice a week 3. yes, public" (collect twice a week;
   the GitHub repo is public, so its URL works as the collector's contact) → folded into
   [T-007](tasks/T-007-collectors.md) and [T-003](tasks/T-003-digest-architecture.md)
+- "go on with the task. I just tried the creating the html and it pretty good already. How do you
+  suggest apporaching the design question, to get something that i like best?" then "Do the
+  brief for the chat with Claude Design, and also build what is needed to do the link with the
+  email account." → [T-011](tasks/T-011-email-design-brief.md) for the brief; the email link
+  is [T-010](tasks/T-010-send-and-weekly-run.md)
