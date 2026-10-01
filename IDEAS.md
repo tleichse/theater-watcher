@@ -110,3 +110,6 @@ today's date that ends with `→ folded into T-XXX`. -->
   into [T-010](tasks/T-010-send-and-weekly-run.md); the public sign-up stays with T-003
 - "how can i remove the constraint of sending the edition again? also, can we change the name of
   the newsletter to "relATOR"" → folded into [T-010](tasks/T-010-send-and-weekly-run.md)
+- "when the actions are under their sections, they do not need the section tag - only the
+  others", "after "novas" also add "ações"", and "Also, add the logo to the email header" →
+  folded into [T-010](tasks/T-010-send-and-weekly-run.md)

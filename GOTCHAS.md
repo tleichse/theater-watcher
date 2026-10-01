@@ -89,6 +89,17 @@ deprecated and go away in Django 7.0. Found while connecting Gmail in
 **Fix:** configure `MAILERS['default']` as in `config/settings.py`. In tests Django swaps
 every mailer for the in-memory one, so tests never send real email.
 
+### Django 6.1 has no way to embed an image in an email
+The old trick (`message.mixed_subtype = 'related'` plus a `MIMEImage` attachment) now raises
+`AttributeError: EmailMessage no longer supports the undocumented mixed_subtype attribute`.
+Attaching a `MIMEPart` puts it in a `multipart/mixed` wrapper, where mail clients show it as an
+attachment rather than inline. Found while adding the logo to the email header in
+[T-010](tasks/T-010-send-and-weekly-run.md).
+**Fix:** `DigestEmail` in `digest/send.py` overrides `message()` and calls
+`msg.get_body(('html',)).add_related(...)` with a `Content-ID`, which gives the correct
+`multipart/alternative › multipart/related › [html, image]` structure. The template links to it
+with `cid:logo`, and `build_digest`'s browser preview swaps that for the file on disk.
+
 ## Email delivery
 
 ### The work network blocks sending email (SMTP)

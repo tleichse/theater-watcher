@@ -149,7 +149,7 @@ class RenderTests(DigestDataMixin, TestCase):
         self.make(title='Audição para nova peça')
         rendered = render(select(SEND_AT))
         self.assertEqual(rendered.number, 1)
-        self.assertEqual(rendered.subject, 'relATOR #1 · 1 nova')
+        self.assertEqual(rendered.subject, 'relATOR #1 · 1 nova ação')
         for label in ['Teatro', 'Cinema', 'Televisão', 'Publicidade', 'Dobragem']:
             self.assertIn(label, rendered.html)
             self.assertIn(label.upper(), rendered.text)
@@ -157,6 +157,15 @@ class RenderTests(DigestDataMixin, TestCase):
         self.assertIn('Audição para nova peça', rendered.text)
         self.assertNotIn('<style', rendered.html)
         self.assertIn('style="', rendered.html)
+
+    def test_pillar_tag_only_outside_pillar_sections(self):
+        self.make(title='Audição para nova peça', pillar='theatre')
+        self.make(title='Workshop de câmara', kind='training', pillar='cinema')
+        rendered = render(select(SEND_AT))
+        self.assertNotIn('>Teatro</span>', rendered.html)
+        self.assertIn('>Cinema</span>', rendered.html)
+        self.assertNotIn('  Teatro · ', rendered.text)
+        self.assertIn('  Cinema · ', rendered.text)
 
     def test_empty_optional_sections_are_left_out(self):
         rendered = render(select(SEND_AT))
@@ -191,9 +200,12 @@ class SendDigestTests(DigestDataMixin, TestCase):
         message = mail.outbox[0]
         self.assertEqual(message.to, ['sender@example.org'])
         self.assertEqual(message.bcc, ['reader@example.org', 'friend@example.org'])
-        self.assertEqual(message.subject, 'relATOR #1 · 2 novas, 1 a fechar')
+        self.assertEqual(message.subject, 'relATOR #1 · 2 novas ações, 1 a fechar')
         self.assertIn('Audição para nova peça', message.body)
         self.assertIn('Audição para nova peça', message.alternatives[0].content)
+        self.assertIn('cid:logo', message.alternatives[0].content)
+        logo = next(part for part in message.message().walk() if part.get_content_type() == 'image/png')
+        self.assertEqual(logo['Content-ID'], '<logo>')
         digest = Digest.objects.get()
         self.assertEqual((digest.number, digest.scheduled_for), (1, SEND_AT))
         recorded = {(item.action, item.section, item.was_new) for item in digest.items.all()}
@@ -212,7 +224,7 @@ class SendDigestTests(DigestDataMixin, TestCase):
         self.make()
         self.send()
         out = self.send('--resend')
-        self.assertEqual([message.subject for message in mail.outbox], ['relATOR #1 · 1 nova'] * 2)
+        self.assertEqual([message.subject for message in mail.outbox], ['relATOR #1 · 1 nova ação'] * 2)
         self.assertEqual(mail.outbox[1].bcc, ['reader@example.org', 'friend@example.org'])
         self.assertEqual(Digest.objects.count(), 1)
         self.assertIn('not recorded again', out)

@@ -10,12 +10,13 @@ Sem novidades esta semana.
 {% set action = item.action %}
 {% set chip = deadline_chip(action) %}
 {% set fact_line = facts(action) %}
+{% set pillar_part = '' if section.is_pillar else action.get_pillar_display() ~ ' · ' %}
 
 * {% if item.is_new %}[NOVO] {% endif %}{{ action.title }}
 {% if action.organisation %}
   {{ action.organisation }}
 {% endif %}
-  {{ action.get_pillar_display() }} · {{ action.get_region_display() }}{% if fact_line %} · {{ fact_line }}{% endif %}
+  {{ pillar_part }}{{ action.get_region_display() }}{% if fact_line %} · {{ fact_line }}{% endif %}
 
 {% if chip %}
   {{ chip }}

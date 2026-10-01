@@ -140,3 +140,12 @@ block and to rename the newsletter to "relATOR".
   the header and footer of both templates, and the sender name (`DEFAULT_FROM_EMAIL` in
   settings). The repo, code and Google Cloud app keep the name `theater-watcher`. The naming
   question in `design/email-brief.md` is now answered.
+
+**2026-10-01, email tweaks:**
+- Items inside a pillar section (Teatro, Cinema, …) no longer show the pillar tag, because the
+  heading already says it. Items in the other sections (Últimos dias, Formação, Apoios, …)
+  still show it. This applies to both the HTML and the text version.
+- The counts read "N novas ações" / "1 nova ação" (subject, preheader and intro).
+- The logo (`design/logo/logo-120.png`, shown at 56 px) sits next to the name in the header.
+  It's embedded in the email, so it doesn't depend on hosting (see GOTCHAS). The email is now
+  about 68 KB, under Gmail's 100 KB clip.

@@ -13,6 +13,8 @@ from .selection import PILLAR_SECTIONS, Section
 
 TEMPLATES = Path(__file__).parent / 'email'
 OUTPUT_DIR = settings.DATA_DIR / 'digests'
+LOGO = settings.BASE_DIR / 'design' / 'logo' / 'logo-120.png'
+LOGO_CID = 'logo'
 MONTHS = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
 COLOURS = {
     Section.CLOSING_SOON: '#D9480F',
@@ -57,6 +59,7 @@ def render(selection):
     environment.filters.update(short_date=short_date)
     context = {
         'name': NAME,
+        'logo_src': f'cid:{LOGO_CID}',
         'number': number,
         'subject': subject,
         'date': long_date(selection.send_at),
@@ -77,7 +80,8 @@ def write(rendered, send_at):
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     stem = OUTPUT_DIR / f'issue-{rendered.number}-{send_at.astimezone(LISBON).date().isoformat()}'
     html_path, text_path = stem.with_suffix('.html'), stem.with_suffix('.txt')
-    html_path.write_text(rendered.html, encoding='utf-8')
+    # The email embeds the logo (cid:); a preview opened in a browser loads it from disk instead.
+    html_path.write_text(rendered.html.replace(f'cid:{LOGO_CID}', LOGO.as_uri()), encoding='utf-8')
     text_path.write_text(rendered.text, encoding='utf-8')
     return html_path, text_path
 
@@ -87,14 +91,15 @@ def _sections(selection):
     for section in Section:
         items = selection.sections[section]
         if items or section in PILLAR_SECTIONS:
-            sections.append({'key': section.value, 'label': section.label, 'items': items})
+            # In a pillar section the heading already says the pillar, so items don't repeat it.
+            sections.append({'key': section.value, 'label': section.label, 'items': items, 'is_pillar': section in PILLAR_SECTIONS})
     return sections
 
 
 def _counts_line(selection):
     new = selection.new_count
     closing = selection.closing_count
-    parts = [f'{new} nova' if new == 1 else f'{new} novas']
+    parts = [f'{new} nova ação' if new == 1 else f'{new} novas ações']
     if closing:
         parts.append(f'{closing} a fechar')
     return ', '.join(parts)

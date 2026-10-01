@@ -4,7 +4,7 @@ from django.db import transaction
 from django.utils import timezone
 
 from .models import Digest, DigestItem
-from .render import render
+from .render import LOGO, LOGO_CID, render
 from .selection import select
 
 GMAIL_CLIP_BYTES = 100_000
@@ -12,6 +12,15 @@ GMAIL_CLIP_BYTES = 100_000
 
 class CannotSend(Exception):
     pass
+
+
+class DigestEmail(EmailMultiAlternatives):
+    def message(self, **kwargs):
+        # Django 6.1 has no API for inline images, so the logo is attached as a "related" part of
+        # the HTML body, which is what the template's cid: link points to.
+        msg = super().message(**kwargs)
+        msg.get_body(('html',)).add_related(LOGO.read_bytes(), 'image', 'png', cid=f'<{LOGO_CID}>')
+        return msg
 
 
 def send_issue(send_at, test=False, resend=False):
@@ -32,7 +41,7 @@ def send_issue(send_at, test=False, resend=False):
     subject = f'[TESTE] {rendered.subject}' if test else rendered.subject
     # Readers go in Bcc so nobody sees the others' addresses; a test copy only goes to the sender.
     bcc = [] if test else settings.DIGEST_RECIPIENTS
-    message = EmailMultiAlternatives(subject, rendered.text, to=[settings.GMAIL_ADDRESS], bcc=bcc)
+    message = DigestEmail(subject, rendered.text, to=[settings.GMAIL_ADDRESS], bcc=bcc)
     message.attach_alternative(rendered.html, 'text/html')
     message.send()
     if not test and not resend:
