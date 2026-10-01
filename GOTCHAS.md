@@ -41,6 +41,18 @@ private CMS endpoint (`repeater.bondlayer.com/fetch`) that rejects a hand-built 
 those items as structured JSON, and collect often enough that no more than about 20 posts
 appear between runs (about every 5 days at current volume).
 
+### Some company sites look dead from the work network but aren't
+On the work network, a few theatre company sites (Escola de Mulheres, Teatro das Beiras,
+Projecto Ruínas, Astro Fingido) fail with `SSLError: self-signed certificate in certificate
+chain` over HTTPS, or with a 403 titled "Access Notification" (`Server: Cato`) over HTTP. That's
+the corporate web filter blocking the site by category, not the site being down. WebFetch goes
+through the same filter, so it fails too. Earlier site checks in
+[T-013](tasks/T-013-producer-and-company-sources.md) treated these as dead and left the
+websites blank; the DGArtes directory crawl showed they were live.
+**Fix:** check a suspect site with a web search (the result pages show it's indexed and
+current) instead of loading it. Keep it in `companies.csv`: those sources fail from the work
+network and collect normally from any other. Don't try to get around the filter.
+
 ## Extraction
 
 ### A feed's publish date can be years older than the offer

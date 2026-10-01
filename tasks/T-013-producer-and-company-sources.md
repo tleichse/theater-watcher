@@ -54,6 +54,22 @@ Açores are `islands`.
    2023). Each entity page lists the company's website and region. It's read once, slowly,
    respecting `Crawl-delay: 10`.
 
+**Directory crawl result (2026-10-01):** 66 entities. It filled 8 of the 31 gaps: ACTA
+(`actateatro.pt`), ESTE, Teatromosca (now on Weebly), Penetrarte (the "84" blog), Escola de
+Mulheres, Teatro das Beiras, Projecto Ruínas, and Astro Fingido (moved from `.pt` to
+`astrofingido.com`, found by search). The last four had been left blank in step 1 because the
+work network's web filter blocks them (see [GOTCHAS](../GOTCHAS.md)). A web search confirmed
+they're live. This leaves **64 of 87** with a website. Still blank:
+- Teatro do Eléctrico: its listed `teatrodoelectrico.pt` no longer resolves, and search finds
+  no other site.
+- Teatro do Noroeste: the directory lists `tmsm.pt`, the municipal theatre it's resident in.
+  That's a venue, not the company's site.
+- Cendrev, Loup Solitaire, Filandorra: in the directory, but with no website listed.
+- The other 18 (mostly new in the 2025–26 biennial) aren't in the directory yet.
+
+The decision PDF puts Teatro do Eléctrico in Algarve, while the directory says Lisbon (it's
+based in Amadora). The CSV keeps the PDF's value.
+
 **How they're collected:** each company with a website becomes a source (`co-<slug>`, tier
 A) built from the CSV, with the new `site_watch` adapter. It reads the RSS feed if the homepage
 advertises one (skipping comment feeds), otherwise it follows the homepage's own-domain links.
