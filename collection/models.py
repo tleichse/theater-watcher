@@ -11,6 +11,7 @@ class RawListing(models.Model):
     url = models.URLField('endereço', max_length=500)
     raw_title = models.CharField('título original', max_length=500, blank=True)
     raw_text = models.TextField('texto original', blank=True)
+    published_at = models.DateTimeField('publicado em', null=True, blank=True)
     fetched_at = models.DateTimeField('recolhido em', default=timezone.now)
     extracted_at = models.DateTimeField('extraído em', null=True, blank=True)
 

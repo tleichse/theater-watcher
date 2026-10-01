@@ -156,6 +156,11 @@ first-pass catalogue above, this section is the more recent one.
 | Portugal Film Commission | Allows everything | — | RSS at `/feed/` | **Include** as a signal |
 | atelevisao / Zapping-TV / MAGG | Allow everything | MAGG: all rights reserved, and any use needs consent. atelevisao's terms couldn't be loaded (connection reset). | RSS feeds, including `zapping-tv.com/tag/casting/feed/` and `magg.sapo.pt/tag/casting/feed/` | **Include** as signals, **headline and link only** |
 
+*Addendum (2026-10-01):* building the collectors changed how several of these are read
+(São Luiz through its WordPress API, enCAST and TNSJ through HTML listings, the Zapping casting
+tag replaced by its main feed). The current access method for each source is in
+`collection/sources.py`, and the reasons are in [T-007](T-007-collectors.md).
+
 **Proposed final source list:** Coffeepaste, enCAST, TNSJ, TNDM, São Luiz, and Plural as
 casting calls. ICA, the Film Commission, and the three TV news sites as "castings likely soon"
 signals. Every tier C source is out. Marketing and Dubbing have **no remaining public source**

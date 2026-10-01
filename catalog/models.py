@@ -17,7 +17,9 @@ class Source(models.Model):
         RSS = 'rss', 'RSS'
         SITEMAP = 'sitemap', 'Sitemap'
         HTML = 'html', 'HTML'
+        API = 'api', 'API'
 
+    slug = models.SlugField('identificador', unique=True)
     name = models.CharField('nome', max_length=200, unique=True)
     url = models.URLField('endereço', max_length=500)
     tier = models.CharField('nível de confiança', max_length=10, choices=Tier)

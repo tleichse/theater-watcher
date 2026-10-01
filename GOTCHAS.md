@@ -26,6 +26,20 @@ courses we wanted. Checking only the status code would have recorded both as usa
 Found while checking training sources in [T-002](tasks/T-002-casting-sources-research.md).
 **Fix:** open the feed and confirm it's XML with `<item>`/`<pubDate>` entries of the kind
 you want and recent dates.
+**Recurred:** 2026-10-01, [T-007](tasks/T-007-collectors.md). Feeds that T-002 recorded as live
+turned out dead when the collectors were built: São Luiz's `/feed/` has one post from 2018,
+Zapping's casting tag stops in 2018, and the Film Commission's feed is valid XML with zero
+items. Check freshness again when building the collector, not just during research.
+
+### Coffeepaste only shows its newest ~20 classifieds to a plain HTTP client
+The listing page renders about 20 classifieds (plus about 10 in a Formação block). `?page=2`
+is ignored, `sitemap.xml` doesn't include current posts, and the "next page" button calls a
+private CMS endpoint (`repeater.bondlayer.com/fetch`) that rejects a hand-built request with
+"invalid project or collection". Found while building the collector in
+[T-007](tasks/T-007-collectors.md).
+**Fix:** read the page's content bundle (`cdn.bndlyr.com/…/_p/content.*.js`), which holds
+those items as structured JSON, and collect often enough that no more than about 20 posts
+appear between runs (about every 5 days at current volume).
 
 ## Repository & paths
 

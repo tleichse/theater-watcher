@@ -44,8 +44,11 @@ needing its own adapter, which makes it a later task), and Cultura Portugal (opt
 T-002, and it overlaps with DGArtes).
 
 ## Open questions
-- What contact URL goes in the user agent? Proposal: the GitHub repo
-  (`https://github.com/tleichse/theater-watcher`). It's public only if the repo is.
+- ~~What contact URL goes in the user agent? Proposal: the GitHub repo
+  (`https://github.com/tleichse/theater-watcher`). It's public only if the repo is.~~
+  **Answer (2026-10-01, default, to be confirmed by the user):** the repo URL, set as
+  `COLLECTOR_USER_AGENT` in settings. If the repo is private, site owners can't reach us
+  through it.
 
 ## Proposed approach
 1. Source configuration lives in code, as a registry: slug, name, URL, tier, method, the URL
@@ -63,12 +66,51 @@ T-002, and it overlaps with DGArtes).
 6. A real run against every source. Record what each one returned.
 
 ## Acceptance criteria
-- [ ] Every source in the table is in the registry, and `sync_sources` loads them
-- [ ] `collect` fetches every active source and respects `robots.txt` and crawl delays
-- [ ] A failing source doesn't stop the run, and the report says which one failed
-- [ ] Re-running doesn't duplicate listings
-- [ ] Raw text older than 60 days is deleted
-- [ ] Adapter tests pass offline
-- [ ] A real run returns listings from every source that has current content
+- [x] Every source in the table is in the registry, and `sync_sources` loads them
+- [x] `collect` fetches every active source and respects `robots.txt` and crawl delays
+- [x] A failing source doesn't stop the run, and the report says which one failed
+- [x] Re-running doesn't duplicate listings
+- [x] Raw text older than 60 days is deleted
+- [x] Adapter tests pass offline
+- [x] A real run returns listings from every source that has current content
 
 ## Implementation
+**2026-10-01:** built, and the first real run collected **153 listings from 16 sources with no
+failures**. What diverged from the plan:
+- **The registry is in `collection/sources.py`**, which holds the slug, name, tier, method,
+  adapter, and config for each source. `sync_sources` upserts it into `Source`, which gained
+  a `slug` (to link the two) and an `api` method.
+- **There's no sitemap adapter.** Both sources planned for sitemaps worked better another
+  way. enCAST's sitemap covers all of Europe with no country in the URL, so its `/castings/portugal`
+  listing page is used. TNSJ's sitemap is stale, so its news page is used. The six adapters
+  are `rss`, `html_list` (listing page, then links matching a pattern, optional keyword filter on
+  the link text, then detail pages), `page` (fixed URLs, re-read every run), `wordpress` (São
+  Luiz's `espetaculo` API searched for audição/open call/casting, last 120 days),
+  `coffeepaste`, and `ica` (one listing per fiction row, URL `…#film-slug`).
+- **Sources whose access changed from T-002:**
+  - São Luiz: its RSS feed is dead (one post, 2018), so the WordPress API is used instead.
+  - Zapping: the casting tag is dead (2018), so the main feed is used with a keyword filter.
+  - Film Commission: its feed is empty, so `/noticias/` is used.
+  - Plural is split into two sources: `plural-casting`, its fixed always-open actors page
+    (tier A), and `plural-news`, a feed of production news such as "A Madrasta" or "Amor à
+    Prova" starting to film, which goes to No radar.
+- **Keyword filters** keep only likely-relevant items, so extraction doesn't read gossip:
+  atelevisao and Zapping (casting, elenco, gravações, nova novela…), and TNSJ and TNDM
+  (audições, workshop, formação, estágio…). On the first run atelevisao, Zapping, and TNDM
+  returned nothing because none of their current items matched, which is correct.
+- **Coffeepaste** is read from its content bundle, not the HTML (see the gotcha). That gives
+  structured fields, including the **poster** ("Publicado por", "Entidade") for
+  [T-006](T-006-traceable-poster.md), the category, and the deadline. Email fields are never
+  stored, and emails and phone numbers in the free text are replaced with "[contacto
+  removido]". It only reaches back about 5 days, so collection must run at least that often.
+  That's an open decision for the user (T-003 says weekly).
+- **Changed pages:** when a known URL comes back with different text (only `page` and
+  non-detail `rss` sources re-read known URLs), the listing is updated and `extracted_at` is
+  cleared, so it gets extracted again.
+- **Retention:** after 60 days only `raw_text` is cleared. The row and URL stay, so the listing
+  isn't collected again as new.
+- **robots.txt** follows RFC 9309: a 4xx response allows everything, and a 5xx response
+  disallows everything. The delay is the larger of 1 s and the site's `Crawl-delay` (10 s on
+  DGArtes).
+- Tests: 14 new, 34 in total, all pass offline, against fake HTTP sessions and synthetic pages
+  (no copies of real pages are stored in the repo).

@@ -11,6 +11,9 @@ the task to `done`. -->
 ## 2026-10-01
 
 ### Features
+- [collection] Listings are collected from all 16 sources (castings, TV and film production
+  news, funding calls, and training) with one `collect` command. It respects each site's
+  robots.txt and crawl delay.
 - [backend] Every opportunity in the digest names who posted it: the admin refuses to approve
   an action without one, and a "Sem quem publica" filter lists the ones still missing it.
 - [backend] Opportunities can be stored and reviewed in the admin: sources, organisations,

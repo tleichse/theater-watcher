@@ -8,7 +8,7 @@ from .models import Action, Organisation, Source
 
 @admin.register(Source)
 class SourceAdmin(admin.ModelAdmin):
-    list_display = ['name', 'tier', 'method', 'active']
+    list_display = ['name', 'slug', 'tier', 'method', 'active']
     list_filter = ['tier', 'method', 'active']
     search_fields = ['name', 'url']
 

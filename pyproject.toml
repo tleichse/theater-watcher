@@ -4,8 +4,11 @@ version = "0.1.0"
 description = "Weekly email digest of casting opportunities in Portugal."
 requires-python = ">=3.12"
 dependencies = [
+    "beautifulsoup4>=4.15.0",
     "django>=6.1.1",
+    "feedparser>=6.0.14",
     "python-dotenv>=1.2.4",
+    "requests>=2.34.2",
 ]
 
 [tool.uv]

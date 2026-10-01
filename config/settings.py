@@ -126,6 +126,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+COLLECTOR_USER_AGENT = 'theater-watcher/0.1 (+https://github.com/tleichse/theater-watcher)'
+
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration

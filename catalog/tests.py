@@ -12,7 +12,8 @@ T0 = datetime(2026, 10, 1, 12, 0, tzinfo=timezone.utc)
 class ExpiresAtTests(TestCase):
     def setUp(self):
         self.source = Source.objects.create(
-            name='Coffeepaste', url='https://www.coffeepaste.com/', tier='B', method='html'
+            slug='coffeepaste', name='Coffeepaste', url='https://www.coffeepaste.com/', tier='B',
+            method='html',
         )
 
     def make(self, **fields):
@@ -57,7 +58,8 @@ class ExpiresAtTests(TestCase):
 class TraceablePosterTests(TestCase):
     def setUp(self):
         self.source = Source.objects.create(
-            name='Coffeepaste', url='https://www.coffeepaste.com/', tier='B', method='html'
+            slug='coffeepaste', name='Coffeepaste', url='https://www.coffeepaste.com/', tier='B',
+            method='html',
         )
         self.organisation = Organisation.objects.create(name='Teatro Exemplo')
 
@@ -83,7 +85,8 @@ class ActionAdminTests(TestCase):
         User.objects.create_superuser('admin', 'admin@example.org', 'pw')
         self.client.login(username='admin', password='pw')
         self.source = Source.objects.create(
-            name='Coffeepaste', url='https://www.coffeepaste.com/', tier='B', method='html'
+            slug='coffeepaste', name='Coffeepaste', url='https://www.coffeepaste.com/', tier='B',
+            method='html',
         )
         self.organisation = Organisation.objects.create(name='Teatro Exemplo')
 

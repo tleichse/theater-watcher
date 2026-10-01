@@ -16,6 +16,13 @@ uv run python manage.py createsuperuser
 uv run python manage.py runserver   # admin at http://localhost:8000/admin/
 ```
 
+Weekly run (each step is its own command; see [T-003](tasks/T-003-digest-architecture.md)):
+
+```sh
+uv run python manage.py sync_sources   # load or refresh the sources from collection/sources.py
+uv run python manage.py collect        # fetch new listings (optionally --source <slug>)
+```
+
 ## Code layout
 One Django app per pipeline stage. The reasoning is in [T-004](tasks/T-004-project-skeleton.md).
 
