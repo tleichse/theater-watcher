@@ -8,7 +8,7 @@ from catalog.models import Organisation, Source
 
 from .adapters import ADAPTERS
 from .models import RawListing
-from .sources import BY_SLUG, SOURCES, load_companies
+from .sources import BY_SLUG, SOURCES, load_companies, load_producers
 
 RAW_TEXT_RETENTION = timedelta(days=60)
 ACTIVE_YEARS = 2
@@ -32,8 +32,10 @@ def sync_sources():
                 'active': entry.get('active', True),
             },
         )
+    # A row removed from sources.py or a CSV would otherwise stay active and fail every collect.
+    Source.objects.exclude(slug__in=BY_SLUG).update(active=False)
     oldest_active = timezone.now().year - ACTIVE_YEARS
-    for company in load_companies():
+    for company in load_companies() + load_producers():
         validated = int(company['last_active'] or 0) >= oldest_active
         Organisation.objects.update_or_create(
             name=company['name'],

@@ -24,3 +24,4 @@ one merged later renumbers its task.
 | T-011 | Email visual design: brief for Claude Design | blocked | design | [T-011](tasks/T-011-email-design-brief.md) |
 | T-012 | Film schools and student productions as sources | in-progress | collection | [T-012](tasks/T-012-film-school-sources.md) |
 | T-013 | TV and film producers and DGArtes-funded companies as sources | in-progress | collection | [T-013](tasks/T-013-producer-and-company-sources.md) |
+| T-014 | EU funding and mobility calls as sources | new | collection | [T-014](tasks/T-014-eu-funding-sources.md) |

@@ -4,6 +4,7 @@ from pathlib import Path
 from django.utils.text import slugify
 
 COMPANIES_FILE = Path(__file__).with_name('companies.csv')
+PRODUCERS_FILE = Path(__file__).with_name('producers.csv')
 
 INSTITUTION_KEYWORDS = (
     r'audiç|casting|elenco|candidatura|open call|oficina|workshop|formaç|estágio|masterclass'
@@ -151,14 +152,22 @@ SOURCES = [
 
 
 def load_companies():
-    with COMPANIES_FILE.open(encoding='utf-8', newline='') as handle:
+    return _load_csv(COMPANIES_FILE)
+
+
+def load_producers():
+    return _load_csv(PRODUCERS_FILE)
+
+
+def _load_csv(path):
+    with path.open(encoding='utf-8', newline='') as handle:
         return list(csv.DictReader(handle))
 
 
-def company_sources(companies):
+def company_sources(companies, prefix='co-'):
     return [
         {
-            'slug': f"co-{slugify(company['name'])}"[:50],
+            'slug': f"{prefix}{slugify(company['name'])}"[:50],
             'name': company['name'],
             'tier': 'A',
             'method': 'html',
@@ -171,6 +180,6 @@ def company_sources(companies):
     ]
 
 
-SOURCES += company_sources(load_companies())
+SOURCES += company_sources(load_companies()) + company_sources(load_producers(), prefix='pr-')
 
 BY_SLUG = {source['slug']: source for source in SOURCES}

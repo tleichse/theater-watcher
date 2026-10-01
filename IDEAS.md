@@ -121,3 +121,13 @@ today's date that ends with `→ folded into T-XXX`. -->
   editions per reader (e.g. by region) were suggested and not yet taken up.
 - "the acoes tags are on top of each other in the ultimos dias section. Make the space separation
   as in the other sections" → folded into [T-010](tasks/T-010-send-and-weekly-run.md)
+- "the theatre companies have their owncsv. what about the other contacts?" then "go ahead. I
+  would take the moment to really dig into what other producers may exist in Portugal." and "We
+  need that passage to the database from the csv directly." (a `producers.csv` like
+  `companies.csv`) → folded into [T-013](tasks/T-013-producer-and-company-sources.md)
+- "Also maybe erasmus funding and opportunities from the euopean union should also be considered.
+  Would that be a different kind of list?" → [T-014](tasks/T-014-eu-funding-sources.md)
+- "After the run, i need you to think about how to make this crawl part of the /collect-extract
+  run, so that you cover all the important sources covering producers, theater companies,
+  national theatres, and other players" → folded into
+  [T-013](tasks/T-013-producer-and-company-sources.md)

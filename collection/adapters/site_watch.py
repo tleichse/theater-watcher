@@ -14,7 +14,8 @@ def collect(fetcher, config, known_urls):
     soup = BeautifulSoup(fetcher.get(homepage), 'html.parser')
     feed = discover_feed(soup, homepage)
     if feed:
-        rss_config = {'feed_url': feed, 'keywords': config.get('keywords'), 'fetch_detail': True}
+        # Same rule as the followed links below: a dead post skips (SP Entertainment's feed had a 404).
+        rss_config = {'feed_url': feed, 'keywords': config.get('keywords'), 'fetch_detail': True, 'skip_failed_detail': True}
         yield from rss.collect(fetcher, rss_config, known_urls)
         return
     host = urlsplit(homepage).netloc.removeprefix('www.')

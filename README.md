@@ -26,7 +26,7 @@ One Django app per pipeline stage. The reasoning is in [T-004](tasks/T-004-proje
 |---|---|
 | `config/` | Django project settings and URLs |
 | `catalog/` | Sources, organisations, actions, and the review admin |
-| `collection/` | Raw listings, one adapter per source, collection and extraction commands. The theatre companies are in `companies.csv`, and the lists they come from are in [`company_lists/`](collection/company_lists/README.md) |
+| `collection/` | Raw listings, one adapter per source, collection and extraction commands. The theatre companies are in `companies.csv`, and the lists they come from are in [`company_lists/`](collection/company_lists/README.md). Producers and casting companies are in `producers.csv`, from [`producer_lists/`](collection/producer_lists/README.md) |
 | `digest/` | Issues and what each one shared, selection rules, email templates, build and send |
 | `data/` | Git-ignored: the SQLite database and extraction files |
 

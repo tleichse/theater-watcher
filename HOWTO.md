@@ -16,10 +16,11 @@ or screen changes, update the step in the same change. -->
    uv run python manage.py migrate
    uv run python manage.py sync_sources
    ```
-   `sync_sources` reports how many sources it synced (about 150: the fixed sources plus every
-   theatre company in `collection/companies.csv` that has a website). After this, `collect`
-   syncs by itself every time it runs, so edits to `collection/sources.py` or
-   `collection/companies.csv` are picked up without running this again.
+   `sync_sources` reports how many sources it synced (about 300: the fixed sources plus every
+   theatre company in `collection/companies.csv` and every producer in
+   `collection/producers.csv` that has a website). After this, `collect` syncs by itself every
+   time it runs, so edits to `collection/sources.py` or either CSV are picked up without running
+   this again.
 2. Create your admin login. It asks for a password, so run it yourself:
    ```sh
    uv run python manage.py createsuperuser
@@ -167,6 +168,13 @@ from, and the full step-by-step process for finding new ones, is in
   and the 2027–2030 four-year list (January 2027);
 - once a year, to recheck companies whose `last_active` year is about to fall out of the two-year
   "validated" window.
+
+## Now and then: look for new producers
+Film and TV producers, casting companies and dubbing studios are in `collection/producers.csv`.
+Where each one came from, and the process for finding new ones, is in
+[`collection/producer_lists/README.md`](collection/producer_lists/README.md). Run it with Claude
+Code (*"Let's look for new producers, following collection/producer_lists/README.md"*) once a
+year, or when APIT or the Film Commission directory changes.
 
 ## When something goes wrong
 

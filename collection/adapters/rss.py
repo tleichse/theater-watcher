@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 
 import feedparser
+import requests
 
 from .base import Listing, html_to_text, matches, page_title
 
@@ -16,7 +17,12 @@ def collect(fetcher, config, known_urls):
         if config.get('fetch_detail'):
             if url in known_urls:
                 continue
-            html = fetcher.get(url)
+            try:
+                html = fetcher.get(url)
+            except requests.HTTPError:
+                if not config.get('skip_failed_detail'):
+                    raise
+                continue
             title = title or page_title(html)
             text = html_to_text(html, config.get('detail_selector'))
         else:

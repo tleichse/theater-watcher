@@ -14,7 +14,7 @@ from .collect import collect_source, prune_raw_text, sync_sources
 from .extraction import export_pending, import_drafts
 from .http import Disallowed, Fetcher
 from .models import RawListing
-from .sources import SOURCES, company_sources, load_companies
+from .sources import SOURCES, company_sources, load_companies, load_producers
 
 
 class FakeResponse:
@@ -137,6 +137,15 @@ class AdapterTests(SimpleTestCase):
         listings = list(rss.collect(fetcher, config, {'https://a.pt/1'}))
         self.assertEqual([(listing.url, listing.text) for listing in listings], [('https://a.pt/2', 'Audiências\nTexto completo')])
 
+    def test_rss_detail_fetch_skips_a_post_that_fails(self):
+        fetcher = fetcher_for({
+            'https://a.pt/feed': (200, RSS),
+            'https://a.pt/2': (200, '<main><h1>Audiências</h1></main>'),
+        })
+        config = {'feed_url': 'https://a.pt/feed', 'fetch_detail': True, 'skip_failed_detail': True}
+        listings = list(rss.collect(fetcher, config, set()))
+        self.assertEqual([listing.url for listing in listings], ['https://a.pt/2'])
+
     def test_html_list_scopes_filters_and_fetches_details(self):
         listing_page = """<nav><a href="/menu">Audições menu</a></nav>
         <div class="news"><a href="/noticia-1">Abrem audições</a><a href="/noticia-2">Prémio</a>
@@ -229,6 +238,11 @@ class CollectTests(TestCase):
         self.assertEqual(sync_sources(), len(SOURCES))
         self.assertEqual(Source.objects.count(), len(SOURCES))
         self.assertFalse(Source.objects.get(slug='ica').active)
+
+    def test_sync_deactivates_a_source_no_longer_listed(self):
+        Source.objects.create(slug='pr-gone', name='Gone', url='https://gone.pt/', tier='A', method='html')
+        sync_sources()
+        self.assertFalse(Source.objects.get(slug='pr-gone').active)
 
     def test_new_then_unchanged(self):
         self.assertEqual(self.run_with(self.feed('Workshop')).new, 2)
@@ -404,6 +418,14 @@ class CompanySourceTests(TestCase):
         self.assertTrue(all(len(slug) <= 50 and slug.startswith('co-') for slug in slugs))
         all_slugs = [source['slug'] for source in SOURCES]
         self.assertEqual(len(all_slugs), len(set(all_slugs)))
+
+    def test_producers_file_becomes_sources_with_their_own_prefix(self):
+        producers = load_producers()
+        sources = company_sources(producers, prefix='pr-')
+        self.assertEqual(len(sources), sum(1 for producer in producers if producer['website']))
+        self.assertTrue(all(len(source['slug']) <= 50 and source['slug'].startswith('pr-') for source in sources))
+        names = [row['name'] for row in load_companies() + producers]
+        self.assertEqual(len(names), len(set(names)))
 
     def test_sync_validates_companies_active_in_the_last_two_years(self):
         Organisation.objects.create(name='Razões Pessoais')

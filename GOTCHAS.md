@@ -67,6 +67,17 @@ UTF-8. The four listings already stored were repaired in place, so they weren't 
 extraction again. To look for this, search for "Ã§" or "Ã£", not a bare "Ã", which is a real
 letter ("NÃO").
 
+### A source removed from the registry keeps failing every collect
+`sync_sources` creates and updates a `Source` row for each entry in `collection/sources.py` and
+each CSV row with a website, but it never touched rows that had dropped out. After eight producer
+websites were blanked in `producers.csv` (unreachable, robots.txt, or not useful), their sources
+stayed active, and `collect` would have reported each one as "not in collection/sources.py" every
+week. Found after the first producer collect in
+[T-013](tasks/T-013-producer-and-company-sources.md).
+**Fix:** `sync_sources` now deactivates every source that isn't configured any more. Listings it
+already collected stay in the database; mark the unextracted ones as skipped if they aren't
+wanted.
+
 ## Extraction
 
 ### A feed's publish date can be years older than the offer

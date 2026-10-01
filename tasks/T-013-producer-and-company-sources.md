@@ -114,6 +114,43 @@ single current national register exists. These are the lists found:
   grants, which bring in the smaller and newer companies that are most likely to hold open
   calls.
 
+## Deep dive: making discovery part of the weekly run (asked 2026-10-01)
+The user asked how to make this crawl part of `/collect-extract`, so the run covers "all the
+important sources covering producers, theater companies, national theatres, and other players".
+
+**What changes and how often.** The lists of *who might post* (DGArtes decisions, APIT, GEDIPE,
+the Film Commission directory) change a few times a year. The *posts* change every week. Re-reading
+every registry and every profile each Monday is slow and mostly finds nothing. Also, deciding
+whether a new name belongs takes judgement (is it a modelling agency? an individual? is the site
+stale?), so it can't be a purely mechanical step.
+
+**Options:**
+1. *Weekly full re-crawl inside `collect`.* Always current, but it adds minutes to every run, and
+   rows would change in tracked CSVs without anyone looking.
+2. *A `discover` step that diffs, plus Claude curating the diff (recommended).* A `discover`
+   command re-reads the machine-readable registries (APIT and GEDIPE pages, the Film Commission
+   API, the DGArtes entity directory) and writes only what's **new or gone** compared with the
+   two CSVs to `data/discover/candidates.json`. It opens profile pages only for new entities.
+   `/collect-extract` gets a step 0: run `discover` at most once a month (skipped if the last run
+   was under 30 days ago). If there are candidates, Claude applies the lists READMEs' rules (check
+   the site, check freshness, skip categories), adds the rows that pass and the skip reasons, and
+   reports them so the user can review the diff before committing. Then it collects as usual, so
+   new sources are collected in the same run.
+3. *Discovery from the posts themselves.* `/extract` already names the poster of every call. An
+   organisation that posts on Coffeepaste or enCAST but isn't in either CSV is exactly the kind of
+   player no registry lists (small producers, independent casting directors). `discover` can list
+   these too (organisations on actions that aren't in a CSV and have no source), as candidates
+   for a site check. This works alongside option 2.
+
+**Coverage beyond producers and companies.** National theatres (TNSJ, TNDM, São Luiz) are
+hand-written in `sources.py`, because each one needs its own news-page config. The natural next
+registry is the *Rede de Teatros e Cineteatros Portugueses* (about 80 credentialled venues), which
+would fit a third CSV (`venues.csv`) on the same code path. Film schools are T-012, EU funding is
+[T-014](T-014-eu-funding-sources.md), and dubbing studios are listed as not yet looked at in
+[`producer_lists/README.md`](../collection/producer_lists/README.md).
+
+**Recommendation:** options 2 and 3 together, monthly. Waiting for the user's go-ahead.
+
 ## Proposed approach
 1. TV producers: SP Televisão (SIC), RTP's main independent producers (Coral Europa, Ukbar,
    Stopline, Hop!, and others found during the check), and Plural's sister companies. For each,
@@ -123,7 +160,7 @@ single current national register exists. These are the lists found:
 4. Add the sources that pass to the registry, and run a real collect.
 
 ## Acceptance criteria
-- [ ] Each producer and ICA page checked, with a verdict
+- [ ] Each producer and ICA page checked, with a verdict (producers done 2026-10-01; ICA pages not yet)
 - [ ] The DGArtes-funded company list checked, with a verdict per site
 - [ ] Sources that pass are in the registry and collect without errors
 
@@ -191,3 +228,39 @@ two years counts as validated. What changed:
   listings (most were old blog posts). It also found garbled accents on two sites, so
   `Fetcher.get` now decodes undeclared UTF-8 correctly (see GOTCHAS). The 4 affected listings
   were repaired in place.
+
+**Producers (2026-10-01).** The user asked what happens to "the other contacts" now that theatre
+companies have their own CSV, then said to go ahead and "really dig into what other producers may
+exist in Portugal", with the CSV going straight into the database. What changed:
+- **`collection/producers.csv`**, on the same code path as `companies.csv`. `load_producers()` reads
+  it, `company_sources(..., prefix='pr-')` turns each row with a website into a `site_watch`
+  source, and `sync_sources` creates or updates every row as an `Organisation`, validated by
+  `last_active`. `collect` runs `sync_sources` first, so the CSV reaches the database on every run
+  without a separate step. The CSV adds a `kind` column (`producer`, `casting`, `dubbing`) and has
+  no `programme`. `/extract` uses the producer's name as the poster for `pr-` sources, as it does
+  for `co-`.
+- **Three lists, merged by website domain:** GEDIPE's members (65), APIT's current members (55),
+  and the Film Commission's directory read through its WordPress API: producers tagged *Ficção*
+  (146) and entries tagged *Casting* (27). After merging, 223 organisations; 188 rows were kept.
+  The copies, the skip record and the repeatable procedure are in
+  [`collection/producer_lists/README.md`](../collection/producer_lists/README.md), which HOWTO now
+  points to.
+- **First collect over 160 producer sites:** 81 listings from 20 sites. Most producer homepages
+  link to no casting or news page, so `site_watch` finds nothing there. That's expected: producers
+  mostly cast through casting companies and agencies. Real-looking finds: Hand Creative Chain's
+  "Casting" page, Sardinha em Lata's "Candidaturas", Filmesdamente's workshops, a CRIM contest.
+  Eight sites were then blanked (see the lists README), which left 152 collected. Their 29
+  unextracted listings were marked skipped.
+- **Two fixes found by that run:**
+  - A dead post in a company or producer feed (SP Entertainment's had a 404) failed the whole
+    source. `site_watch` already skipped dead links it follows itself, but not posts reached
+    through a discovered feed. It now passes `skip_failed_detail` to the RSS adapter. The
+    hand-configured feeds (ACT, DGArtes, GDA) keep failing loudly, as an existing test expects.
+  - Removing a website from a CSV left its `Source` active, failing every collect. `sync_sources`
+    now deactivates any source that's no longer configured (see GOTCHAS).
+- **The SIC verdict from T-002 still holds:** SP Televisão's site has no casting page. Broadcasters
+  (RTP, SIC, TVI) weren't added as sources (reason in the lists README).
+- The user then asked how to make this discovery part of `/collect-extract`. The options and the
+  recommendation are in the deep dive above, pending the user's decision.
+- Tests: 3 new (producers file, a dead feed post, deactivating a dropped source), 81 in total, all
+  pass.
