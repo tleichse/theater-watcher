@@ -177,3 +177,6 @@ two years counts as validated. What changed:
   filter. **OUTRO fails for real:** its homepage links to a members-only `/portal` (401), and
   `site_watch` stops the whole source when one followed link fails. That's left open for the
   user to decide.
+- *Follow-up, same day:* the user agreed that `site_watch` should skip a followed link that
+  returns an HTTP error and carry on with the rest of the site. The homepage failing still fails
+  the source. OUTRO now collects (1 new listing).

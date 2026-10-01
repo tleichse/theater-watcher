@@ -184,4 +184,4 @@ the steps and reports back. Steps 1 and 9 are the user's call; Claude Code does 
   music and performance duo); Cotão (it produces other artists' work); Medusa Material (nothing
   found); music, dance-only and publishing-only applicants.
 - **Known collection problem:** OUTRO (`outro.pt`) links to a members-only `/portal` page. The
-  link matches the keywords, the page returns 401, and the whole source fails.
+  link matches the keywords, the page returns 401, and the whole source fails. *Fixed the same day:* `site_watch` now skips a followed page that fails.

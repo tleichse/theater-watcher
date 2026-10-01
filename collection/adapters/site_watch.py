@@ -1,5 +1,6 @@
 from urllib.parse import urljoin, urlsplit
 
+import requests
 from bs4 import BeautifulSoup
 
 from . import rss
@@ -25,7 +26,11 @@ def collect(fetcher, config, known_urls):
     for url, anchor_text in links.items():
         if url in known_urls or not matches(config.get('keywords'), anchor_text):
             continue
-        html = fetcher.get(url)
+        try:
+            html = fetcher.get(url)
+        except requests.HTTPError:
+            # One members-only or broken page shouldn't fail the whole site (OUTRO's /portal is a 401).
+            continue
         yield Listing(url=url, title=page_title(html) or anchor_text, text=html_to_text(html))
 
 

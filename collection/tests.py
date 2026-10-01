@@ -2,6 +2,7 @@ import json
 from datetime import datetime, timedelta, timezone
 from unittest.mock import patch
 
+import requests
 from django.test import SimpleTestCase, TestCase
 from django.utils import timezone as dj_timezone
 
@@ -26,7 +27,7 @@ class FakeResponse:
 
     def raise_for_status(self):
         if self.status_code >= 400:
-            raise RuntimeError(f'HTTP {self.status_code}')
+            raise requests.HTTPError(f'HTTP {self.status_code}')
 
 
 class FakeSession:
@@ -360,6 +361,17 @@ class CompanySourceTests(TestCase):
             'https://co.pt/noticias/audicoes-2027': (200, '<main><h1>Audições 2027</h1><p>Elenco jovem</p></main>'),
         })
         listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç'}, set()))
+        self.assertEqual([listing.url for listing in listings], ['https://co.pt/noticias/audicoes-2027'])
+
+    def test_site_skips_an_own_link_that_fails(self):
+        homepage = """<a href="/portal">Inscrições de sócios</a>
+        <a href="/noticias/audicoes-2027">Audições 2027</a>"""
+        fetcher = fetcher_for({
+            'https://co.pt/': (200, homepage),
+            'https://co.pt/portal': (401, ''),
+            'https://co.pt/noticias/audicoes-2027': (200, '<main><h1>Audições 2027</h1></main>'),
+        })
+        listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç|inscriç'}, set()))
         self.assertEqual([listing.url for listing in listings], ['https://co.pt/noticias/audicoes-2027'])
 
     def test_companies_file_becomes_sources_with_unique_short_slugs(self):
