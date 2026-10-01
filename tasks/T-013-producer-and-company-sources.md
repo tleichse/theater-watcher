@@ -67,6 +67,17 @@ they're live. This leaves **64 of 87** with a website. Still blank:
 - Cendrev, Loup Solitaire, Filandorra: in the directory, but with no website listed.
 - The other 18 (mostly new in the 2025–26 biennial) aren't in the directory yet.
 
+**Search pass on the rest (2026-10-01):** web search found 16 more, so **80 of 87** now have
+a website. Six of them are behind the work network's filter and were accepted on the strength of
+search results (Loup Solitaire at `lobosolitario.pt`, Urze, Krisálida, Terra Amarela,
+Trimagisto, Razões Pessoais). Notable mappings: Addingtroubles is the legal entity behind
+**Plataforma285**, Teatreia is **TEatroensaio**, Enlama is **LAMA Teatro**, Leirena's own
+`.pt` domain isn't indexed but its WordPress blog is active, and `cendrev.pt` doesn't resolve
+from here while `cendrev.com` is current. In step 1, Urze and Hotel Europa had been rejected
+because of false matches on guessed domains. Their real sites are `urzeteatro.com` and
+`hoteleuropateatro.com`. Seven have only social media: Pracena, albiASTA, Filandorra, Cães do
+Mar, One Hundred Stages, and the two above.
+
 The decision PDF puts Teatro do Eléctrico in Algarve, while the directory says Lisbon (it's
 based in Amadora). The CSV keeps the PDF's value.
 
@@ -84,6 +95,24 @@ Projetos* winners (one-off projects, many by individuals), Fundação GDA's supp
 and municipal programmes (Lisboa, Porto). Also: the **quadrennial cycle ends in 2026**.
 DGArtes published the 2027–2030 renewal list (`lista_entidades_sustentados_renovacao_30out25.pdf`),
 and the CSV should be refreshed from it in January 2027.
+
+**Beyond the funded list (asked 2026-10-01: companies "from all around the country"):** no
+single current national register exists. These are the lists found:
+- **Centro de Dramaturgia, Universidade de Coimbra:** "Companhias profissionais de teatro em
+  Portugal (1974-)", a PDF with 93 companies (88 marked active), each with city, years and
+  website. Roughly 60 aren't in `companies.csv`. It was last updated around 2015, so many of its
+  links are stale and some companies have closed. It's 26 Lisboa, 22 Porto, and the rest spread
+  across the country.
+- **DGArtes entity directory** without the year filter: about 70 theatre entities, almost all
+  already covered. There's no gain from it.
+- **ARTHE (ceteatro.pt):** 20 historic decentralisation companies with current links. They're
+  a subset of the above.
+- **UNIMA Portugal:** a 2019 list of puppet theatre companies and projects.
+- **Performart members:** an employers' association. It mixes venues, festivals and companies.
+- **Wikipedia's "Companhias de teatro de Portugal" category.** It includes historic companies.
+- Not yet looked at: the DGArtes *Apoio a Projetos* results. They're annual PDFs of one-off
+  grants, which bring in the smaller and newer companies that are most likely to hold open
+  calls.
 
 ## Proposed approach
 1. TV producers: SP Televisão (SIC), RTP's main independent producers (Coral Europa, Ukbar,

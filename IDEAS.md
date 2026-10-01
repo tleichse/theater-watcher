@@ -82,3 +82,7 @@ today's date that ends with `→ folded into T-XXX`. -->
   these opportunities, and start with 1. from yout recommendation." → [GROWTH.md](GROWTH.md);
   recommendation 1 → [T-012](tasks/T-012-film-school-sources.md) and
   [T-013](tasks/T-013-producer-and-company-sources.md)
+- "i would suggest that you also look for the remaining sources and also look for actors and
+  theat companies that also may be looking for actors. One may be astro fingido, for example. I
+  want them from all around the country. Is there any list of theatre companies?" → folded into
+  [T-013](tasks/T-013-producer-and-company-sources.md)
