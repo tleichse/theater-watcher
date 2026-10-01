@@ -46,6 +46,11 @@
   sources (step 5 below).
 - Where do **training** opportunities come from (folded in from T-003)? **Answer
   (2026-10-01):** research them now (step 6 below).
+- To give Marketing more volume, should **becasting's advertising category** be admitted as
+  tier C, labelled "via becasting" and deduplicated, which the validated-source rule allows?
+  It has no AI opt-out in `robots.txt`, but its terms forbid copying, so facts and a link only.
+  Or should the section stay thin?
+- Is **VSI Lisbon** the "VS Digital Media" the user meant? If not, which studio was it?
 
 ## Deep dive: source catalogue (first pass, 2026-09-30)
 
@@ -221,6 +226,57 @@ monetisation, a Portuguese lawyer should review it.*
    unsubscribe link in every email, and a stored record of each consent.
 6. Only run an LLM over content from sources that haven't opted out of mining.
 
+## Deep dive: Marketing, Dubbing, and training sources (2026-10-01)
+
+Steps 5 and 6 below. Every site was loaded directly (`curl` status code, `robots.txt`, feed
+check), per the gotcha about stale search results.
+
+**The user's lead, "VS Digital Media":** the only company by that name is a UK SEO agency
+with no link to Portugal. The Lisbon dubbing studio the user most likely meant is
+**[VSI Lisbon](https://www.vsi.tv/lisbon)** (VSI Group, in Carnaxide). Its page offers **no
+training, workshops, or voice calls**, only occasional office jobs, so it's not a source.
+*To confirm with the user that this is the studio they meant.*
+
+### Training
+| Source | Region | What it offers | Access | Verdict |
+|---|---|---|---|---|
+| [ACT Escola de Actores / Act4all](https://act-escoladeactores.com/act/proximos-workshops/) | Centro (Lisboa) | Short paid workshops for adults, about 14 upcoming: camera and casting technique (international workshop 29–31 Oct 2026), film and TV acting, multi-camera TV, **dubbing** ("Dobragem: Voz, Postura e Práticas"), improv. | **RSS** at `/feed/`, active (latest item Aug 2026). `robots.txt` has no rules. | **Include** (tier A) |
+| [Conservatório Vocare](https://conservatoriovocare.pt/formacoes) | Norte (Porto) | DGERT-certified short courses: **Dobragem para animação** (3 × 16 h levels, Level I 26–27 Sep 2026) and **Locução para Rádio e Publicidade**. | HTML. No feed (`/feed/` is a 404 page). `robots.txt` blocks only system folders. | **Include** (tier A). One of the few sources for Dubbing and Marketing skills. |
+| [Coffeepaste — Formação category](https://www.coffeepaste.com/en/classificados/) | All | Several training posts a week (7 of the 15 newest listings on 30 Sep), mostly dance, movement, and AEC teaching jobs. | Already a source. | **Include** through the existing collector, filtered to acting, voice, and camera |
+| [Fundação GDA](https://www.fundacaogda.pt/) | Nacional | Support calls for performers (theatre and dance shows, short films) and the **Contratação+** database that connects actors aged ≤30 or 60+ with film and TV producers. | **RSS** at `/feed/`, active (Sep 2026). `robots.txt` allows everything. | **Include** for "Apoios e oportunidades" |
+| [EVOÉ](https://evoe.pt/) | Centro (Lisboa) | Acting school. Its RSS feed lists comedy and improv shows, not courses. | RSS for shows only | **Exclude**: the feed is the wrong content, and courses run all year |
+| [ACE / Teatro do Bolhão](https://ace-tb.com/) | Norte (Porto) | Multi-year professional course (it includes 50 h of acting for camera) | HTML | **Exclude**: an enrolment programme, not a weekly opportunity |
+| [World Academy](https://www.worldacademy.pt/cursos/workshops/espetaculos-e-eventos/locucao-e-dobragens/) | Centro (Carnaxide) | Voice-over and dubbing course, €280 | HTML | **Exclude**: stale, its only edition was Feb–Mar 2025 |
+| NB Academia | Centro | Acting school | `robots.txt` has `Disallow: /` | **Exclude**: it opted out of crawling |
+
+### Dubbing
+- **Studios cast from their own pools and publish no calls.** Checked: VSI Lisbon, 112
+  Studios, and Iyuno Portugal (formerly SDI Media / Matinha, the largest). Pim Pam Pum's site
+  renders in the browser, so fetching it returns no content. Cinemágica (Gaia) didn't respond. The
+  Vozes Mágicas voice agency's blog is from 2008.
+- What does reach the public: **voice calls on Coffeepaste** ("Procura-se voz em português
+  europeu", 30 Sep 2026) and **enCAST** (a dubbing project in Lisbon looking for voice
+  impressionists). Both are already sources, so extraction just has to tag them `dubbing`.
+- Training for the pillar comes from ACT and Vocare (above).
+
+### Marketing
+- **Advertising castings run through talent agencies that cast from their own pools.** Klip,
+  Crowd, Absoluteface, and Blast only offer sign-up forms. Valente Produções has a
+  `/castings` page, but it has no active calls (latest April 2026), and the calls are mixed
+  with "new faces" and babies. That's the same pattern as People Stars, which was excluded.
+- The open advertising calls sit on the **tier C aggregators** already excluded (becasting,
+  PortalCastings, Make Me A Star). becasting currently lists several advertising calls (Lisbon
+  and Porto), but they come from anonymous posters and are mixed with children's and extras
+  work.
+- What reaches the public through validated sources: occasional advertising and
+  social-campaign calls on **enCAST** (Porto and Lisbon, actors 25–40) and Coffeepaste. These
+  are already sources, so extraction tags them `marketing`.
+
+**Finding:** no validated public source is dedicated to Marketing or Dubbing. Both pillars will
+be fed by enCAST and Coffeepaste posts plus training (ACT, Vocare), so expect "Sem novidades
+esta semana" in those sections most weeks. The options to fill them out are product decisions,
+listed in the open questions.
+
 ## Proposed approach
 1. Web search in Portuguese and English for each pillar, plus the cross-pillar platforms.
 2. Open the key sources to check they're active, who posts, and whether applying costs money.
@@ -239,8 +295,8 @@ monetisation, a Portuguese lawyer should review it.*
 - [x] Each source has a trust tier and notes on access
 - [x] The user has reviewed the catalogue and settled what "validated" means
 - [x] The legal and terms-of-service position on collection and republishing is settled
-- [ ] Verified sources found for Marketing and Dubbing, or a recorded finding that none exist
-- [ ] Verified training sources in the catalogue
+- [x] Verified sources found for Marketing and Dubbing, or a recorded finding that none exist
+- [x] Verified training sources in the catalogue
 - [ ] Final source list agreed. It becomes the input to the collector task (not yet created).
 
 ## Implementation
@@ -265,3 +321,9 @@ ways: a live `oportunidade` RSS feed, and its lists of funded theatre companies,
 the watch list that defines "validated" for Theatre. GEPAC was left out: its site renders in
 the browser, and its content (funding notices, statistics) overlaps with DGArtes and Cultura
 Portugal.
+
+**2026-10-01:** did steps 5 and 6 (see the Marketing, Dubbing, and training deep dive).
+Added three training and support sources (ACT, Vocare, Fundação GDA), and Coffeepaste's
+Formação category comes through the existing collector. Dubbing and Marketing turned out to
+have no dedicated public source: studios and agencies cast from their own pools. The user's
+"VS Digital Media" lead was probably VSI Lisbon, which publishes nothing usable.

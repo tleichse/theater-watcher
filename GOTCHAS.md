@@ -19,6 +19,14 @@ nobody opened, will list dead or stale sources. Found in
 **Fix:** before adding a source to the catalogue, load it directly with `curl`, check the HTTP
 status, and check the date of the newest listing.
 
+### A 200 on `/feed/` doesn't mean the site has a feed
+Conservatório Vocare returns HTTP 200 for `/feed/`, but the body is its "Página não
+encontrada" page. EVOÉ's `/feed/` is a real RSS feed, but it lists comedy shows, not the
+courses we wanted. Checking only the status code would have recorded both as usable feeds.
+Found while checking training sources in [T-002](tasks/T-002-casting-sources-research.md).
+**Fix:** open the feed and confirm it's XML with `<item>`/`<pubDate>` entries of the kind
+you want and recent dates.
+
 ## Repository & paths
 
 ### Project name is spelled two ways
