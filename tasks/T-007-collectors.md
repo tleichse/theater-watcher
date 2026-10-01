@@ -115,3 +115,11 @@ failures**. What diverged from the plan:
   DGArtes).
 - Tests: 14 new, 34 in total, all pass offline, against fake HTTP sessions and synthetic pages
   (no copies of real pages are stored in the repo).
+**2026-10-01 (later), wider keywords:** the user noticed that a call worded differently
+("Procuram-se intérpretes…") would never reach `/extract` on the sources with a keyword
+pre-filter, and asked to widen them. `INSTITUTION_KEYWORDS` (TNSJ, TNDM) now also matches
+intérpret, ator/atriz (and actor/actriz), procura, recrut, concurso, seleç, convocat, inscriç,
+laboratório, and curso. `TV_NEWS_KEYWORDS` (atelevisao, Zapping) adds procura, recrut,
+atores/atrizes, nova ficção, nova produção, rodagem, and filmagens. Still excluded on purpose:
+"apoio" (every news item says "com o apoio de…") and "audiência" (TV ratings). The filter
+only cuts what `/extract` (the LLM) reads. It doesn't make any decisions itself.

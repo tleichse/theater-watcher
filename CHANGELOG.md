@@ -16,6 +16,11 @@ the task to `done`. -->
   (DGArtes, Fundação GDA), and training (ACT, Vocare, Coffeepaste). Only sources that name
   who posts are used.
 
+### Fixes
+- [collection] Wider keyword pre-filter on TNSJ, TNDM, and the TV news feeds, so calls worded
+  differently ("Procuram-se intérpretes…", "Recrutamento…", "Concurso…") still reach
+  extraction.
+
 ### Features
 - [digest] `build_digest` renders the weekly issue as an email-ready HTML page plus a
   plain-text version, in pt-PT: Últimos dias, the five pillars, Formação, Apoios, No radar,

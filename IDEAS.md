@@ -71,3 +71,8 @@ today's date that ends with `→ folded into T-XXX`. -->
   is [T-010](tasks/T-010-send-and-weekly-run.md)
 - Chose sending through the Gmail API (quoting the proposed option), asked "would it have
   associated costs?", then "let's work!" → folded into [T-010](tasks/T-010-send-and-weekly-run.md)
+- "is the extraction work being done only via keywords? I want to have an LLM do that. Can't
+  claude do it in a weekly action?" then "for these sources widen the keywords to look for.
+  Regarding the scheduled action, do i need to have the PC open?" → keywords folded into
+  [T-007](tasks/T-007-collectors.md); the scheduled weekly run is
+  [T-010](tasks/T-010-send-and-weekly-run.md)'s `run_week`

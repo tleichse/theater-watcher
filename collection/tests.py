@@ -55,6 +55,23 @@ RSS = """<?xml version="1.0"?><rss version="2.0"><channel><title>Feed</title>
 </channel></rss>"""
 
 
+class KeywordTests(SimpleTestCase):
+    def test_institution_keywords_catch_differently_worded_calls(self):
+        from .adapters.base import matches
+        from .sources import INSTITUTION_KEYWORDS, TV_NEWS_KEYWORDS
+
+        for headline in [
+            'Procuram-se intérpretes para nova criação',
+            'Recrutamento de atores para a temporada 2027',
+            'Concurso para jovens criadores',
+            'Inscrições abertas para o laboratório de verão',
+        ]:
+            self.assertTrue(matches(INSTITUTION_KEYWORDS, headline), headline)
+        self.assertFalse(matches(INSTITUTION_KEYWORDS, 'Edições do TNSJ regressam à Feira do Livro'))
+        self.assertTrue(matches(TV_NEWS_KEYWORDS, 'SIC prepara nova ficção e já começou a rodagem'))
+        self.assertFalse(matches(TV_NEWS_KEYWORDS, 'Audiências: empate marca último dia do mês'))
+
+
 class FetcherTests(SimpleTestCase):
     def test_sends_user_agent_and_respects_robots(self):
         fetcher = fetcher_for({

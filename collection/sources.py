@@ -1,8 +1,12 @@
 INSTITUTION_KEYWORDS = (
     r'audiç|casting|elenco|candidatura|open call|oficina|workshop|formaç|estágio|masterclass'
-    r'|residência|bolsa'
+    r'|residência|bolsa|intérpret|ator|atriz|actor|actriz|procura|recrut|concurso|seleç|convocat'
+    r'|inscriç|laboratório|curso'
 )
-TV_NEWS_KEYWORDS = r'casting|elenco|audiç|gravaç|gravar|nova novela|nova série|arranc|figura'
+TV_NEWS_KEYWORDS = (
+    r'casting|elenco|audiç|gravaç|gravar|nova novela|nova série|arranc|figura|procura|recrut'
+    r'|atores|atrizes|nova ficção|nova produção|rodagem|filmagens'
+)
 
 SOURCES = [
     {
