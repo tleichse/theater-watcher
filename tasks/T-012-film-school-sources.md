@@ -37,7 +37,7 @@ via a web fetch), and checked for any casting, audition, or open-call page.
 | ESAD Caldas da Rainha | `www.esad.ipleiria.pt` has a certificate mismatch. The real site is `ipleiria.pt/esadcr/`: events (workshops, talks), no casting page. | **No source.** Its master's-thesis films post on enCAST (one was in the first run). |
 | ESMAE (Porto) | One "Audições" item, for **choirs** (music). | **No source** |
 | Católica Porto, Escola das Artes | "Oportunidades e Emprego" goes to a careers portal (jobs). | **No source** |
-| ESCS, ETIC, Restart, UBI | Nothing casting-related on their homepages. | **No source** |
+| ESCS, ETIC, Restart, UBI, ESAP | Nothing casting-related on their homepages (ESAP's news page checked too). | **No source** |
 
 **Finding:** schools don't publish their students' castings on their own sites. The calls
 travel through **Coffeepaste** (several student and independent short-film castings found by
