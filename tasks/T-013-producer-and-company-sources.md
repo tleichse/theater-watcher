@@ -180,3 +180,6 @@ two years counts as validated. What changed:
 - *Follow-up, same day:* the user agreed that `site_watch` should skip a followed link that
   returns an HTTP error and carry on with the rest of the site. The homepage failing still fails
   the source. OUTRO now collects (1 new listing).
+- *Follow-up, same day:* `collect` now runs `sync_sources` first. Before, a company added to the
+  CSV without a manual sync was silently never collected, and "validated" only aged when someone
+  synced. The weekly routine was never told to sync; only setup and the lists README mentioned it.

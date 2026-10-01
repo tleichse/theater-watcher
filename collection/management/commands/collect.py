@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from catalog.models import Source
-from collection.collect import collect_source, prune_raw_text
+from collection.collect import collect_source, prune_raw_text, sync_sources
 from collection.http import Fetcher
 
 
@@ -12,6 +12,7 @@ class Command(BaseCommand):
         parser.add_argument('--source', action='append', help='Only this source slug (repeatable).')
 
     def handle(self, *args, **options):
+        self.stdout.write(f'{sync_sources()} sources synced.')
         sources = Source.objects.filter(active=True)
         if options['source']:
             sources = sources.filter(slug__in=options['source'])

@@ -16,9 +16,10 @@ or screen changes, update the step in the same change. -->
    uv run python manage.py migrate
    uv run python manage.py sync_sources
    ```
-   `sync_sources` reports how many sources it synced (about 120: the fixed sources plus every
-   theatre company in `collection/companies.csv` that has a website). Run it again whenever
-   `collection/sources.py` or `collection/companies.csv` changes.
+   `sync_sources` reports how many sources it synced (about 150: the fixed sources plus every
+   theatre company in `collection/companies.csv` that has a website). After this, `collect`
+   syncs by itself every time it runs, so edits to `collection/sources.py` or
+   `collection/companies.csv` are picked up without running this again.
 2. Create your admin login. It asks for a password, so run it yourself:
    ```sh
    uv run python manage.py createsuperuser

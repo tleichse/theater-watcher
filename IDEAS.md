@@ -95,3 +95,6 @@ today's date that ends with `→ folded into T-XXX`. -->
   [T-013](tasks/T-013-producer-and-company-sources.md)
 - "yes" (to making `site_watch` skip a followed page that fails, so OUTRO's members-only page
   doesn't fail the whole site) → folded into [T-013](tasks/T-013-producer-and-company-sources.md)
+- "do i have this written in the steps to take, that i have to sunc the sources?" then "yes" (to
+  making `collect` sync the sources itself) → folded into
+  [T-013](tasks/T-013-producer-and-company-sources.md)

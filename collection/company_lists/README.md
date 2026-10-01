@@ -27,7 +27,7 @@ old one; a later change to an old section is added as a dated note. -->
   or dated content on its site. Blank if none was found.
 
 **Validated** organisations are the ones with `last_active` in the last two years (in 2026 that's
-2024 or later). `sync_sources` sets this flag every time it runs, so a company drops out of
+2024 or later). `collect` re-syncs this flag every time it runs, so a company drops out of
 "validated" as its year ages, unless someone rechecks it (step 9 below).
 
 ## How to look for new companies
@@ -80,8 +80,8 @@ the steps and reports back. Steps 1 and 9 are the user's call; Claude Code does 
    only for sustained funding, `website` blank if there's only social media, `lists`, and
    `last_active` (the decision's year, or a later year if the site shows one). Record every
    company that wasn't added, and why, in the list's section below.
-8. **Check it works.** Run `uv run python manage.py sync_sources`, then `uv run python manage.py
-   test`, then `uv run python manage.py collect --source co-<slug>` for the new ones. Failures from
+8. **Check it works.** Run `uv run python manage.py test`, then `uv run python manage.py collect
+   --source co-<slug>` for the new ones (`collect` syncs the CSV first). Failures from
    the work filter are expected. Anything else is a real problem, so look into it or note it in
    [IDEAS.md](../../IDEAS.md).
 9. **Recheck old companies (now and then).** Find rows whose `last_active` is about to leave the
