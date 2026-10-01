@@ -141,23 +141,15 @@ The "current issue" is this Monday's 09:00 slot, until Tuesday morning. If you b
 later in the week, it's the next Monday's issue. To send a specific one, add
 `--at 2026-10-05T09:00`.
 
-## Now and then: refresh the company list
+## Now and then: look for new companies
 The theatre companies that get collected are in `collection/companies.csv`. Where each one came
-from is in [`collection/company_lists/`](collection/company_lists/README.md). Refresh the list when DGArtes
-publishes a new funding decision (the next one is the 2027–2030 four-year list, due January
-2027), or when you find a new list of companies.
-
-1. Download the new list into `collection/company_lists/` under a new ID (e.g.
-   `dgartes-quadrienal-2027.pdf`), and add a section for it to that folder's README.
-2. Ask Claude Code to compare it with `companies.csv`: add the new companies with their
-   websites, add the new ID to `lists` for companies already there, and record what was
-   skipped and why. Old rows stay. A company that lost its funding keeps its row, with
-   `programme` cleared.
-3. Run `uv run python manage.py sync_sources`, then `uv run python manage.py collect` to check
-   the new sources.
-
-To recheck a company that has no website, look it up in the README's skip list and search for
-it again. When it has a site, fill in `website` and run step 3.
+from, and the full step-by-step process for finding new ones, is in
+[`collection/company_lists/README.md`](collection/company_lists/README.md). Run it with Claude Code
+(*"Let's look for new theatre companies, following collection/company_lists/README.md"*):
+- when DGArtes publishes a decision: the yearly *Apoio a Projetos* results (July to September)
+  and the 2027–2030 four-year list (January 2027);
+- once a year, to recheck companies whose `last_active` year is about to fall out of the two-year
+  "validated" window.
 
 ## When something goes wrong
 

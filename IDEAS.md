@@ -89,3 +89,7 @@ today's date that ends with `→ folded into T-XXX`. -->
 - "i mean actors' own collectives. let's go. go ahead with the coimbra list. I would like to save
   the dgartes and coimbra sources so that i can check them later and also update the list."
   → folded into [T-013](tasks/T-013-producer-and-company-sources.md)
+- "yes, do that. All companies that you found and have contents from the last 2 years are
+  validated, you can consider that." (go through DGArtes *Apoio a Projetos*; "validated" now
+  means recent activity, not only DGArtes funding) → folded into
+  [T-013](tasks/T-013-producer-and-company-sources.md)

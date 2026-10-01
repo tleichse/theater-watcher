@@ -41,7 +41,7 @@ class Organisation(models.Model):
     validated = models.BooleanField(
         'validada',
         default=False,
-        help_text='Por exemplo, consta da lista de estruturas apoiadas pela DGArtes.',
+        help_text='Tem atividade conhecida nos últimos dois anos (por exemplo, um apoio da DGArtes).',
     )
 
     class Meta:

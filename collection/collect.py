@@ -10,6 +10,7 @@ from .models import RawListing
 from .sources import BY_SLUG, SOURCES, load_companies
 
 RAW_TEXT_RETENTION = timedelta(days=60)
+ACTIVE_YEARS = 2
 
 
 @dataclass
@@ -29,10 +30,12 @@ def sync_sources():
                 'active': entry.get('active', True),
             },
         )
+    oldest_active = timezone.now().year - ACTIVE_YEARS
     for company in load_companies():
+        validated = int(company['last_active'] or 0) >= oldest_active
         Organisation.objects.update_or_create(
             name=company['name'],
-            defaults={'website': company['website'], 'validated': bool(company['programme'])},
+            defaults={'website': company['website'], 'validated': validated},
         )
     return len(SOURCES)
 

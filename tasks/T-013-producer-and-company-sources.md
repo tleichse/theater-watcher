@@ -154,3 +154,26 @@ the source lists so the company list can be checked and updated later. What chan
   Elefante; see GOTCHAS).
 - Not done yet for actors' collectives: the DGArtes *Apoio a Projetos* results, which list the
   small one-off groups that the Coimbra list (last updated around 2015) misses.
+
+**Project-grant companies and the new "validated" rule (2026-10-01).** The user asked for the
+DGArtes *Apoio a Projetos* lists, and said that every company found with activity in the last
+two years counts as validated. What changed:
+- Three decisions were read and saved: Criação e Edição 2025, Criação 2026, and Procedimento
+  Simplificado 2026. **84 organisations were added**; 33 have a website and are collected. That
+  makes 193 companies and 136 collected sources. Individuals were left out, because the user
+  wants collectives.
+- `companies.csv` gained `last_active` (the year of the latest activity found: a funding
+  decision or dated content). `sync_sources` now validates an organisation when that year is
+  within the last two years (`ACTIVE_YEARS` in `collection/collect.py`). This replaces the
+  earlier "has a `programme`" rule, and funded companies still qualify through their funding
+  year. 190 of the 193 are validated. The exceptions are Cassefaz (2023), ENTREtanto and Teatro
+  do Elefante (no dated activity found).
+- Parsing note: the 2026 PDF writes "Não Apoiada" with a capital A. A case-sensitive filter let
+  158 rejected rows through, which showed up as a mismatch with the announced count. The README's
+  procedure now says to check the count every time.
+- The full repeatable procedure is in `collection/company_lists/README.md`, as the user asked.
+  HOWTO points to it.
+- First collect: Má-Criação 4, Fogo Lento 1, Ondamarela 1. 14 sites fail only because of the work
+  filter. **OUTRO fails for real:** its homepage links to a members-only `/portal` (401), and
+  `site_watch` stops the whole source when one followed link fails. That's left open for the
+  user to decide.

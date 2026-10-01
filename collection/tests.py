@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, timedelta, timezone
+from unittest.mock import patch
 
 from django.test import SimpleTestCase, TestCase
 from django.utils import timezone as dj_timezone
@@ -371,12 +372,16 @@ class CompanySourceTests(TestCase):
         all_slugs = [source['slug'] for source in SOURCES]
         self.assertEqual(len(all_slugs), len(set(all_slugs)))
 
-    def test_sync_marks_funded_companies_as_validated_organisations(self):
+    def test_sync_validates_companies_active_in_the_last_two_years(self):
         Organisation.objects.create(name='Razões Pessoais')
-        sync_sources()
-        company = Organisation.objects.get(name='Razões Pessoais')
-        self.assertTrue(company.validated)
-        self.assertFalse(Organisation.objects.get(name='Teatro do Frio').validated)
-        funded = sum(1 for company in load_companies() if company['programme'])
-        self.assertEqual(Organisation.objects.filter(validated=True).count(), funded)
+        year = dj_timezone.now().year
+        with patch('collection.collect.load_companies', return_value=[
+            {'name': 'Razões Pessoais', 'website': '', 'last_active': str(year - 2)},
+            {'name': 'Cassefaz', 'website': 'https://cassefaz.com/', 'last_active': str(year - 3)},
+            {'name': 'Teatro do Elefante', 'website': '', 'last_active': ''},
+        ]):
+            sync_sources()
+        self.assertTrue(Organisation.objects.get(name='Razões Pessoais').validated)
+        self.assertFalse(Organisation.objects.get(name='Cassefaz').validated)
+        self.assertFalse(Organisation.objects.get(name='Teatro do Elefante').validated)
 
