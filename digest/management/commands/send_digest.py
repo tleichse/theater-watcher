@@ -14,12 +14,14 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('--at', help='Send time in Lisbon, e.g. 2026-10-05T09:00 (default: the current issue, Monday 09:00).')
-        parser.add_argument('--test', action='store_true', help='Send with a [TESTE] subject and record nothing.')
+        once = parser.add_mutually_exclusive_group()
+        once.add_argument('--test', action='store_true', help='Send with a [TESTE] subject to yourself only, and record nothing.')
+        once.add_argument('--resend', action='store_true', help='Send an issue that was already sent again, to every reader. It keeps its number and is not recorded twice.')
 
     def handle(self, *args, **options):
         send_at = datetime.fromisoformat(options['at']).replace(tzinfo=LISBON) if options['at'] else current_issue_at()
         try:
-            rendered, selection = send_issue(send_at, test=options['test'])
+            rendered, selection = send_issue(send_at, test=options['test'], resend=options['resend'])
         except CannotSend as error:
             raise CommandError(str(error))
         except GmailAuthRequired as error:
@@ -32,6 +34,11 @@ class Command(BaseCommand):
         else:
             readers = len(settings.DIGEST_RECIPIENTS)
             self.stdout.write(f'Sent "{rendered.subject}" to {readers} reader(s) in Bcc: {selection.total} items.')
-        self.stdout.write('Test send: nothing recorded.' if options['test'] else f'Recorded as issue #{rendered.number}. Copy kept at {html_path}')
+        if options['test']:
+            self.stdout.write('Test send: nothing recorded.')
+        elif options['resend']:
+            self.stdout.write(f'Resent issue #{rendered.number}: not recorded again.')
+        else:
+            self.stdout.write(f'Recorded as issue #{rendered.number}. Copy kept at {html_path}')
         if len(rendered.html.encode()) > GMAIL_CLIP_BYTES:
             self.stdout.write(self.style.WARNING('The HTML is over 100 KB, so Gmail will clip it ("Mensagem cortada").'))

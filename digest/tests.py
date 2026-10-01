@@ -149,7 +149,7 @@ class RenderTests(DigestDataMixin, TestCase):
         self.make(title='Audição para nova peça')
         rendered = render(select(SEND_AT))
         self.assertEqual(rendered.number, 1)
-        self.assertEqual(rendered.subject, 'theater-watcher #1 · 1 nova')
+        self.assertEqual(rendered.subject, 'relATOR #1 · 1 nova')
         for label in ['Teatro', 'Cinema', 'Televisão', 'Publicidade', 'Dobragem']:
             self.assertIn(label, rendered.html)
             self.assertIn(label.upper(), rendered.text)
@@ -191,7 +191,7 @@ class SendDigestTests(DigestDataMixin, TestCase):
         message = mail.outbox[0]
         self.assertEqual(message.to, ['sender@example.org'])
         self.assertEqual(message.bcc, ['reader@example.org', 'friend@example.org'])
-        self.assertEqual(message.subject, 'theater-watcher #1 · 2 novas, 1 a fechar')
+        self.assertEqual(message.subject, 'relATOR #1 · 2 novas, 1 a fechar')
         self.assertIn('Audição para nova peça', message.body)
         self.assertIn('Audição para nova peça', message.alternatives[0].content)
         digest = Digest.objects.get()
@@ -207,6 +207,26 @@ class SendDigestTests(DigestDataMixin, TestCase):
         with self.assertRaisesMessage(CommandError, 'already sent'):
             self.send()
         self.assertEqual(len(mail.outbox), 1)
+
+    def test_resend_sends_the_same_issue_again_without_recording_it(self):
+        self.make()
+        self.send()
+        out = self.send('--resend')
+        self.assertEqual([message.subject for message in mail.outbox], ['relATOR #1 · 1 nova'] * 2)
+        self.assertEqual(mail.outbox[1].bcc, ['reader@example.org', 'friend@example.org'])
+        self.assertEqual(Digest.objects.count(), 1)
+        self.assertIn('not recorded again', out)
+
+    def test_preview_of_a_sent_issue_keeps_its_number(self):
+        self.make()
+        self.send()
+        self.assertEqual(render(select(SEND_AT)).number, 1)
+
+    def test_resend_needs_an_issue_that_was_sent(self):
+        self.make()
+        with self.assertRaisesMessage(CommandError, 'without --resend'):
+            self.send('--resend')
+        self.assertEqual(len(mail.outbox), 0)
 
     def test_test_send_records_nothing(self):
         self.make()

@@ -127,3 +127,16 @@ review, preview and send steps are still separate.
   they're sent in Bcc.
 - Cost: still none. It's one Gmail API call per week, and each Bcc address counts towards
   Gmail's ~500 recipients/day limit, which isn't billed.
+
+**2026-10-01, `--resend` and the name relATOR:** the user asked to remove the "already sent"
+block and to rename the newsletter to "relATOR".
+- The block stays, because recording an issue once is what keeps the issue numbers and next
+  week's **Novo** badges right. `send_digest --resend` now sends an issue that was already sent
+  again, to every reader, without recording it a second time. `--test` and `--resend` can't be
+  combined.
+- `render` now reuses the number of an issue already sent for that slot. Before, previewing or
+  resending it gave the *next* number (the preview showed #2 for this Monday's issue #1).
+- The name readers see is `NAME = 'relATOR'` in `digest/render.py`. It's used in the subject,
+  the header and footer of both templates, and the sender name (`DEFAULT_FROM_EMAIL` in
+  settings). The repo, code and Google Cloud app keep the name `theater-watcher`. The naming
+  question in `design/email-brief.md` is now answered.

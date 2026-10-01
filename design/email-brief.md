@@ -10,7 +10,8 @@ digest/email/issue.html. Refresh the sample content from a recent issue before e
 round. -->
 
 **Decide before you paste** (edit the line in the brief that says "My answers"):
-1. **Name** readers see: keep "theater-watcher", or a pt-PT name?
+1. ~~**Name** readers see: keep "theater-watcher", or a pt-PT name?~~ **Decided 2026-10-01:**
+   **relATOR** (lower-case "rel", capital "ATOR"). It's already in the email and the subject.
 2. **Tone:** playful and colourful, editorial and elegant, or bold and poster-like?
 3. **References:** 3–5 things you like (programmes, posters, newsletters). Attach or link
    them.
@@ -28,7 +29,7 @@ It should feel like it belongs to the **theatre and film world**: artistic, colo
 personality. It also has to be **trustworthy and easy to scan**: this is a working tool, not a
 magazine.
 
-My answers: name = ____ · tone = ____ · references = ____
+My answers: name = relATOR (written exactly like that: "rel" in lower case, "ATOR" in capitals) · tone = ____ · references = ____
 
 ## The structure is fixed: please design it, don't change it
 From top to bottom:

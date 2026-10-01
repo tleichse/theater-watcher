@@ -33,6 +33,8 @@ PAY_LABELS = {
     Action.Pay.EXPENSES: 'Só despesas',
 }
 
+NAME = 'relATOR'
+
 
 @dataclass
 class Rendered:
@@ -43,8 +45,9 @@ class Rendered:
 
 
 def render(selection):
-    number = (Digest.objects.order_by('-number').values_list('number', flat=True).first() or 0) + 1
-    subject = f'theater-watcher #{number} · {_counts_line(selection)}'
+    sent = Digest.objects.filter(scheduled_for=selection.send_at).values_list('number', flat=True).first()
+    number = sent or (Digest.objects.order_by('-number').values_list('number', flat=True).first() or 0) + 1
+    subject = f'{NAME} #{number} · {_counts_line(selection)}'
     environment = Environment(
         loader=FileSystemLoader(TEMPLATES),
         autoescape=select_autoescape(['html']),
@@ -53,6 +56,7 @@ def render(selection):
     )
     environment.filters.update(short_date=short_date)
     context = {
+        'name': NAME,
         'number': number,
         'subject': subject,
         'date': long_date(selection.send_at),

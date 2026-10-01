@@ -145,8 +145,14 @@ uv run python manage.py send_digest
 ```
 It prints `Sent "theater-watcher #N · …" to N reader(s) in Bcc` and `Recorded as issue #N`.
 A `--test` send goes only to your own `GMAIL_ADDRESS`, never to the readers. Recording
-is what makes next week's **Novo** badges correct. An issue can only be sent once. Running it
-again says `already sent`.
+is what makes next week's **Novo** badges correct. An issue is recorded only once. Running it
+again says `already sent`. To send it again anyway, for example after adding readers, use:
+```sh
+uv run python manage.py send_digest --resend
+```
+This goes to **everyone** in `DIGEST_RECIPIENTS` again, including people who already got it.
+It keeps the same number, and nothing is recorded twice, so next week's **Novo** badges stay
+right.
 
 The "current issue" is this Monday's 09:00 slot, until Tuesday morning. If you build or send
 later in the week, it's the next Monday's issue. To send a specific one, add

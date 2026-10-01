@@ -1,4 +1,4 @@
-THEATER-WATCHER · N.º {{ number }} · {{ date }}
+{{ name }} · N.º {{ number }} · {{ date }}
 Oportunidades para atores em Portugal. Esta semana: {{ counts }}.
 {% for section in sections %}
 

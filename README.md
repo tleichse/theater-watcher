@@ -1,7 +1,7 @@
 # theater-watcher
 
 A weekly email digest of new casting opportunities in Portugal, gathered from validated
-sources. It covers five pillars: **Theatre**, **Cinema** (films, series, documentaries),
+sources. Readers know it as **relATOR**; `theater-watcher` is the project's name in the code. It covers five pillars: **Theatre**, **Cinema** (films, series, documentaries),
 **TV** (soap operas), **Marketing** (TV and radio ads and sketches) and **Dubbing**.
 
 ## Getting started

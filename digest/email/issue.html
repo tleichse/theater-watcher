@@ -46,7 +46,7 @@
   </td></tr>
   <tr><td class="head">
     <p class="issue">N.º {{ number }} · {{ date }}</p>
-    <p class="brand">theater-watcher</p>
+    <p class="brand">{{ name }}</p>
     <p class="lede">Oportunidades para atores em Portugal. Esta semana: <strong>{{ counts }}</strong>.</p>
   </td></tr>
   {% for section in sections %}
@@ -82,7 +82,7 @@
   <tr><td class="foot">
     <p style="margin: 0 0 10px 0;">Cada oportunidade é resumida por nós e revista antes de seguir. Os detalhes, as condições e a candidatura estão sempre na página original: carregue no botão de cada cartão.</p>
     <p style="margin: 0 0 10px 0;">Fontes desta edição: {% for source in sources %}<a href="{{ source.url }}">{{ source.name }}</a>{{ ', ' if not loop.last else '.' }}{% endfor %} Só usamos fontes que identificam quem publica cada oportunidade.</p>
-    <p style="margin: 0;">theater-watcher · edição n.º {{ number }}</p>
+    <p style="margin: 0;">{{ name }} · edição n.º {{ number }}</p>
   </td></tr>
 </table>
 </td></tr></table>

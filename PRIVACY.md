@@ -7,7 +7,8 @@ one-time setup, step 3). Written in pt-PT because readers see it. Update the dat
 whenever the app starts using new data or new Google permissions. -->
 
 O **theater-watcher** é uma ferramenta pessoal que reúne oportunidades públicas para atores em
-Portugal (castings, audições, formação e apoios) e envia um resumo semanal por email.
+Portugal (castings, audições, formação e apoios) e envia um resumo semanal por email, o
+**relATOR**.
 
 ## Acesso à conta Google
 - A ferramenta pede **apenas** a permissão para **enviar email em seu nome** (`gmail.send`).

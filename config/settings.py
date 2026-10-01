@@ -134,7 +134,7 @@ COLLECTOR_USER_AGENT = 'theater-watcher/0.1 (+https://github.com/tleichse/theate
 
 GMAIL_ADDRESS = os.environ.get('GMAIL_ADDRESS', '')
 DIGEST_RECIPIENTS = [address.strip() for address in os.environ.get('DIGEST_RECIPIENTS', '').split(',') if address.strip()]
-DEFAULT_FROM_EMAIL = f'theater-watcher <{GMAIL_ADDRESS}>' if GMAIL_ADDRESS else 'webmaster@localhost'
+DEFAULT_FROM_EMAIL = f'relATOR <{GMAIL_ADDRESS}>' if GMAIL_ADDRESS else 'webmaster@localhost'
 
 GMAIL_CLIENT_FILE = DATA_DIR / 'gmail-client.json'
 GMAIL_TOKEN_FILE = DATA_DIR / 'gmail-token.json'

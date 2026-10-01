@@ -14,11 +14,17 @@ class CannotSend(Exception):
     pass
 
 
-def send_issue(send_at, test=False):
+def send_issue(send_at, test=False, resend=False):
     if not settings.GMAIL_ADDRESS or not settings.DIGEST_RECIPIENTS:
         raise CannotSend('Set GMAIL_ADDRESS and DIGEST_RECIPIENTS in .env (see HOWTO.md).')
-    if not test and Digest.objects.filter(scheduled_for=send_at).exists():
-        raise CannotSend(f'The issue for {send_at:%Y-%m-%d %H:%M} was already sent.')
+    sent = Digest.objects.filter(scheduled_for=send_at).first()
+    if resend and sent is None:
+        raise CannotSend(f'The issue for {send_at:%Y-%m-%d %H:%M} has not been sent yet. Send it without --resend.')
+    if sent and not test and not resend:
+        raise CannotSend(
+            f'The issue for {send_at:%Y-%m-%d %H:%M} was already sent. '
+            'To send it again, add --resend (it keeps its number and is not recorded twice).'
+        )
     selection = select(send_at)
     if not selection.total:
         raise CannotSend('Nothing to send: no approved action is open for this issue.')
@@ -29,7 +35,7 @@ def send_issue(send_at, test=False):
     message = EmailMultiAlternatives(subject, rendered.text, to=[settings.GMAIL_ADDRESS], bcc=bcc)
     message.attach_alternative(rendered.html, 'text/html')
     message.send()
-    if not test:
+    if not test and not resend:
         _record(rendered, selection)
     return rendered, selection
 
