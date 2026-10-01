@@ -6,7 +6,7 @@ from decimal import Decimal
 from pathlib import Path
 from unittest import mock
 
-from smtplib import SMTPException
+from smtplib import SMTPAuthenticationError
 
 from django.core import mail
 from django.core.management import CommandError, call_command
@@ -212,8 +212,16 @@ class SendDigestTests(DigestDataMixin, TestCase):
 
     def test_failed_send_records_nothing(self):
         self.make()
-        with mock.patch('digest.send.EmailMultiAlternatives.send', side_effect=SMTPException('auth failed')):
-            with self.assertRaises(SMTPException):
+        with mock.patch('digest.send.EmailMultiAlternatives.send', side_effect=ConnectionResetError(10054, 'reset')):
+            with self.assertRaisesMessage(CommandError, 'Could not reach Gmail'):
+                self.send()
+        self.assertEqual(Digest.objects.count(), 0)
+
+    def test_wrong_password_is_explained(self):
+        self.make()
+        error = SMTPAuthenticationError(535, b'Username and Password not accepted')
+        with mock.patch('digest.send.EmailMultiAlternatives.send', side_effect=error):
+            with self.assertRaisesMessage(CommandError, 'GMAIL_APP_PASSWORD'):
                 self.send()
         self.assertEqual(Digest.objects.count(), 0)
 
