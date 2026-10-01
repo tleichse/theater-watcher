@@ -31,7 +31,8 @@ def sync_sources():
         )
     for company in load_companies():
         Organisation.objects.update_or_create(
-            name=company['name'], defaults={'website': company['website'], 'validated': True}
+            name=company['name'],
+            defaults={'website': company['website'], 'validated': bool(company['programme'])},
         )
     return len(SOURCES)
 

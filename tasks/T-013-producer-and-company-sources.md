@@ -128,3 +128,29 @@ single current national register exists. These are the lists found:
 - [ ] Sources that pass are in the registry and collect without errors
 
 ## Implementation
+**Funded companies (2026-10-01).** `collection/companies.csv` holds the companies, one row each.
+Each row with a website becomes a `co-` source through the `site_watch` adapter, and
+`sync_sources` creates an `Organisation` for every row. 80 of the 87 funded companies have a
+website. The deep dive above records how they were found.
+
+**Unfunded companies from the Coimbra list (2026-10-01).** The user clarified that "actors"
+means *actors' own collectives*, wanted companies from all over the country, and asked to keep
+the source lists so the company list can be checked and updated later. What changed:
+- 22 companies from the Coimbra list were added (Teatro do Frio, Ensemble, Comédias do Minho,
+  Companhia Maior, Arena Ensemble, NAPALM, and others). Teatro do Noroeste got its page on the
+  municipal theatre's site (`tmsm.pt/teatrodonoroestecdv/`), which is the company's own page and
+  not the venue's programme. That makes **109 companies, 103 of them collected**. The skip
+  record (closed, Facebook only, stale) is in the lists README.
+- The CSV gained a `lists` column naming which source lists include each company. `programme`
+  is blank for unfunded companies, and `sync_sources` now marks an organisation **validated
+  only when `programme` is set**, so "validated" still means "on a DGArtes list", as T-003
+  designed it. Before this change every row was validated.
+- The original documents are now saved in `collection/company_lists/`: both DGArtes PDFs, the
+  Coimbra PDF, and the directory crawl. Its README describes each list and what was skipped.
+  The refresh steps are in `HOWTO.md` ("refresh the company list").
+- First collect: Dois Pontos 14 and EclipseArte 19 (mostly old blog posts, which `/extract`
+  drops), Inestética 4, NAPALM 3, Oficina 3, Teatro do Noroeste 3. Five sites fail only because
+  of the work network's filter (Assédio, Companhia da Esquina, Ensemble, ENTREtanto, Teatro do
+  Elefante; see GOTCHAS).
+- Not done yet for actors' collectives: the DGArtes *Apoio a Projetos* results, which list the
+  small one-off groups that the Coimbra list (last updated around 2015) misses.

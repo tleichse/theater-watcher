@@ -86,3 +86,6 @@ today's date that ends with `→ folded into T-XXX`. -->
   theat companies that also may be looking for actors. One may be astro fingido, for example. I
   want them from all around the country. Is there any list of theatre companies?" → folded into
   [T-013](tasks/T-013-producer-and-company-sources.md)
+- "i mean actors' own collectives. let's go. go ahead with the coimbra list. I would like to save
+  the dgartes and coimbra sources so that i can check them later and also update the list."
+  → folded into [T-013](tasks/T-013-producer-and-company-sources.md)

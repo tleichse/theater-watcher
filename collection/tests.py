@@ -376,5 +376,7 @@ class CompanySourceTests(TestCase):
         sync_sources()
         company = Organisation.objects.get(name='Razões Pessoais')
         self.assertTrue(company.validated)
-        self.assertEqual(Organisation.objects.filter(validated=True).count(), len(load_companies()))
+        self.assertFalse(Organisation.objects.get(name='Teatro do Frio').validated)
+        funded = sum(1 for company in load_companies() if company['programme'])
+        self.assertEqual(Organisation.objects.filter(validated=True).count(), funded)
 
