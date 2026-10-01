@@ -30,12 +30,34 @@
    including the empty-section text.
 
 ## Acceptance criteria
-- [ ] The selection follows every T-003 step 2 rule, with a test for each
-- [ ] The HTML renders correctly in a browser and is email-safe (inlined CSS, table
+- [x] The selection follows every T-003 step 2 rule, with a test for each
+- [x] The HTML renders correctly in a browser and is email-safe (inlined CSS, table
   layout), and there's a plain-text version
-- [ ] All five pillar sections always appear, with "Sem novidades esta semana" when one is
+- [x] All five pillar sections always appear, with "Sem novidades esta semana" when one is
   empty
-- [ ] Everything a reader sees is in pt-PT
-- [ ] Tests pass
+- [x] Everything a reader sees is in pt-PT
+- [x] Tests pass
 
 ## Implementation
+**2026-10-01:** built as planned. The user built a real issue from the first extraction and
+found it "pretty good already". Notes:
+- `digest/selection.py` follows T-003 step 2 exactly. An action is eligible when it's approved
+  and `expires_at` is more than 24 h after the send time, or never expires. Then, in order:
+  `always_open` goes to Candidaturas permanentes, signals to No radar, anything closing within
+  7 days to Últimos dias (moved, not repeated), training to Formação, grants to Apoios, and
+  everything else to its pillar. "Novo" means the action has no `DigestItem` in an earlier
+  issue. Within a section, new items come first, then by expiry.
+- `digest/render.py` builds the pt-PT strings (dates like "15 out", "Fecha em 3 dias",
+  "Candidaturas até …", "Começa a …"), the facts line (place · pay or price · ages), and the
+  issue number (last recorded `Digest` + 1). Templates live in `digest/email/`, outside the
+  Django template folders, and premailer inlines the CSS.
+- `build_digest [--at …]` writes `data/digests/issue-<N>-<date>.html` and `.txt` and
+  **records nothing**. Recording is `send_digest`'s job ([T-010](T-010-send-and-weekly-run.md)),
+  so a preview can be rebuilt as often as needed.
+- Only the five pillar sections always appear (with "Sem novidades esta semana"). Formação,
+  Apoios, No radar, and Candidaturas permanentes appear only when they have items.
+- **Placeholder visual design:** dark header with a five-colour pillar strip, one colour per
+  section, Georgia headings, Arial body, cards with pillar, Novo, and region badges, a
+  deadline chip, and a button. All colours are fixed hex values in `COLOURS` in `render.py`
+  and the `<style>` block of `issue.html`, which is what the user's design system will replace.
+- Tests: 11 new, 53 in total, all pass.

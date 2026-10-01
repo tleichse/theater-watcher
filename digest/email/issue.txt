@@ -1,0 +1,33 @@
+THEATER-WATCHER · N.º {{ number }} · {{ date }}
+Oportunidades para atores em Portugal. Esta semana: {{ counts }}.
+{% for section in sections %}
+
+== {{ section.label | upper }} ==
+{% if not section['items'] %}
+Sem novidades esta semana.
+{% endif %}
+{% for item in section['items'] %}
+{% set action = item.action %}
+{% set chip = deadline_chip(action) %}
+{% set fact_line = facts(action) %}
+
+* {% if item.is_new %}[NOVO] {% endif %}{{ action.title }}
+{% if action.organisation %}
+  {{ action.organisation }}
+{% endif %}
+  {{ action.get_pillar_display() }} · {{ action.get_region_display() }}{% if fact_line %} · {{ fact_line }}{% endif %}
+
+{% if chip %}
+  {{ chip }}
+{% endif %}
+{% if action.summary and section.key != 'always_open' %}
+  {{ action.summary }}
+{% endif %}
+  {{ action.source_url }}
+{% endfor %}
+{% endfor %}
+
+--
+Cada oportunidade é resumida por nós e revista antes de seguir. Os detalhes e a candidatura estão sempre na página original.
+Fontes: {% for source in sources %}{{ source.name }}{{ ', ' if not loop.last else '.' }}{% endfor %}
+

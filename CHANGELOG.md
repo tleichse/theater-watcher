@@ -11,6 +11,9 @@ the task to `done`. -->
 ## 2026-10-01
 
 ### Features
+- [digest] `build_digest` renders the weekly issue as an email-ready HTML page plus a
+  plain-text version, in pt-PT: Últimos dias, the five pillars, Formação, Apoios, No radar,
+  and Candidaturas permanentes, with Novo, pillar, and region badges and deadline chips.
 - [collection] Collected listings become draft opportunities through the `/extract` command in
   Claude Code: pt-PT titles and summaries, the poster, region, dates and pay, with duplicates
   across sources merged and out-of-scope items skipped with a reason.

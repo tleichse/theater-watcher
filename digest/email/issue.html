@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>{{ subject }}</title>
+<style>
+  body { margin: 0; padding: 0; background: #F4F1EA; }
+  .wrap { width: 100%; background: #F4F1EA; }
+  .sheet { width: 640px; max-width: 100%; background: #FFFFFF; }
+  .head { background: #1F1A3A; padding: 32px 32px 24px 32px; }
+  .brand { font-family: Georgia, 'Times New Roman', serif; font-size: 30px; line-height: 34px; color: #FFFFFF; font-weight: bold; margin: 0; }
+  .issue { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #C9C2E8; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 8px 0; }
+  .lede { font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 22px; color: #FFFFFF; margin: 12px 0 0 0; }
+  .section { padding: 28px 32px 4px 32px; }
+  .section-title { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 26px; font-weight: bold; margin: 0 0 14px 0; padding-left: 12px; }
+  .empty { font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #868E96; font-style: italic; margin: 0 0 8px 12px; }
+  .card { border: 1px solid #E9E4F2; border-radius: 10px; margin: 0 0 14px 0; }
+  .card-body { padding: 16px 18px 18px 18px; }
+  .badge { font-family: Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px; }
+  .badge-new { background: #FFD43B; color: #1F1A3A; }
+  .badge-region { background: #F1F3F5; color: #495057; }
+  .title { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; line-height: 24px; color: #1F1A3A; font-weight: bold; margin: 10px 0 4px 0; }
+  .org { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #6C6489; margin: 0 0 8px 0; }
+  .summary { font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color: #343A40; margin: 0 0 10px 0; }
+  .facts { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #495057; margin: 0 0 12px 0; }
+  .chip { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; color: #C92A2A; background: #FFF0F0; padding: 4px 10px; border-radius: 12px; }
+  .button { font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #FFFFFF; text-decoration: none; padding: 10px 16px; border-radius: 6px; display: inline-block; }
+  .list-item { font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 22px; color: #343A40; margin: 0 0 6px 12px; }
+  .list-item a { color: #3B5BDB; }
+  .foot { background: #F8F6FC; padding: 24px 32px 32px 32px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 18px; color: #6C6489; }
+  .foot a { color: #6C6489; }
+</style>
+</head>
+<body>
+<span style="display:none;max-height:0;overflow:hidden;">Esta semana: {{ counts }}.</span>
+<table role="presentation" class="wrap" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="padding: 24px 8px;">
+<table role="presentation" class="sheet" width="640" cellpadding="0" cellspacing="0" border="0">
+  <tr><td>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+      {% for key in ['theatre', 'cinema', 'tv', 'marketing', 'dubbing'] %}
+      <td height="6" style="background: {{ pillar_colours[key] }}; font-size: 0; line-height: 0;">&nbsp;</td>
+      {% endfor %}
+    </tr></table>
+  </td></tr>
+  <tr><td class="head">
+    <p class="issue">N.º {{ number }} · {{ date }}</p>
+    <p class="brand">theater-watcher</p>
+    <p class="lede">Oportunidades para atores em Portugal. Esta semana: <strong>{{ counts }}</strong>.</p>
+  </td></tr>
+  {% for section in sections %}
+  <tr><td class="section">
+    <p class="section-title" style="border-left: 5px solid {{ colours[section.key] }}; color: {{ colours[section.key] }};">{{ section.label }}</p>
+    {% if not section['items'] %}
+    <p class="empty">Sem novidades esta semana.</p>
+    {% elif section.key == 'always_open' %}
+      {% for item in section['items'] %}
+      <p class="list-item"><a href="{{ item.action.source_url }}">{{ item.action.title }}</a>{% if item.action.organisation %} — {{ item.action.organisation }}{% endif %}</p>
+      {% endfor %}
+    {% else %}
+      {% for item in section['items'] %}
+      {% set action = item.action %}
+      {% set chip = deadline_chip(action) %}
+      {% set fact_line = facts(action) %}
+      <table role="presentation" class="card" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="card-body">
+        <span class="badge" style="background: {{ pillar_colours[action.pillar] }};">{{ action.get_pillar_display() }}</span>
+        {% if item.is_new %}<span class="badge badge-new">Novo</span>{% endif %}
+        <span class="badge badge-region">{{ action.get_region_display() }}</span>
+        <p class="title">{{ action.title }}</p>
+        {% if action.organisation %}<p class="org">{{ action.organisation }}</p>{% endif %}
+        {% if action.summary %}<p class="summary">{{ action.summary }}</p>{% endif %}
+        {% if fact_line %}<p class="facts">{{ fact_line }}</p>{% endif %}
+        {% if chip %}<p style="margin: 0 0 14px 0;"><span class="chip">{{ chip }}</span></p>{% endif %}
+        <a class="button" href="{{ action.source_url }}" style="background: {{ colours[section.key] }};">{{ 'Ler a notícia' if action.kind == 'signal' else 'Ver e candidatar' }}</a>
+      </td></tr></table>
+      {% endfor %}
+    {% endif %}
+  </td></tr>
+  {% endfor %}
+  <tr><td style="padding: 12px 0 0 0;">&nbsp;</td></tr>
+  <tr><td class="foot">
+    <p style="margin: 0 0 10px 0;">Cada oportunidade é resumida por nós e revista antes de seguir. Os detalhes, as condições e a candidatura estão sempre na página original: carregue no botão de cada cartão.</p>
+    <p style="margin: 0 0 10px 0;">Fontes desta edição: {% for source in sources %}<a href="{{ source.url }}">{{ source.name }}</a>{{ ', ' if not loop.last else '.' }}{% endfor %} Só usamos fontes que identificam quem publica cada oportunidade.</p>
+    <p style="margin: 0;">theater-watcher · edição n.º {{ number }}</p>
+  </td></tr>
+</table>
+</td></tr></table>
+</body>
+</html>

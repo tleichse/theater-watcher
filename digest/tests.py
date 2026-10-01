@@ -1,12 +1,27 @@
+import io
+import shutil
+import tempfile
 from datetime import datetime, timedelta
+from decimal import Decimal
+from pathlib import Path
+from unittest import mock
 
-from django.test import SimpleTestCase
+from django.core.management import call_command
+from django.test import SimpleTestCase, TestCase
 
+from catalog.models import Action, Organisation, Source
+
+from .models import Digest, DigestItem
+from .render import deadline_chip, facts, render
 from .schedule import LISBON, misses_next_issue, next_send_at
+from .selection import Section, select
 
 
 def lisbon(*args):
     return datetime(*args, tzinfo=LISBON)
+
+
+SEND_AT = lisbon(2026, 10, 5, 9)
 
 
 class NextSendAtTests(SimpleTestCase):
@@ -34,3 +49,110 @@ class MissesNextIssueTests(SimpleTestCase):
 
     def test_never_expiring_is_kept(self):
         self.assertFalse(misses_next_issue(None, self.now))
+
+
+class DigestDataMixin:
+    def setUp(self):
+        self.source = Source.objects.create(
+            slug='coffeepaste', name='Coffeepaste', url='https://www.coffeepaste.com/', tier='B', method='html'
+        )
+        self.organisation = Organisation.objects.create(name='Teatro Exemplo')
+
+    def make(self, status='approved', days=20, **fields):
+        fields.setdefault('deadline_at', SEND_AT + timedelta(days=days))
+        return Action.objects.create(
+            kind=fields.pop('kind', 'casting'), pillar=fields.pop('pillar', 'theatre'),
+            title=fields.pop('title', 'Audição'), region='centre', source=self.source,
+            source_url='https://example.org/1', organisation=self.organisation, status=status,
+            first_seen_at=SEND_AT - timedelta(days=3), **fields,
+        )
+
+    def sections_of(self, action):
+        selection = select(SEND_AT)
+        return [section for section, items in selection.sections.items() if any(i.action == action for i in items)]
+
+
+class SelectionTests(DigestDataMixin, TestCase):
+    def test_only_approved_actions_are_eligible(self):
+        self.make(status='pending_review')
+        self.make(status='rejected')
+        self.assertEqual(select(SEND_AT).total, 0)
+
+    def test_needs_more_than_24_hours_left(self):
+        closing = self.make(deadline_at=SEND_AT + timedelta(hours=24))
+        still_open = self.make(deadline_at=SEND_AT + timedelta(hours=25))
+        self.assertEqual(self.sections_of(closing), [])
+        self.assertEqual(self.sections_of(still_open), [Section.CLOSING_SOON])
+
+    def test_closing_within_a_week_moves_to_ultimos_dias_only(self):
+        self.assertEqual(self.sections_of(self.make(days=7)), [Section.CLOSING_SOON])
+        self.assertEqual(self.sections_of(self.make(days=8)), [Section.THEATRE])
+
+    def test_sections_by_kind_and_pillar(self):
+        self.assertEqual(self.sections_of(self.make(pillar='dubbing')), [Section.DUBBING])
+        self.assertEqual(self.sections_of(self.make(kind='training', pillar='cinema')), [Section.TRAINING])
+        self.assertEqual(self.sections_of(self.make(kind='grant')), [Section.GRANTS])
+        self.assertEqual(self.sections_of(self.make(kind='signal', days=3)), [Section.RADAR])
+        always_open = self.make(always_open=True, deadline_at=None)
+        self.assertEqual(self.sections_of(always_open), [Section.ALWAYS_OPEN])
+
+    def test_new_until_shared_in_an_earlier_issue(self):
+        shared = self.make(title='Já enviada')
+        self.make(title='Nova', days=30)
+        earlier = Digest.objects.create(number=1, scheduled_for=SEND_AT - timedelta(days=7), subject='#1')
+        DigestItem.objects.create(digest=earlier, action=shared, section='theatre', position=0)
+        items = select(SEND_AT).sections[Section.THEATRE]
+        self.assertEqual([(item.action.title, item.is_new) for item in items], [('Nova', True), ('Já enviada', False)])
+
+    def test_order_within_a_group_is_by_expiry(self):
+        later = self.make(title='Mais tarde', days=30)
+        sooner = self.make(title='Mais cedo', days=10)
+        items = select(SEND_AT).sections[Section.THEATRE]
+        self.assertEqual([item.action for item in items], [sooner, later])
+
+
+class FormattingTests(DigestDataMixin, TestCase):
+    def test_deadline_chip(self):
+        self.assertEqual(deadline_chip(self.make(days=1), SEND_AT), 'Fecha amanhã')
+        self.assertEqual(deadline_chip(self.make(days=3), SEND_AT), 'Fecha em 3 dias')
+        self.assertEqual(deadline_chip(self.make(days=10), SEND_AT), 'Candidaturas até 15 out')
+        starts = self.make(deadline_at=None, event_start=lisbon(2026, 10, 16))
+        self.assertEqual(deadline_chip(starts, SEND_AT), 'Começa a 16 out')
+        self.assertEqual(deadline_chip(self.make(always_open=True, deadline_at=None), SEND_AT), '')
+
+    def test_facts(self):
+        casting = self.make(location='Lisboa', fee_text='1 300 €', age_min=18, age_max=35)
+        self.assertEqual(facts(casting), 'Lisboa · 1 300 € · 18–35 anos')
+        training = self.make(kind='training', location='Porto', price_eur=Decimal('90.00'))
+        self.assertEqual(facts(training), 'Porto · 90 €')
+        free = self.make(kind='training', remote=True, price_eur=Decimal('0'))
+        self.assertEqual(facts(free), 'À distância · Gratuito')
+
+
+class RenderTests(DigestDataMixin, TestCase):
+    def test_every_pillar_section_appears_and_css_is_inlined(self):
+        self.make(title='Audição para nova peça')
+        rendered = render(select(SEND_AT))
+        self.assertEqual(rendered.number, 1)
+        self.assertEqual(rendered.subject, 'theater-watcher #1 · 1 nova')
+        for label in ['Teatro', 'Cinema', 'Televisão', 'Publicidade', 'Dobragem']:
+            self.assertIn(label, rendered.html)
+            self.assertIn(label.upper(), rendered.text)
+        self.assertEqual(rendered.html.count('Sem novidades esta semana'), 4)
+        self.assertIn('Audição para nova peça', rendered.text)
+        self.assertNotIn('<style', rendered.html)
+        self.assertIn('style="', rendered.html)
+
+    def test_empty_optional_sections_are_left_out(self):
+        rendered = render(select(SEND_AT))
+        self.assertNotIn('Formação', rendered.html)
+        self.assertNotIn('No radar', rendered.html)
+
+    def test_build_digest_writes_files_and_records_nothing(self):
+        self.make()
+        output = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, output)
+        with mock.patch('digest.render.OUTPUT_DIR', output):
+            call_command('build_digest', at='2026-10-05T09:00', stdout=io.StringIO())
+        self.assertEqual(sorted(path.name for path in output.iterdir()), ['issue-1-2026-10-05.html', 'issue-1-2026-10-05.txt'])
+        self.assertEqual(Digest.objects.count(), 0)
