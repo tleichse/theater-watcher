@@ -105,3 +105,6 @@ today's date that ends with `→ folded into T-XXX`. -->
   [T-013](tasks/T-013-producer-and-company-sources.md)
 - "do we also have a /collect?" then "could we have a singlecommand to run collect and /extract?"
   → folded into [T-010](tasks/T-010-send-and-weekly-run.md) (`/collect-extract`)
+- "can i send the newsletter to more than one person?" then "but does it have costs associated on
+  google cloud?" then "yes, i want to send this newsletter to a small group of people" → folded
+  into [T-010](tasks/T-010-send-and-weekly-run.md); the public sign-up stays with T-003

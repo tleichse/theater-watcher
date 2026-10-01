@@ -13,12 +13,15 @@ Portugal (castings, audições, formação e apoios) e envia um resumo semanal p
 - A ferramenta pede **apenas** a permissão para **enviar email em seu nome** (`gmail.send`).
 - **Não lê, não apaga e não gere** os seus emails, contactos, calendário ou quaisquer outros
   dados da sua conta Google.
-- Essa permissão é usada **só** para enviar o resumo semanal para o endereço configurado por
-  quem utiliza a ferramenta.
+- Essa permissão é usada **só** para enviar o resumo semanal para os endereços configurados
+  por quem utiliza a ferramenta.
 
 ## Onde ficam os dados
 - A autorização da Google (o *token* de acesso) fica guardada **apenas no computador** de quem
   executa a ferramenta. Não é enviada para nenhum servidor nosso nem para terceiros.
+- Os endereços de quem recebe o resumo ficam guardados **apenas no computador** de quem envia.
+  O email segue em cópia oculta (Bcc), por isso cada pessoa não vê os endereços das outras.
+  Para deixar de o receber, basta pedir a quem o envia.
 - Nenhum dado da conta Google é partilhado, vendido ou usado para publicidade.
 - A utilização de informação recebida das APIs da Google cumpre a
   [Política de Dados do Utilizador dos Serviços API da Google](https://developers.google.com/terms/api-services-user-data-policy),

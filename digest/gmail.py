@@ -47,7 +47,12 @@ class GmailApiBackend(BaseEmailBackend):
         session = AuthorizedSession(load_credentials(self.token_file))
         sent = 0
         for message in email_messages:
-            raw = base64.urlsafe_b64encode(message.message().as_bytes()).decode()
+            mime = message.message()
+            if message.bcc:
+                # Django leaves Bcc out of the MIME headers; the Gmail API reads recipients from them
+                # and strips Bcc before delivery.
+                mime['Bcc'] = ', '.join(message.bcc)
+            raw = base64.urlsafe_b64encode(mime.as_bytes()).decode()
             response = session.post(SEND_URL, json={'raw': raw}, timeout=TIMEOUT)
             response.raise_for_status()
             sent += 1

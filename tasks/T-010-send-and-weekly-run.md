@@ -113,3 +113,17 @@ days; proposed: `send_digest` reopens the browser login by itself when it has ex
 `collect`, reports the totals, then follows `extract.md`, which it points to rather than
 copying. This covers the first half of `run_week` (steps 1–2 of the Monday routine). The
 review, preview and send steps are still separate.
+
+**2026-10-01, several readers:** the user wants to send the digest to a small group of people
+(the public sign-up through an email provider, planned in T-003, stays for later). Changes:
+- `.env` now has `DIGEST_RECIPIENTS`: one or more addresses separated by commas. It replaces
+  `DIGEST_RECIPIENT`, and the user's own `.env` key was renamed with the address kept.
+- The email goes **To** the sender's own `GMAIL_ADDRESS`, and the readers go in **Bcc**.
+  Django leaves Bcc out of the MIME message, and the Gmail API reads recipients from the raw
+  message, so `GmailApiBackend` adds the `Bcc` header itself. Without that, every reader would
+  have been silently dropped. Gmail strips the header before delivery.
+- `--test` sends only to `GMAIL_ADDRESS`, never to the readers.
+- PRIVACY.md says where the readers' addresses are kept (only on the sender's PC), and that
+  they're sent in Bcc.
+- Cost: still none. It's one Gmail API call per week, and each Bcc address counts towards
+  Gmail's ~500 recipients/day limit, which isn't billed.

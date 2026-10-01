@@ -173,7 +173,7 @@ class RenderTests(DigestDataMixin, TestCase):
         self.assertEqual(Digest.objects.count(), 0)
 
 
-@override_settings(GMAIL_ADDRESS='sender@example.org', DIGEST_RECIPIENT='reader@example.org')
+@override_settings(GMAIL_ADDRESS='sender@example.org', DIGEST_RECIPIENTS=['reader@example.org', 'friend@example.org'])
 class SendDigestTests(DigestDataMixin, TestCase):
     def send(self, *args):
         output = Path(tempfile.mkdtemp())
@@ -189,7 +189,8 @@ class SendDigestTests(DigestDataMixin, TestCase):
         self.send()
         self.assertEqual(len(mail.outbox), 1)
         message = mail.outbox[0]
-        self.assertEqual(message.to, ['reader@example.org'])
+        self.assertEqual(message.to, ['sender@example.org'])
+        self.assertEqual(message.bcc, ['reader@example.org', 'friend@example.org'])
         self.assertEqual(message.subject, 'theater-watcher #1 · 2 novas, 1 a fechar')
         self.assertIn('Audição para nova peça', message.body)
         self.assertIn('Audição para nova peça', message.alternatives[0].content)
@@ -211,6 +212,7 @@ class SendDigestTests(DigestDataMixin, TestCase):
         self.make()
         self.send('--test')
         self.assertTrue(mail.outbox[0].subject.startswith('[TESTE] '))
+        self.assertEqual((mail.outbox[0].to, mail.outbox[0].bcc), (['sender@example.org'], []))
         self.assertEqual(Digest.objects.count(), 0)
 
     def test_failed_send_records_nothing(self):
@@ -245,7 +247,7 @@ class GmailBackendTests(SimpleTestCase):
     def test_posts_the_encoded_message_to_the_gmail_api(self):
         from django.core.mail import EmailMultiAlternatives
 
-        message = EmailMultiAlternatives('Assunto ção', 'texto', 'from@example.org', ['to@example.org'])
+        message = EmailMultiAlternatives('Assunto ção', 'texto', 'from@example.org', ['to@example.org'], bcc=['a@example.org', 'b@example.org'])
         message.attach_alternative('<p>html</p>', 'text/html')
         session = mock.Mock()
         with mock.patch('digest.gmail.load_credentials'), mock.patch('digest.gmail.AuthorizedSession', return_value=session):
@@ -255,6 +257,7 @@ class GmailBackendTests(SimpleTestCase):
         raw = base64.urlsafe_b64decode(session.post.call_args.kwargs['json']['raw'])
         self.assertEqual(url, SEND_URL)
         self.assertIn(b'to@example.org', raw)
+        self.assertIn(b'Bcc: a@example.org, b@example.org', raw)
         self.assertIn(b'text/html', raw)
         session.post.return_value.raise_for_status.assert_called_once()
 

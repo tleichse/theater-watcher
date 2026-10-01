@@ -133,7 +133,7 @@ COLLECTOR_USER_AGENT = 'theater-watcher/0.1 (+https://github.com/tleichse/theate
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
 GMAIL_ADDRESS = os.environ.get('GMAIL_ADDRESS', '')
-DIGEST_RECIPIENT = os.environ.get('DIGEST_RECIPIENT', '')
+DIGEST_RECIPIENTS = [address.strip() for address in os.environ.get('DIGEST_RECIPIENTS', '').split(',') if address.strip()]
 DEFAULT_FROM_EMAIL = f'theater-watcher <{GMAIL_ADDRESS}>' if GMAIL_ADDRESS else 'webmaster@localhost'
 
 GMAIL_CLIENT_FILE = DATA_DIR / 'gmail-client.json'

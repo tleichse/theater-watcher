@@ -44,8 +44,11 @@ or screen changes, update the step in the same change. -->
    6. In `.env`, fill in:
       ```
       GMAIL_ADDRESS=you@gmail.com
-      DIGEST_RECIPIENT=where-the-digest-goes@example.com
+      DIGEST_RECIPIENTS=you@example.com, friend@example.com
       ```
+      `DIGEST_RECIPIENTS` takes one or more addresses separated by commas. Everyone gets the
+      email in **Bcc**, so nobody sees the others' addresses. To add or remove a reader, edit
+      this line. Only add people who asked to receive it.
    7. Authorise sending:
       ```sh
       uv run python manage.py authorize_gmail
@@ -140,7 +143,8 @@ When you're happy with it, send the real issue:
 ```sh
 uv run python manage.py send_digest
 ```
-It prints `Sent "theater-watcher #N · …" to <recipient>` and `Recorded as issue #N`. Recording
+It prints `Sent "theater-watcher #N · …" to N reader(s) in Bcc` and `Recorded as issue #N`.
+A `--test` send goes only to your own `GMAIL_ADDRESS`, never to the readers. Recording
 is what makes next week's **Novo** badges correct. An issue can only be sent once. Running it
 again says `already sent`.
 

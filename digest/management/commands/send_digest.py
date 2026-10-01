@@ -10,7 +10,7 @@ from digest.send import GMAIL_CLIP_BYTES, CannotSend, send_issue
 
 
 class Command(BaseCommand):
-    help = 'Send the current issue to DIGEST_RECIPIENT through Gmail and record what was shared.'
+    help = 'Send the current issue to DIGEST_RECIPIENTS (in Bcc) through Gmail and record what was shared.'
 
     def add_arguments(self, parser):
         parser.add_argument('--at', help='Send time in Lisbon, e.g. 2026-10-05T09:00 (default: the current issue, Monday 09:00).')
@@ -27,7 +27,11 @@ class Command(BaseCommand):
         except OSError as error:
             raise CommandError(f'Gmail did not accept the email ({error}). Nothing was recorded.')
         html_path, _ = write(rendered, send_at)
-        self.stdout.write(f'Sent "{rendered.subject}" to {settings.DIGEST_RECIPIENT}: {selection.total} items.')
+        if options['test']:
+            self.stdout.write(f'Sent "{rendered.subject}" to {settings.GMAIL_ADDRESS} only: {selection.total} items.')
+        else:
+            readers = len(settings.DIGEST_RECIPIENTS)
+            self.stdout.write(f'Sent "{rendered.subject}" to {readers} reader(s) in Bcc: {selection.total} items.')
         self.stdout.write('Test send: nothing recorded.' if options['test'] else f'Recorded as issue #{rendered.number}. Copy kept at {html_path}')
         if len(rendered.html.encode()) > GMAIL_CLIP_BYTES:
             self.stdout.write(self.style.WARNING('The HTML is over 100 KB, so Gmail will clip it ("Mensagem cortada").'))
