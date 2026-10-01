@@ -16,18 +16,8 @@ uv run python manage.py createsuperuser
 uv run python manage.py runserver   # admin at http://localhost:8000/admin/
 ```
 
-Weekly run (each step is its own command; see [T-003](tasks/T-003-digest-architecture.md)):
-
-```sh
-uv run python manage.py sync_sources   # load or refresh the sources from collection/sources.py
-uv run python manage.py collect        # fetch new listings (optionally --source <slug>)
-```
-
-Then, in Claude Code, run `/extract`. It exports the new listings in batches, writes draft
-actions, and imports them as "Por rever" for review in the admin.
-
-Run `collect` twice a week: on Monday and once mid-week. Coffeepaste only shows about 5 days of
-posts (see [GOTCHAS.md](GOTCHAS.md)).
+The full setup and the weekly routine (collect, extract, review, build, send) are in
+[`HOWTO.md`](HOWTO.md).
 
 ## Code layout
 One Django app per pipeline stage. The reasoning is in [T-004](tasks/T-004-project-skeleton.md).
@@ -44,6 +34,7 @@ One Django app per pipeline stage. The reasoning is in [T-004](tasks/T-004-proje
 
 | Where | What's there |
 |---|---|
+| [`HOWTO.md`](HOWTO.md) | Step by step: setup and the weekly routine to review and send the digest |
 | [`CLAUDE.md`](CLAUDE.md) | How work gets done here, and how the files below fit together |
 | [`GOTCHAS.md`](GOTCHAS.md) | Pitfalls already hit. Check it before touching an area it covers. |
 | [`IDEAS.md`](IDEAS.md) | Inbox of raw asks, by date |
