@@ -55,7 +55,7 @@ Centro de Artes e Espectáculos (CAE),venue,centre,http://www.cae.pt/,,rtcp-2026
 CINANIMA - Fest. Internacional de Cinema de Animação de Espinho,festival,north,https://cinanima.pt/,,cineguia,2026
 CINE ECO,festival,centre,https://cineeco.pt/,,cineguia,2026
 Cine Granadeiro,venue,south,https://www.cm-grandola.pt/viver/cultura/poi/cine-granadeiro-auditorio-municipal,no,rtcp-2026;arquivo-espacos,2026
-Cine-Teatro Avenida,venue,centre,https://www.facebook.com/cineteatroavenida,,rtcp-2026;arquivo-espacos,2026
+Cine-Teatro Avenida,venue,centre,,,rtcp-2026;arquivo-espacos,2026
 Cine-Teatro de Alcobaça,venue,centre,https://cm-alcobaca.pt/,no,rtcp-2026;arquivo-espacos,2026
 Cine-Teatro de Benavente,venue,centre,,,rtcp-2026;arquivo-espacos,2026
 Cine-Teatro de Estarreja,venue,centre,https://www.cineteatroestarreja.com/agenda.php,,rtcp-2026;arquivo-espacos,2026
@@ -139,7 +139,7 @@ FIT – Feira Ibérica de Teatro,festival,,https://feiraiberica.pt/,,arquivo-fes
 FITA – Festival Internacional de Teatro do Alentejo (Lendias d'Encantar),festival,,https://www.lendiasdencantar.com/fita2026,no,arquivo-festivais;dgartes-festivais,2026
 FITAVALE / COMÉDIAS DO MINHO,festival,,https://www.comediasdominho.com/,no,dgartes-festivais,2026
 FITEI – Festival Internacional de Teatro de Expressão Ibérica (Porto),festival,,https://fitei.com/pt/,,arquivo-festivais;dgartes-festivais,2026
-FOME – Festival de Marionetas e Objetos (Faro),festival,,https://www.facebook.com/FestivalFome/,no,arquivo-festivais,
+FOME – Festival de Marionetas e Objetos (Faro),festival,,,,arquivo-festivais,
 Fórum Cultural de Alcochete,venue,centre,https://www.cm-alcochete.pt/pagenotfound,no,rtcp-2026;arquivo-espacos,2026
 Fórum Cultural José Manuel Figueiredo,venue,centre,https://www.cm-moita.pt/viver/cultura-e-associativismo/cultura/recursos-e-equipamentos/poi/forum-cultural-jose-manuel-figueiredo,no,rtcp-2026;arquivo-espacos,2026
 Fórum Municipal Luísa Todi,venue,centre,https://www.forumluisatodi.pt/,,rtcp-2026;arquivo-espacos,2026
@@ -184,7 +184,7 @@ Teatro Cine de Gouveia,venue,centre,https://www.cm-gouveia.pt/teatro-cine-de-gou
 Teatro-Cine de Pombal,venue,centre,,,rtcp-2026;arquivo-espacos,2026
 Teatro-Cine de Torres Vedras,venue,centre,https://teatrocine-tvedras.pt/,,rtcp-2026;arquivo-espacos,2026
 Teatro-Cinema de Fafe,venue,north,https://www.cm-fafe.pt/,no,rtcp-2026;arquivo-espacos,2026
-Teatro da Cerca de São Bernardo,venue,centre,http://weblog.aescoladanoite.pt/?fbclid=IwAR13GOtNLxW1RkqU4g_QTQZD4pw1tEf2xlEys8wAWjgAxlhSJovacS67eEg,,rtcp-2026;arquivo-espacos,2026
+Teatro da Cerca de São Bernardo,venue,centre,http://weblog.aescoladanoite.pt/?fbclid=IwAR13GOtNLxW1RkqU4g_QTQZD4pw1tEf2xlEys8wAWjgAxlhSJovacS67eEg,no,rtcp-2026;arquivo-espacos,2026
 Teatro da Comuna,venue,,https://www.comunateatropesquisa.pt/,no,manual-2026,2026
 Teatro da Trindade INATEL,venue,,https://teatrotrindade.inatel.pt/,,manual-2026,2026
 Teatro das Figuras,venue,south,https://teatrodasfiguras.pt/,,rtcp-2026;arquivo-espacos,2026
@@ -210,7 +210,7 @@ Teatro Municipal de Bragança,venue,,https://www.cm-braganca.pt/cm-braganca,no,m
 Teatro Municipal de Matosinhos Constantino Nery,venue,north,https://www.teatromunicipaldematosinhos.pt/,,rtcp-2026;arquivo-espacos,2026
 Teatro Municipal de Ourém,venue,centre,https://teatromunicipal.ourem.pt/brevemente/,no,rtcp-2026;arquivo-espacos,2026
 Teatro Municipal de Vila Real,venue,north,http://www.teatrodevilareal.com/,,rtcp-2026;arquivo-espacos,2026
-Teatro Municipal Garcia de Resende,venue,south,https://www.facebook.com/AgendaCulturalEvora,no,rtcp-2026;arquivo-espacos,2026
+Teatro Municipal Garcia de Resende,venue,south,,,rtcp-2026;arquivo-espacos,2026
 Teatro Municipal Joaquim Benite,venue,centre,https://ctalmada.pt/,no,rtcp-2026;arquivo-espacos;manual-2026,2026
 Teatro Nacional D. Maria II,venue,centre,https://www.tndm.pt/,no,arquivo-companhias;manual-2026,2026
 Teatro Nacional São João,venue,,https://www.tnsj.pt/pt/,no,manual-2026,2026

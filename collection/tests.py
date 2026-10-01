@@ -398,6 +398,17 @@ class CompanySourceTests(TestCase):
         listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç'}, set()))
         self.assertEqual([listing.url for listing in listings], ['https://co.pt/noticias/audicoes-2027'])
 
+    def test_site_with_a_dead_feed_falls_back_to_its_links(self):
+        homepage = """<link rel="alternate" type="application/rss+xml" href="/feed/">
+        <a href="/noticias/audicoes-2027">Audições 2027</a>"""
+        fetcher = fetcher_for({
+            'https://co.pt/': (200, homepage),
+            'https://co.pt/feed/': (500, ''),
+            'https://co.pt/noticias/audicoes-2027': (200, '<main><h1>Audições 2027</h1></main>'),
+        })
+        listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç'}, set()))
+        self.assertEqual([listing.url for listing in listings], ['https://co.pt/noticias/audicoes-2027'])
+
     def test_site_skips_an_own_link_that_fails(self):
         homepage = """<a href="/portal">Inscrições de sócios</a>
         <a href="/noticias/audicoes-2027">Audições 2027</a>"""

@@ -16,8 +16,17 @@ def collect(fetcher, config, known_urls):
     if feed:
         # Same rule as the followed links below: a dead post skips (SP Entertainment's feed had a 404).
         rss_config = {'feed_url': feed, 'keywords': config.get('keywords'), 'fetch_detail': True, 'skip_failed_detail': True}
-        yield from rss.collect(fetcher, rss_config, known_urls)
-        return
+        listings = rss.collect(fetcher, rss_config, known_urls)
+        try:
+            first = next(listings, None)
+        except requests.HTTPError:
+            # The advertised feed is dead (Gulbenkian's and Santa Claus's were), so read the homepage instead.
+            first = listings = None
+        if listings is not None:
+            if first:
+                yield first
+                yield from listings
+            return
     host = urlsplit(homepage).netloc.removeprefix('www.')
     links = {}
     for anchor in soup.find_all('a', href=True):

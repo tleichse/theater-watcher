@@ -22,6 +22,11 @@ the task to `done`. -->
   extraction.
 
 ### Features
+- [collection] A contacts database of everyone in Portugal who posts castings, auditions, training
+  or funding: 880 organisations (theatre companies, film and TV producers, casting companies and
+  agencies, dubbing studios, the Rede de Teatros e Cineteatros and other venues, festivals,
+  schools, funders and film commissions), each with its type and region, filterable under
+  *Organizações* in the admin. About 590 of their websites are now watched for new calls.
 - [digest] `build_digest` renders the weekly issue as an email-ready HTML page plus a
   plain-text version, in pt-PT: Últimos dias, the five pillars, Formação, Apoios, No radar,
   and Candidaturas permanentes, with Novo, pillar, and region badges and deadline chips.

@@ -25,4 +25,4 @@ one merged later renumbers its task.
 | T-012 | Film schools and student productions as sources | in-progress | collection | [T-012](tasks/T-012-film-school-sources.md) |
 | T-013 | TV and film producers and DGArtes-funded companies as sources | in-progress | collection | [T-013](tasks/T-013-producer-and-company-sources.md) |
 | T-014 | EU funding and mobility calls as sources | in-progress | collection | [T-014](tasks/T-014-eu-funding-sources.md) |
-| T-015 | An exhaustive database of everyone who posts opportunities | in-progress | collection | [T-015](tasks/T-015-exhaustive-contacts.md) |
+| T-015 | An exhaustive database of everyone who posts opportunities | done | collection | [T-015](tasks/T-015-exhaustive-contacts.md) |

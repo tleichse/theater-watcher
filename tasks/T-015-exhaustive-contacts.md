@@ -48,11 +48,11 @@
    breaks.
 
 ## Acceptance criteria
-- [ ] Every family above has a CSV with a lists README that records the source lists, the skips and
+- [x] Every family above has a CSV with a lists README that records the source lists, the skips and
   the refresh steps
-- [ ] Every organisation is in the database with a kind and, where known, a region
-- [ ] Every new source has been collected once, and the failures are fixed or recorded
-- [ ] Tests pass
+- [x] Every organisation is in the database with a kind and, where known, a region
+- [x] Every new source has been collected once, and the failures are fixed or recorded
+- [x] Tests pass
 
 ## Implementation
 **2026-10-01.**
@@ -81,3 +81,32 @@
   synced from the CSV.
 - **EU sources (T-014)** were added in the same change: `ec-culture`, `perform-europe`,
   `on-the-move`.
+- **More lists, same day:** the DGArtes festival directory (68 festivals, 22 added after dropping
+  music, dance and duplicates), Cineguia's 12 regional film commissions (as `funder`), and actors'
+  agencies missing from Cineguia (Absoluteface, Crowd, People Stars). Considered and left out: the
+  MUTIM directory (individual women professionals, not organisations), Plateia and CENA-STE (no
+  opportunity pages), cinema clubs, and amateur theatre groups (out of audience).
+- **First collect over the new sources** (415 sources, about two and a half hours because of
+  crawl delays): **856 new listings from 94 sources**. 20 failed:
+  - 9 TLS certificate errors, most likely the work network's filter (see GOTCHAS); left as they
+    are.
+  - 4 sites advertise a feed that is dead (Gulbenkian, Festival das Artes, Santa Claus, Área de
+    Serviço), which failed the whole source. `site_watch` now falls back to the homepage's links
+    when the advertised feed fails, with a test.
+  - 3 venues had a Facebook page as their website (Cine-Teatro Avenida, FOME, Garcia de Resende);
+    the website was blanked, since Facebook isn't collected (T-002).
+  - 6 sites refuse the collector or error on the homepage (Wondr robots.txt, MGN and theCREW 403,
+    HOP! 500, Teatro da Cerca's blog 500, Lisboa Film Commission 403): `collect` set to `no`.
+  - HOP! FILMES (Cineguia) is HOP Films, folded into one row.
+- **Second collect** (the sources added during the first one, plus the four dead-feed sites): the
+  fallback works (Gulbenkian now gives 12 listings). The only failures left are three company sites
+  behind the work network's filter (Companhia da Esquina, Teatro do Elefante, Urze, already in
+  GOTCHAS) and Enlama resetting the connection.
+- **Where it ended (2026-10-01):** **880 organisations in the four CSVs** (324 producers, 205
+  theatre companies, 129 venues, 102 festivals, 48 casting companies and agencies, 31 schools, 24
+  dubbing studios and voice agencies, 21 funders and film commissions), plus 10 posters that
+  extraction had already created. 689 have a website, 556 are validated, and 594 sources are
+  active. Region is known for 645 of them. 973 collected listings are waiting for `/extract`, far
+  more than a normal week, so the next `/collect-extract` will take several rounds.
+- Four organisations created and then removed during the merge were deleted from the database by
+  hand (no action pointed to them); see GOTCHAS.

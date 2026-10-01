@@ -77,6 +77,10 @@ week. Found after the first producer collect in
 **Fix:** `sync_sources` now deactivates every source that isn't configured any more. Listings it
 already collected stay in the database; mark the unextracted ones as skipped if they aren't
 wanted.
+**Recurred:** 2026-10-01, [T-015](tasks/T-015-exhaustive-contacts.md), for organisations: a row
+removed from a CSV stays in the database as an `Organisation`. Sync can't delete it, because past
+actions may point to it. After removing rows, delete the leftover organisations by hand if no
+action uses them.
 
 ### Merging contact lists by website joins organisations that share a site
 Many organisations don't have a site of their own: a school's theatre has a page on the school's
