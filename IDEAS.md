@@ -49,3 +49,6 @@ today's date that ends with `→ folded into T-XXX`. -->
   opportunities by geography (north, center (including Lisbon), south, or national)"
   → [T-005](tasks/T-005-models-and-review-admin.md) for the geography field; the training
   lead is folded into [T-002](tasks/T-002-casting-sources-research.md)
+- "one thing that i really need is that the sources of the action have to be traceable. You
+  have to know who is posting." → [T-006](tasks/T-006-traceable-poster.md); it also settles
+  the becasting question, folded into [T-002](tasks/T-002-casting-sources-research.md)

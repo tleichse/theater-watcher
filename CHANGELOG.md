@@ -11,6 +11,8 @@ the task to `done`. -->
 ## 2026-10-01
 
 ### Features
+- [backend] Every opportunity in the digest names who posted it: the admin refuses to approve
+  an action without one, and a "Sem quem publica" filter lists the ones still missing it.
 - [backend] Opportunities can be stored and reviewed in the admin: sources, organisations,
   and actions, each tagged with a region (Norte, Centro, Sul, Ilhas, Nacional), plus filters,
   bulk approve and reject, and a flag for actions that would close before the next issue.

@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.db.models import Q
 
 from digest.schedule import ELIGIBILITY_MARGIN, misses_next_issue, next_send_at
@@ -36,6 +36,21 @@ class MissesNextIssueFilter(admin.SimpleListFilter):
         return queryset
 
 
+class HasPosterFilter(admin.SimpleListFilter):
+    title = 'quem publica'
+    parameter_name = 'has_poster'
+
+    def lookups(self, request, model_admin):
+        return [('no', 'Sem quem publica'), ('yes', 'Com quem publica')]
+
+    def queryset(self, request, queryset):
+        if self.value() == 'no':
+            return queryset.filter(organisation__isnull=True)
+        if self.value() == 'yes':
+            return queryset.filter(organisation__isnull=False)
+        return queryset
+
+
 @admin.register(Action)
 class ActionAdmin(admin.ModelAdmin):
     list_display = [
@@ -43,7 +58,7 @@ class ActionAdmin(admin.ModelAdmin):
         'misses_next_issue',
     ]
     list_filter = [
-        'status', MissesNextIssueFilter, 'pillar', 'kind', 'region', 'source', 'always_open',
+        'status', MissesNextIssueFilter, HasPosterFilter, 'pillar', 'kind', 'region', 'source', 'always_open',
     ]
     search_fields = ['title', 'summary', 'location', 'organisation__name']
     autocomplete_fields = ['organisation']
@@ -70,7 +85,14 @@ class ActionAdmin(admin.ModelAdmin):
 
     @admin.action(description='Aprovar as ações selecionadas')
     def approve(self, request, queryset):
-        queryset.update(status=Action.Status.APPROVED)
+        skipped = queryset.filter(organisation__isnull=True).count()
+        queryset.filter(organisation__isnull=False).update(status=Action.Status.APPROVED)
+        if skipped:
+            self.message_user(
+                request,
+                f'{skipped} ação(ões) não aprovada(s): falta indicar quem a publica.',
+                messages.WARNING,
+            )
 
     @admin.action(description='Rejeitar as ações selecionadas')
     def reject(self, request, queryset):

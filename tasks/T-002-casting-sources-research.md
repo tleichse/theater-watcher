@@ -23,6 +23,10 @@
   **Answer (2026-09-30):** the proposal is agreed. Only tiers A and B count as validated. A tier C
   source can be included only if it's deduplicated and labelled "via <site>". That's decided per
   source when the final list is fixed.
+  **Amended 2026-10-01:** the user made traceability a hard rule: "you have to know who is
+  posting". Tier C sources (anonymous posters) are now excluded outright, and every action
+  must name its poster before it's approved, enforced in
+  [T-006](T-006-traceable-poster.md).
 - ~~Who are **the people** receiving the digest: professional actors, beginners, parents of
   child actors? This decides whether extras, modelling, and children's castings belong in the
   digest. Those make up most of the volume on the tier C aggregators.~~
@@ -46,10 +50,12 @@
   sources (step 5 below).
 - Where do **training** opportunities come from (folded in from T-003)? **Answer
   (2026-10-01):** research them now (step 6 below).
-- To give Marketing more volume, should **becasting's advertising category** be admitted as
+- ~~To give Marketing more volume, should **becasting's advertising category** be admitted as
   tier C, labelled "via becasting" and deduplicated, which the validated-source rule allows?
   It has no AI opt-out in `robots.txt`, but its terms forbid copying, so facts and a link only.
-  Or should the section stay thin?
+  Or should the section stay thin?~~ **Answer (2026-10-01):** no. Its posters are anonymous,
+  which breaks the traceability rule (see the "validated" answer above). The Marketing
+  section stays thin.
 - Is **VSI Lisbon** the "VS Digital Media" the user meant? If not, which studio was it?
 
 ## Deep dive: source catalogue (first pass, 2026-09-30)

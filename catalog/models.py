@@ -108,6 +108,7 @@ class Action(models.Model):
         blank=True,
         related_name='actions',
         verbose_name='organização',
+        help_text='Quem publica a oportunidade. Obrigatória para aprovar.',
     )
     location = models.CharField('local', max_length=200, blank=True)
     region = models.CharField('região', max_length=20, choices=Region)
@@ -157,6 +158,13 @@ class Action(models.Model):
         verbose_name = 'ação'
         verbose_name_plural = 'ações'
         ordering = ['expires_at']
+        constraints = [
+            models.CheckConstraint(
+                condition=~models.Q(status='approved') | models.Q(organisation__isnull=False),
+                name='approved_action_has_poster',
+                violation_error_message='Uma ação aprovada tem de indicar quem a publica.',
+            ),
+        ]
 
     def __str__(self):
         return self.title

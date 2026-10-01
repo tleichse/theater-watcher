@@ -16,3 +16,4 @@ one merged later renumbers its task.
 | T-003 | Digest architecture: actions data model and email structure | done | architecture | [T-003](tasks/T-003-digest-architecture.md) |
 | T-004 | Project skeleton and directory layout | done | repo | [T-004](tasks/T-004-project-skeleton.md) |
 | T-005 | Data models and review admin | done | backend | [T-005](tasks/T-005-models-and-review-admin.md) |
+| T-006 | Require a traceable poster on every shared action | done | backend | [T-006](tasks/T-006-traceable-poster.md) |
