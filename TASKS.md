@@ -22,3 +22,5 @@ one merged later renumbers its task.
 | T-009 | Digest builder: selection rules and email rendering | done | digest | [T-009](tasks/T-009-digest-builder.md) |
 | T-010 | Send through Gmail and the weekly run command | blocked | digest | [T-010](tasks/T-010-send-and-weekly-run.md) |
 | T-011 | Email visual design: brief for Claude Design | blocked | design | [T-011](tasks/T-011-email-design-brief.md) |
+| T-012 | Film schools and student productions as sources | in-progress | collection | [T-012](tasks/T-012-film-school-sources.md) |
+| T-013 | TV and film producers and DGArtes-funded companies as sources | new | collection | [T-013](tasks/T-013-producer-and-company-sources.md) |

@@ -34,6 +34,7 @@ One Django app per pipeline stage. The reasoning is in [T-004](tasks/T-004-proje
 
 | Where | What's there |
 |---|---|
+| [`GROWTH.md`](GROWTH.md) | Ranked growth opportunities for the digest, linked to the tasks that work on them |
 | [`HOWTO.md`](HOWTO.md) | Step by step: setup and the weekly routine to review and send the digest |
 | [`CLAUDE.md`](CLAUDE.md) | How work gets done here, and how the files below fit together |
 | [`PRIVACY.md`](PRIVACY.md) | Public privacy policy (pt-PT), linked from the Google consent screen |

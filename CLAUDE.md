@@ -15,6 +15,7 @@ preamble at the top of that file, so read the preamble before you edit the file.
 |---|---|---|
 | `README.md` (recursive: any major folder with several sub-areas gets its own) | What this is, how to run it, and a map to deeper docs | Read it first. Update it when the project's shape changes. |
 | `HOWTO.md` | Operator steps for setup and the weekly run (collect, extract, review, build, send) | Update a step in the same change that alters a command or admin screen it describes |
+| `GROWTH.md` | Ranked growth opportunities, each linking to its task once one exists | Add a dated snapshot when re-ranking; link a task when one is promoted. Never holds status. |
 | `GOTCHAS.md` | Pitfalls already hit, so nobody hits them again | Scan the topic headings before touching an area. Add or amend an entry, in the same change, whenever something non-obvious costs time. |
 | `IDEAS.md` | Raw asks, kept close to how they were said, grouped by date | Append whenever someone asks for a change to the project, before any work starts |
 | `TASKS.md` | Thin index: ID, title, status, area, link | The only place a task's **status** lives |

@@ -61,6 +61,7 @@ today's date that ends with `→ folded into T-XXX`. -->
   their corresponding film companies and so on?" Then, asked whether to do it now or after the
   first issue: "after". Not promoted yet. When it's picked up, check ICA's "Projetos em Curso"
   and "Vistos de rodagem" pages too (see [T-008](tasks/T-008-extraction.md)).
+  → [T-013](tasks/T-013-producer-and-company-sources.md)
 - Answers to T-007's open points: "2. twice a week 3. yes, public" (collect twice a week;
   the GitHub repo is public, so its URL works as the collector's contact) → folded into
   [T-007](tasks/T-007-collectors.md) and [T-003](tasks/T-003-digest-architecture.md)
@@ -76,3 +77,8 @@ today's date that ends with `→ folded into T-XXX`. -->
   Regarding the scheduled action, do i need to have the PC open?" → keywords folded into
   [T-007](tasks/T-007-collectors.md); the scheduled weekly run is
   [T-010](tasks/T-010-send-and-weekly-run.md)'s `run_week`
+- "Find the biggest opportunities for growth for this digest? Is it in terms of sources?
+  Keywords? I want ot make this digest the one that everyone goes to." then "write an md with
+  these opportunities, and start with 1. from yout recommendation." → [GROWTH.md](GROWTH.md);
+  recommendation 1 → [T-012](tasks/T-012-film-school-sources.md) and
+  [T-013](tasks/T-013-producer-and-company-sources.md)
