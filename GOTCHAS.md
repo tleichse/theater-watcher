@@ -78,6 +78,18 @@ week. Found after the first producer collect in
 already collected stay in the database; mark the unextracted ones as skipped if they aren't
 wanted.
 
+### Merging contact lists by website joins organisations that share a site
+Many organisations don't have a site of their own: a school's theatre has a page on the school's
+site, a festival lives on its company's site, a venue's page is on the town council's site, an
+agent's "website" is the agency's roster page. Matching candidates to existing rows by website
+merged ESMAE into Teatro Helena Sá e Costa, and let an agent's row claim Klip's site so the agency
+itself ended up uncollected. Directories also file organisations under the wrong type: Cineguia
+lists Fantasporto as an "Individual", so a rule that dropped individuals dropped a major festival.
+Found while building the contacts database in [T-015](tasks/T-015-exhaustive-contacts.md).
+**Fix:** match by name first, and by website only within the same file. When two organisations
+share a host, keep both and set `collect` to `no` on the one that isn't the site's owner. After a
+merge, read the skip list for big names before trusting a rule.
+
 ## Extraction
 
 ### A feed's publish date can be years older than the offer

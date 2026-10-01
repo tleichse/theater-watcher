@@ -149,3 +149,23 @@ The main funders and open-call bodies, as contacts: DGArtes, Fundação GDA, Eur
 Portugal), Culture Moves Europe, Perform Europe and Iberescena have `collect` set to `no` (each is
 already a hand-configured source in `sources.py`, or its site can't be read); Fundação Calouste
 Gulbenkian and SPA (Sociedade Portuguesa de Autores) are collected. ICA came from Cineguia.
+
+## `manual-agencies-2026`
+Actors' agencies named in T-002 or in agency lists found by search, missing from Cineguia, read on
+2026-10-01: Absoluteface and Crowd (collected) and People Stars (`collect` set to `no`: T-002
+excluded it as a source because its casting page mixes in extras and babies; the same applies to
+Make Me A Star, which came from Cineguia). Quick Casting's site is stale (2016) and wasn't added;
+Blast and A-GENTE have no site that could be found.
+
+*Note, 2026-10-01:* three individuals from Cineguia were removed after the merge: Filipa Miranda (her
+only website is Klip's roster page, which also left KLIP AGENCY wrongly uncollected), and Marta
+Taborda and Rute Isabel Carrilho Filomeno (their sites are dead, so only a name was left). The
+casting directors João Salomão and Cláudia Gomes keep their personal sites as contacts, with
+`collect` set to `no`.
+
+*Note, 2026-10-01 (later):* the 12 regional film commissions and film offices from Cineguia's *Film
+Commissions* category were added as `funder`: they announce productions shooting in their region
+and the incentives, and sometimes pass on castings. Portugal Film Commission is already the
+`film-commission` source and Lisboa's and Elvas's pages are on council sites, so those three have
+`collect` set to `no`. Centro de Portugal is listed twice on Cineguia (`cpfc.pt` and
+`cportugalfilmcommission.pt`); it's kept once. The Algarve and Azores sites didn't load.

@@ -4,12 +4,13 @@ name,kind,region,website,collect,lists,last_active
 A Moagem – Cidade do Engenho e das Artes,venue,centre,https://amoagem.pt/,,rtcp-2026;arquivo-espacos,2026
 ACASO – Festival Internacional de Teatro,festival,,https://www.onarizteatro.pt/acaso/,,arquivo-festivais,2026
 Agência - Portuguese Short Film Agency,festival,north,,,cineguia,
-Alkantara Festival,festival,,https://alkantara.pt/festival/,,arquivo-festivais,2026
+Alkantara Festival,festival,,https://alkantara.pt/festival/,,arquivo-festivais;dgartes-festivais,2026
 Amarante Cine-Teatro,venue,north,https://www.cm-amarante.pt/cineteatroamarante/,no,rtcp-2026,2026
 Armazém 8,venue,south,https://armazem8.associarte.pt/,,rtcp-2026;arquivo-espacos,2026
 AROUCA Film Festival,festival,,https://aroucafilmfestival.com/,,cineguia,2026
 ARQUITETURAS Film Festival,festival,,https://arquiteturasfilmfestival.com,,cineguia,2026
 Art'in Rua,festival,,,,arquivo-festivais,
+Atalaia Artes Performativas,festival,south,,,dgartes-festivais,
 Auditório Carlos do Carmo,venue,south,http://www.cm-lagoa.pt/,no,rtcp-2026;arquivo-espacos,2026
 Auditório de Espinho,venue,north,https://www.musica-esp.pt/auditorio-de-espinho-academia/programacao-bilheteira,,rtcp-2026;arquivo-espacos,2026
 Auditório do Centro Cultural de Arronches,venue,south,https://cm-arronches.pt/,no,rtcp-2026;arquivo-espacos,2026
@@ -20,14 +21,15 @@ Auditório Municipal de Gaia,venue,north,https://www.cm-gaia.pt/pt/cidade/cultur
 Auditório Municipal de Portel,venue,south,https://www.cm-portel.pt/locais/auditorio-municipal-de-portel/,no,rtcp-2026;arquivo-espacos,2026
 AVANCA - Festival de Cinema,festival,,https://www.avanca.com/,,cineguia,2026
 Batalha Centro de Cinema,venue,,https://www.batalhacentrodecinema.pt/,,manual-2026,2026
+BIME - Bienal de Marionetas,festival,,,,dgartes-festivais,
 Boca de Cão – Teatro de Rua e Formas Animadas (Vila Nova de Gaia),festival,,https://www.bocadecao.pt/,,arquivo-festivais,
 BRAGACINE FESTIVAL,festival,north,http://www.bragacineindependente.com/,,cineguia,
 CAMINHOS DO CINEMA PORTUGUÊS,festival,centre,https://www.caminhos.info/,,cineguia,2026
 Casa da Comédia,venue,,,,manual-2026,
 Casa da Criatividade,venue,north,https://www.casadacriatividade.com/,,rtcp-2026;arquivo-espacos,2026
-Casa da Cultura - Teatro Stephens,venue,centre,,,rtcp-2026;arquivo-espacos,2026
 Casa da Cultura de Ílhavo,venue,centre,https://www.23milhas.pt/,,rtcp-2026;arquivo-espacos,2026
 Casa da Cultura Santa Comba Dão,venue,centre,https://cm-santacombadao.pt/,no,rtcp-2026;arquivo-espacos,2026
+Casa da Cultura - Teatro Stephens,venue,centre,,,rtcp-2026;arquivo-espacos,2026
 Casa das Artes de Miranda do Corvo,venue,centre,,,rtcp-2026;arquivo-espacos,2026
 Casa das Artes de Vila Nova de Famalicão,venue,north,http://www.casadasartes.org/,,rtcp-2026;arquivo-espacos,2026
 Casa Municipal da Cultura de Seia,venue,centre,,,rtcp-2026;arquivo-espacos,2026
@@ -44,7 +46,7 @@ Centro Cultural e de Congressos das Caldas da Rainha,venue,centre,https://www.cc
 Centro Cultural Gil Vicente,venue,centre,,,rtcp-2026;arquivo-espacos,2026
 Centro Cultural Olga Cadaval,venue,centre,https://ccolgacadaval.pt/,,rtcp-2026;arquivo-espacos,2026
 Centro Cultural Raiano,venue,centre,https://www.cm-idanhanova.pt/areas/cultura/centro-cultural-raiano,no,rtcp-2026;arquivo-espacos,2026
-Centro Cultural Vila Flor,venue,north,https://www.ccvf.pt/,,rtcp-2026;arquivo-espacos,2026
+Centro Cultural Vila Flor,venue,north,https://www.ccvf.pt/,,rtcp-2026;arquivo-espacos;dgartes-festivais,2026
 Centro das Artes e do Espectáculo – Sever do Vouga,venue,centre,,,rtcp-2026;arquivo-espacos,2026
 Centro de Arte de Ovar,venue,centre,https://cultura.cm-ovar.pt/pt/Default.aspx,no,rtcp-2026;arquivo-espacos,2026
 Centro de Artes de Águeda (CAA),venue,centre,https://www.centroartesagueda.pt/,,rtcp-2026;arquivo-espacos,2026
@@ -53,8 +55,6 @@ Centro de Artes e Espectáculos (CAE),venue,centre,http://www.cae.pt/,,rtcp-2026
 CINANIMA - Fest. Internacional de Cinema de Animação de Espinho,festival,north,https://cinanima.pt/,,cineguia,2026
 CINE ECO,festival,centre,https://cineeco.pt/,,cineguia,2026
 Cine Granadeiro,venue,south,https://www.cm-grandola.pt/viver/cultura/poi/cine-granadeiro-auditorio-municipal,no,rtcp-2026;arquivo-espacos,2026
-Cine Teatro João Verde,venue,north,https://ctjv.moncao.pt/,,rtcp-2026;arquivo-espacos,2026
-Cine Teatro São João,venue,centre,http://www.cm-palmela.pt,no,rtcp-2026;arquivo-espacos,2026
 Cine-Teatro Avenida,venue,centre,https://www.facebook.com/cineteatroavenida,,rtcp-2026;arquivo-espacos,2026
 Cine-Teatro de Alcobaça,venue,centre,https://cm-alcobaca.pt/,no,rtcp-2026;arquivo-espacos,2026
 Cine-Teatro de Benavente,venue,centre,,,rtcp-2026;arquivo-espacos,2026
@@ -62,9 +62,11 @@ Cine-Teatro de Estarreja,venue,centre,https://www.cineteatroestarreja.com/agenda
 Cine-Teatro de Mação,venue,centre,https://www.cm-macao.pt/,no,rtcp-2026,2026
 Cine-Teatro de Sobral de Monte Agraço,venue,centre,,,rtcp-2026;arquivo-espacos,2026
 Cine-Teatro Garrett,venue,north,https://www.cm-pvarzim.pt/territorio/povoa-cultural/cine-teatro-garrett/,no,rtcp-2026;arquivo-espacos,2026
+Cine Teatro João Verde,venue,north,https://ctjv.moncao.pt/,,rtcp-2026;arquivo-espacos,2026
 Cine-teatro Paraíso,venue,centre,https://cineteatro.cm-tomar.pt/,no,rtcp-2026;arquivo-espacos,2026
-Cine-Teatro Sousa Telles,venue,south,,,rtcp-2026,2026
+Cine Teatro São João,venue,centre,http://www.cm-palmela.pt,no,rtcp-2026;arquivo-espacos,2026
 Cine-Teatro São Pedro de Alcanena,venue,centre,,,rtcp-2026;arquivo-espacos,2026
+Cine-Teatro Sousa Telles,venue,south,,,rtcp-2026,2026
 CINECOA - Festival Internacional de Cinema de V.N. de Foz Côa,festival,north,https://cinecoa.pt/,,cineguia,2026
 Cinema São Jorge,venue,,https://cinemasaojorge.pt/,,manual-2026,2026
 Cinema-Teatro Joaquim dAlmeida,venue,centre,http://www.mun-montijo.pt,,rtcp-2026;arquivo-espacos,2026
@@ -86,55 +88,73 @@ CTAL – Cineteatro António Lamoso,venue,north,https://cineteatro.cm-feira.pt/,
 Culturgest,venue,,https://www.culturgest.pt/pt/,,manual-2026,2026
 CURTAS VILA DO CONDE - Festival Internacional de Cinema,festival,north,http://www.curtas.pt/,,cineguia,2026
 DOCLISBOA - Festival Internacional de Cinema,festival,centre,https://doclisboa.org/,,cineguia,2026
+É-Aqui-in-Ócio - Festival Internacional de Teatro na Póvoa de Varzim,festival,,https://www.varazimteatro.org/site/5665/?a_categoria_e=festival-e-aqui-in-ocio,no,arquivo-festivais,2026
 EI! MARIONETAS – Encontro Internacional de Marionetas (Gondomar),festival,,https://ei.marionetasmandragora.pt/,,arquivo-festivais,2026
+EI MARIONETAS / MANDRÁGORA,festival,,https://www.ei.marionetasmandragora.com/,,dgartes-festivais,2026
 Emraizart – Festival Circo & Teatro (Lagos),festival,,https://teatroexperimentaldelagos.pt/emraizart-5-edicao,,arquivo-festivais,2025
+Encontro Internacional de Marionetas de Montemor-o-Novo,festival,south,https://almadarame.pt/,,dgartes-festivais,2026
 FANTASPORTO - Festival Internacional de Cinema do Porto,festival,north,https://www.fantasporto.com/,,cineguia,2026
 FATAC – Festival de Teatro Académico de Coimbra,festival,,,,arquivo-festivais,
 FATAL – Festival Anual de Teatro Académico de Lisboa,festival,,https://www.ulisboa.pt/fatal-2025,no,arquivo-festivais,2025
 Favo das Artes,venue,north,https://favodasartes.mondimdebasto.pt/,,rtcp-2026;arquivo-espacos,2026
+Fazer a Festa - Festival de Teatro,festival,,,,dgartes-festivais,
 FEST - Festival Novos Cineastas | Novo Cinema,festival,north,http://www.fest.pt,,cineguia,2026
 FESTA – Festival de Teatro de Setúbal,festival,,https://www.festadoteatro.org/,,arquivo-festivais,2025
 Festiama – Festival de Teatro Amador de Esposende,festival,,https://www.municipio.esposende.pt/viver/atualidade/eventos/evento/vi-festiama-para-grandes-males-grandes-remedios,no,arquivo-festivais,2025
 FESTin - Festival de Cinema Itinerante da Língua Portuguesa,festival,centre,https://festin-festival.com/,,cineguia,2026
 Festiteatro – Festival de Teatro de Rua,festival,,https://www.municipio.esposende.pt/viver/atualidade/eventos/evento/9-festiteatro-festival-de-teatro-de-rua,no,arquivo-festivais,2025
-Festivais Gil Vicente,festival,,https://www.ccvf.pt/ciclos/20250605-festivais-gil-vicente/,no,arquivo-festivais,2025
+Festivais Gil Vicente,festival,,https://www.ccvf.pt/ciclos/20250605-festivais-gil-vicente/,no,arquivo-festivais;dgartes-festivais,2026
+Festival Contos d'Avó,festival,,,,dgartes-festivais,
 Festival Contrapeso,festival,,https://www.festivalcontrapeso.com/,,arquivo-festivais,2025
 Festival das Artes (Coimbra),festival,,https://www.festivaldasartes.com/,,arquivo-festivais,2026
 Festival de Almada,festival,,https://festival.ctalmada.pt/,,arquivo-festivais,2026
 FESTIVAL DE CINEMA LUSO-BRASILEIRO,festival,north,,,cineguia,
+Festival de Marionetas do Porto - fimp,festival,north,https://www.fimp.pt/,,dgartes-festivais,2026
+Festival de Práticas de Artes Performativas,festival,,,,dgartes-festivais,
 "Festival de Teatro ""Artistas d'Ovar""",festival,,,,arquivo-festivais,
-Festival de Teatro da Covilhã,festival,,https://www.teatrodasbeiras.pt/festival/o-festival/,no,arquivo-festivais,
+Festival de Teatro da Covilhã,festival,,https://www.teatrodasbeiras.pt/festival/o-festival/,no,arquivo-festivais;dgartes-festivais,
 Festival de Teatro de São Brás de Alportel,festival,,https://www.viralagenda.com/pt/faro/sao-bras-de-alportel/performing-arts,no,arquivo-festivais,
 Festival de Teatro de Viana do Castelo,festival,,https://tmsm.pt/festival/,no,arquivo-festivais,2025
 Festival de Teatro do Seixal,festival,,https://www.cm-seixal.pt/festival-de-teatro-do-seixal/2025/festival-de-teatro-do-seixal,no,arquivo-festivais,2026
 Festival de Teatro Entr'Cenas,festival,,https://www.e-cultura.pt/evento/43867,no,arquivo-festivais,2026
 "Festival de Teatro Transfronteiriço ""Palcos de Ría""",festival,,,,arquivo-festivais,
-Festival Internacional de Teatro Cómico da Maia,festival,,https://www.teatroartimagem.org/fitcmaia,no,arquivo-festivais,2026
+Festival Encontros do DeVIR,festival,south,,,dgartes-festivais,
+FESTIVAL END / Penetrarte AC,festival,,,,dgartes-festivais,
+Festival Internacional de Teatro Cómico da Maia,festival,,https://www.teatroartimagem.org/fitcmaia,no,arquivo-festivais;dgartes-festivais,2026
 Festival Internacional de Teatro de Barcelos,festival,,,,arquivo-festivais,
 Festival Internacional de Teatro Físico (Coimbra),festival,,https://www.oelefantenasala.pt/inopinado-festivaldeteatrofisicoeartesderua,,arquivo-festivais,2026
+Festival Materiais Diversos,festival,centre,,,dgartes-festivais,
+Festival Noites na Nora,festival,,,,dgartes-festivais,
+Festival 'O Gesto Orelhudo',festival,,https://www.dorfeu.pt/,,dgartes-festivais,2026
+Festival TeatroAgosto,festival,centre,https://esteteatro.com/,no,dgartes-festivais,
+Festival Vaudeville Rendez-Vous,festival,,,,dgartes-festivais,
 FETAV – Festival de Teatro Amador de Valbom,festival,,https://www.cm-gondomar.pt/eventos/30-fetav-festival-teatro-amador-valbom/,no,arquivo-festivais,2025
 FICSAM | Festival Internacional de Cinema e Saúde Mental,festival,south,https://www.ficsam.com/,,cineguia,2026
 FIKE - Festival Internacional de Curtas-Metragens de Évora,festival,south,,,cineguia,
 Filipe La Féria – Teatro Politeama,producer,centre,https://filipelaferia.pt/,,manual-2026,
-FIMFA Lx – Festival Internacional de Marionetas e Formas Animadas,festival,,https://tarumba.pt/2025/,no,arquivo-festivais,2026
+FIMFA Lx – Festival Internacional de Marionetas e Formas Animadas,festival,,https://tarumba.pt/2025/,no,arquivo-festivais;dgartes-festivais,2026
 FINISTERRA Arrábida Film Festival,festival,centre,,,cineguia,
+Finta - Festival Internacional de Teatro Acert,festival,centre,https://www.acert.pt/acert/,no,dgartes-festivais,2026
 FIT – Feira Ibérica de Teatro,festival,,https://feiraiberica.pt/,,arquivo-festivais,2026
-FITA – Festival Internacional de Teatro do Alentejo (Lendias d'Encantar),festival,,https://www.lendiasdencantar.com/fita2026,no,arquivo-festivais,2026
-FITEI – Festival Internacional de Teatro de Expressão Ibérica (Porto),festival,,https://fitei.com/pt/,,arquivo-festivais,2026
+FITA – Festival Internacional de Teatro do Alentejo (Lendias d'Encantar),festival,,https://www.lendiasdencantar.com/fita2026,no,arquivo-festivais;dgartes-festivais,2026
+FITAVALE / COMÉDIAS DO MINHO,festival,,https://www.comediasdominho.com/,no,dgartes-festivais,2026
+FITEI – Festival Internacional de Teatro de Expressão Ibérica (Porto),festival,,https://fitei.com/pt/,,arquivo-festivais;dgartes-festivais,2026
 FOME – Festival de Marionetas e Objetos (Faro),festival,,https://www.facebook.com/FestivalFome/,no,arquivo-festivais,
 Fórum Cultural de Alcochete,venue,centre,https://www.cm-alcochete.pt/pagenotfound,no,rtcp-2026;arquivo-espacos,2026
 Fórum Cultural José Manuel Figueiredo,venue,centre,https://www.cm-moita.pt/viver/cultura-e-associativismo/cultura/recursos-e-equipamentos/poi/forum-cultural-jose-manuel-figueiredo,no,rtcp-2026;arquivo-espacos,2026
 Fórum Municipal Luísa Todi,venue,centre,https://www.forumluisatodi.pt/,,rtcp-2026;arquivo-espacos,2026
 gnration,venue,north,https://www.gnration.pt/,,rtcp-2026;arquivo-espacos,2026
-Imaginarius – Festival Internacional de Teatro de Rua,festival,,https://www.imaginarius.pt/,,arquivo-festivais,2026
+Imaginarius – Festival Internacional de Teatro de Rua,festival,,https://www.imaginarius.pt/,,arquivo-festivais;dgartes-festivais,2026
 INDIELISBOA - Festival Internacional de Cinema Independente,festival,centre,https://indielisboa.com/,,cineguia,2026
 InShadow - Lisbon Screendance Festival,festival,centre,https://www.inshadowfestival.com/,,cineguia,2026
 LEFFEST - Lisbon & Sintra Film Festival,festival,centre,https://leffest.com/,,cineguia,2026
-LU.CA Teatro Luís de Camões,venue,,https://lucateatroluisdecamoes.pt/,,manual-2026,2026
 LÍNGUA – Festival Internacional de Teatro em Línguas Minoritárias,festival,,https://osamadoresdebalugas.wordpress.com/portfolio/lingua-festival-internacional-de-teatro-em-linguas-minoritarias/,,arquivo-festivais,2026
-Marionetas na Cidade (Alcobaça),festival,,https://www.samarionetas.com/marionetas-na-cidade,no,arquivo-festivais,2020
+LU.CA Teatro Luís de Camões,venue,,https://lucateatroluisdecamoes.pt/,,manual-2026,2026
+M.A.R. - Mostra de Artes de Rua,festival,,,,dgartes-festivais,
 Mar~Marionetas – Festival Internacional de Marionetas de Espinho,festival,,https://mar.marionetasmandragora.pt/,,arquivo-festivais,2026
+Marionetas na Cidade (Alcobaça),festival,,https://www.samarionetas.com/marionetas-na-cidade,no,arquivo-festivais,2020
 MDOC - Festival internacional de documnentário de Melgaço,festival,north,https://mdocfestival.pt/,,cineguia,2025
+MEXE- Encontro de Arte e Comunidade,festival,,,,dgartes-festivais,
 Mimarte — Festival de Teatro de Rua,festival,,https://braga25.pt/programa/mimarte-festival-de-teatro-de-rua/,no,arquivo-festivais,2025
 MOINHO CINE FEST,festival,north,https://moinhocinefest.eu/,,cineguia,2026
 MONSTRA Festival de Animação de Lisboa,festival,centre,https://www.monstrafestival.com/pt/,,cineguia,2026
@@ -145,8 +165,9 @@ Novo Ciclo ACERT,venue,centre,https://acert.pt/a-acert/novo-ciclo-acert/,,rtcp-2
 Novos Ventos – Festival de Teatro Comunitário,festival,,https://leirenateatro.wordpress.com/,no,arquivo-festivais,
 Oficina Municipal do Teatro (OMT),venue,centre,https://oteatrao.com/,no,rtcp-2026;arquivo-espacos,2026
 OLHARES DO MEDITERRÂNEO – Women’s Film Festival,festival,,https://www.olharesdomediterraneo.org/pitch-your-short-training-pitch-2nd-edition/,,cineguia,2026
+"OUTRAS VOZES, OUTRA GENTE",festival,,,,dgartes-festivais,
 Pax Júlia Teatro Municipal,venue,south,https://cm-beja.pt/pt/Default.aspx,no,rtcp-2026;arquivo-espacos,2026
-PERIFERIAS – Festival Internacional de Artes Performativas (Sintra),festival,,https://chaodeoliva.com/periferias-2025/,no,arquivo-festivais,2026
+PERIFERIAS – Festival Internacional de Artes Performativas (Sintra),festival,,https://festivaldesintra.pt/,,arquivo-festivais;dgartes-festivais,2026
 PORTO FEMME - INTERNATIONAL FILM FESTIVAL XX,festival,north,https://portofemme.com/,,cineguia,2026
 PORTO/POST/DOC FESTIVAL CINEMA,festival,north,https://www.portopostdoc.com/,,cineguia,2026
 Quartel das Artes,venue,centre,https://www.quarteldasartes.pt/,,rtcp-2026;arquivo-espacos,2026
@@ -160,6 +181,9 @@ Teatro Aveirense,venue,centre,https://www.teatroaveirense.pt/pt/,,rtcp-2026;arqu
 Teatro Bernardim Ribeiro,venue,south,https://www.cm-estremoz.pt/,no,rtcp-2026;arquivo-espacos,2026
 Teatro Campo Alegre,venue,north,https://www.teatromunicipaldoporto.pt/pt/,,rtcp-2026,2026
 Teatro Cine de Gouveia,venue,centre,https://www.cm-gouveia.pt/teatro-cine-de-gouveia/,no,rtcp-2026;arquivo-espacos,2026
+Teatro-Cine de Pombal,venue,centre,,,rtcp-2026;arquivo-espacos,2026
+Teatro-Cine de Torres Vedras,venue,centre,https://teatrocine-tvedras.pt/,,rtcp-2026;arquivo-espacos,2026
+Teatro-Cinema de Fafe,venue,north,https://www.cm-fafe.pt/,no,rtcp-2026;arquivo-espacos,2026
 Teatro da Cerca de São Bernardo,venue,centre,http://weblog.aescoladanoite.pt/?fbclid=IwAR13GOtNLxW1RkqU4g_QTQZD4pw1tEf2xlEys8wAWjgAxlhSJovacS67eEg,,rtcp-2026;arquivo-espacos,2026
 Teatro da Comuna,venue,,https://www.comunateatropesquisa.pt/,no,manual-2026,2026
 Teatro da Trindade INATEL,venue,,https://teatrotrindade.inatel.pt/,,manual-2026,2026
@@ -190,8 +214,8 @@ Teatro Municipal Garcia de Resende,venue,south,https://www.facebook.com/AgendaCu
 Teatro Municipal Joaquim Benite,venue,centre,https://ctalmada.pt/,no,rtcp-2026;arquivo-espacos;manual-2026,2026
 Teatro Nacional D. Maria II,venue,centre,https://www.tndm.pt/,no,arquivo-companhias;manual-2026,2026
 Teatro Nacional São João,venue,,https://www.tnsj.pt/pt/,no,manual-2026,2026
-Teatro Ribeiro Conceição,venue,north,,,rtcp-2026;arquivo-espacos,2026
 Teatro Rápido,venue,,,,manual-2026,
+Teatro Ribeiro Conceição,venue,north,,,rtcp-2026;arquivo-espacos,2026
 Teatro Sá da Bandeira,venue,centre,https://www.santaremcultura.pt/,,rtcp-2026;arquivo-espacos;manual-2026,2026
 Teatro Sá de Miranda,venue,north,https://tmsm.pt/,no,rtcp-2026;arquivo-espacos,2026
 Teatro São Luiz,venue,,https://www.teatrosaoluiz.pt/,no,manual-2026,
@@ -200,13 +224,11 @@ Teatro Tivoli BBVA,venue,,https://www.teatrotivolibbva.pt/,,manual-2026,2026
 Teatro Villaret,venue,,https://teatrovillaret.pt/,,manual-2026,2026
 Teatro Virgínia,venue,centre,https://teatrovirginia.pt/,,rtcp-2026;arquivo-espacos,2026
 Teatro Viriato,venue,centre,https://www.teatroviriato.com/,,rtcp-2026;arquivo-espacos,2026
-Teatro-Cine de Pombal,venue,centre,,,rtcp-2026;arquivo-espacos,2026
-Teatro-Cine de Torres Vedras,venue,centre,https://teatrocine-tvedras.pt/,,rtcp-2026;arquivo-espacos,2026
-Teatro-Cinema de Fafe,venue,north,https://www.cm-fafe.pt/,no,rtcp-2026;arquivo-espacos,2026
 TEMP D'IMAGES,festival,centre,,,cineguia,
 TEMPO  Teatro Municipal de Portimão,venue,south,https://teatromunicipaldeportimao.pt/,,rtcp-2026;arquivo-espacos,2026
+Temps d'Images / Duplacena,festival,,,,dgartes-festivais,
 Theatro Circo,venue,north,https://theatrocirco.com/,,rtcp-2026;arquivo-espacos,2026
 Theatro Gil Vicente,venue,north,https://www.cm-barcelos.pt/,no,rtcp-2026;arquivo-espacos,2026
 UAU,producer,,https://uau.pt/,,manual-2026,2026
 VERTEATRO,festival,,,,arquivo-festivais,
-É-Aqui-in-Ócio - Festival Internacional de Teatro na Póvoa de Varzim,festival,,https://www.varazimteatro.org/site/5665/?a_categoria_e=festival-e-aqui-in-ocio,no,arquivo-festivais,2026
+Y#12 - FESTIVAL DE ARTES PERFORMATIVAS,festival,,https://quartaparedecovilha.wordpress.com/category/festival-y/,,dgartes-festivais,2022

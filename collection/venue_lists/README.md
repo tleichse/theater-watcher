@@ -66,6 +66,22 @@ Same as [`producers.csv`](../producer_lists/README.md#producerscsv-columns): `na
 Shortcutz Lisboa, and the producer Cinekenta) are filed there as "Individual" and were first
 dropped by the rule for individuals, then added back by hand.
 
+## `dgartes-festivais`
+- **What:** DGArtes, *Balcão Artes › Comunidade › Festivais*: 68 festivals with discipline and
+  region, many of them from older editions (the directory isn't pruned).
+- **Original:** [dgartes.gov.pt/pt/vnode/11](https://www.dgartes.gov.pt/pt/vnode/11) (19 pages, one
+  page per festival at `/pt/festival/<id>`). DGArtes asks for `Crawl-delay: 10`.
+- **Copy:** [`dgartes-festivais.json`](dgartes-festivais.json). Read on 2026-10-01.
+- **Skipped:** 31 music, dance or visual-arts festivals (Cumplicidades, Guidance, Quinzena de Dança,
+  Andanças, Cistermúsica, jazz festivals, BoCA, Anozero and others), plus Fidanc and Pedras (dance),
+  ANIMAR 11 (a past Curtas side event) and Sementes (site stale since 2017).
+- 22 theatre and cross-disciplinary festivals were added (FIMP, Encontros do DeVIR, Finta,
+  TeatroAgosto, Contos d'Avó, Vaudeville Rendez-Vous, Temps d'Images, Atalaia, Y#, M.A.R. Sines, Fazer
+  a Festa, the Montemor marionette meeting, BIME, FITAVALE, MEXE, Noites na Nora and others), many
+  without a working website. Eleven matched existing rows, five of them under a different name (FITA,
+  Teatro Cómico da Maia, FIMFA, Periferias, Imaginarius), and got `dgartes-festivais` in `lists`.
+  Periferias got its current site, `festivaldesintra.pt`.
+
 ## `manual-2026`
 Venues and producers that no list covers, found by hand on 2026-10-01: the national theatres (TNDM
 II, TNSJ, São Luiz, kept as contacts with `collect` set to `no`, since they're already sources),
