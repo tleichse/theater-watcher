@@ -36,6 +36,7 @@ One Django app per pipeline stage. The reasoning is in [T-004](tasks/T-004-proje
 |---|---|
 | [`HOWTO.md`](HOWTO.md) | Step by step: setup and the weekly routine to review and send the digest |
 | [`CLAUDE.md`](CLAUDE.md) | How work gets done here, and how the files below fit together |
+| [`PRIVACY.md`](PRIVACY.md) | Public privacy policy (pt-PT), linked from the Google consent screen |
 | [`GOTCHAS.md`](GOTCHAS.md) | Pitfalls already hit. Check it before touching an area it covers. |
 | [`IDEAS.md`](IDEAS.md) | Inbox of raw asks, by date |
 | [`TASKS.md`](TASKS.md) | Task index and status |
