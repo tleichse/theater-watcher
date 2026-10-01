@@ -23,6 +23,9 @@ uv run python manage.py sync_sources   # load or refresh the sources from collec
 uv run python manage.py collect        # fetch new listings (optionally --source <slug>)
 ```
 
+Run `collect` twice a week: on Monday and once mid-week. Coffeepaste only shows about 5 days of
+posts (see [GOTCHAS.md](GOTCHAS.md)).
+
 ## Code layout
 One Django app per pipeline stage. The reasoning is in [T-004](tasks/T-004-project-skeleton.md).
 

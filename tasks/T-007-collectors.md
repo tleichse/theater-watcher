@@ -46,7 +46,7 @@ T-002, and it overlaps with DGArtes).
 ## Open questions
 - ~~What contact URL goes in the user agent? Proposal: the GitHub repo
   (`https://github.com/tleichse/theater-watcher`). It's public only if the repo is.~~
-  **Answer (2026-10-01, default, to be confirmed by the user):** the repo URL, set as
+  **Answer (2026-10-01, confirmed by the user, and the repo is public):** the repo URL, set as
   `COLLECTOR_USER_AGENT` in settings. If the repo is private, site owners can't reach us
   through it.
 
@@ -103,7 +103,8 @@ failures**. What diverged from the plan:
   [T-006](T-006-traceable-poster.md), the category, and the deadline. Email fields are never
   stored, and emails and phone numbers in the free text are replaced with "[contacto
   removido]". It only reaches back about 5 days, so collection must run at least that often.
-  That's an open decision for the user (T-003 says weekly).
+  ~~That's an open decision for the user (T-003 says weekly).~~ **Decided 2026-10-01:**
+  collect twice a week (see the amendment in T-003).
 - **Changed pages:** when a known URL comes back with different text (only `page` and
   non-detail `rss` sources re-read known URLs), the listing is updated and `extracted_at` is
   cleared, so it gets extracted again.

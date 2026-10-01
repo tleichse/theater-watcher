@@ -181,6 +181,11 @@ gets a plain-text version.
 - **Send** goes through Gmail SMTP to the single recipient set in `.env`, not to an email
   provider.
 
+**Amended 2026-10-01:** `collect` runs **twice a week**, by hand: on Monday as part of the
+weekly run, and once mid-week (for example on Thursday). Coffeepaste only shows about the
+last 5 days of posts ([T-007](T-007-collectors.md)), so a weekly run would miss some. The
+mid-week run only collects. Extraction and review still happen once, on Monday.
+
 ## Deep dive: step 5, stack and hosting (validated 2026-09-30)
 | Concern | v1 choice (local, free) | Later, if other people subscribe |
 |---|---|---|
