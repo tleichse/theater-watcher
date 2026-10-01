@@ -52,6 +52,9 @@ websites blank; the DGArtes directory crawl showed they were live.
 **Fix:** check a suspect site with a web search (the result pages show it's indexed and
 current) instead of loading it. Keep it in `companies.csv`: those sources fail from the work
 network and collect normally from any other. Don't try to get around the filter.
+**Recurred:** 2026-10-01, T-013: the full `collect` showed about 25 of these in red, which
+looked like breakage. `collect` now recognises the filter (a self-signed certificate, or
+`Server: Cato`) and groups those sites in one line at the end.
 
 ## Extraction
 

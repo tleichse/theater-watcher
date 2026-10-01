@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import timedelta
 
+import requests
 from django.utils import timezone
 
 from catalog.models import Organisation, Source
@@ -19,6 +20,7 @@ class Result:
     new: int = 0
     updated: int = 0
     error: str = ''
+    blocked: bool = False
 
 
 def sync_sources():
@@ -68,7 +70,17 @@ def collect_source(source, fetcher):
                 result.updated += 1
     except Exception as exc:
         result.error = f'{type(exc).__name__}: {exc}'
+        result.blocked = blocked_by_network_filter(exc)
     return result
+
+
+def blocked_by_network_filter(exc):
+    # The work network's filter (Cato) swaps in its own certificate, or answers plain HTTP with a
+    # 403 page of its own. See GOTCHAS: the site itself is fine.
+    if isinstance(exc, requests.exceptions.SSLError):
+        return 'self-signed certificate' in str(exc)
+    response = getattr(exc, 'response', None)
+    return response is not None and response.headers.get('Server') == 'Cato'
 
 
 def prune_raw_text(now=None):

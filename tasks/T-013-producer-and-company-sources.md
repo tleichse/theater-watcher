@@ -183,3 +183,7 @@ two years counts as validated. What changed:
 - *Follow-up, same day:* `collect` now runs `sync_sources` first. Before, a company added to the
   CSV without a manual sync was silently never collected, and "validated" only aged when someone
   synced. The weekly routine was never told to sync; only setup and the lists README mentioned it.
+- *Follow-up, same day:* `collect` now groups the sites blocked by the work network's filter
+  into one line at the end, instead of listing each in red (`blocked_by_network_filter` in
+  `collection/collect.py`). The certificate check stays on, because getting around the filter
+  goes against the network owner's policy.

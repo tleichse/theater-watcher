@@ -226,6 +226,17 @@ class CollectTests(TestCase):
         self.assertEqual((result.new, result.updated, result.error), (0, 0, ''))
         self.assertEqual(RawListing.objects.count(), 2)
 
+    def test_work_network_filter_is_told_apart_from_a_broken_site(self):
+        class FilteredSession(FakeSession):
+            def request(self, method, url, timeout=None, params=None):
+                raise requests.exceptions.SSLError('certificate verify failed: self-signed certificate in certificate chain')
+
+        blocked = collect_source(self.source, Fetcher(session=FilteredSession({}), sleep=lambda seconds: None))
+        self.assertTrue(blocked.blocked)
+        broken = self.run_with({'https://act-escoladeactores.com/robots.txt': (500, '')})
+        self.assertTrue(broken.error)
+        self.assertFalse(broken.blocked)
+
     def test_changed_page_is_queued_for_extraction_again(self):
         source = Source.objects.get(slug='vocare')
         pages = {url: (200, '<main>Nível I em setembro</main>') for url in [

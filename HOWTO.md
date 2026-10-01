@@ -67,7 +67,9 @@ or screen changes, update the step in the same change. -->
 uv run python manage.py collect
 ```
 Each source prints `N new, M updated`. A line in red means that source failed this time. The
-rest still ran, so there's nothing to fix unless the same source keeps failing. Why twice a
+rest still ran, so there's nothing to fix unless the same source keeps failing. Sites that the
+work network's filter blocks aren't listed in red; they're grouped in one line at the end. They
+come through when you collect from another network (home Wi-Fi, a phone hotspot). Why twice a
 week: Coffeepaste only shows about the last 5 days of posts
 ([GOTCHAS.md](GOTCHAS.md#coffeepaste-only-shows-its-newest-20-classifieds-to-a-plain-http-client)).
 

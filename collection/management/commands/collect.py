@@ -18,13 +18,21 @@ class Command(BaseCommand):
             sources = sources.filter(slug__in=options['source'])
         fetcher = Fetcher()
         failed = 0
+        blocked = []
         for source in sources:
             result = collect_source(source, fetcher)
-            if result.error:
+            if result.blocked:
+                blocked.append(source.slug)
+            elif result.error:
                 failed += 1
                 self.stdout.write(self.style.ERROR(f'{source.slug}: {result.error}'))
             else:
                 self.stdout.write(f'{source.slug}: {result.new} new, {result.updated} updated')
         self.stdout.write(f'Raw text cleared on {prune_raw_text()} listings older than 60 days.')
+        if blocked:
+            self.stdout.write(
+                f"{len(blocked)} site(s) blocked by the work network's filter, not a site problem "
+                f"(collect from another network to get them): {', '.join(blocked)}"
+            )
         if failed:
             self.stdout.write(self.style.WARNING(f'{failed} source(s) failed.'))

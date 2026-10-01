@@ -98,3 +98,6 @@ today's date that ends with `→ folded into T-XXX`. -->
 - "do i have this written in the steps to take, that i have to sunc the sources?" then "yes" (to
   making `collect` sync the sources itself) → folded into
   [T-013](tasks/T-013-producer-and-company-sources.md)
+- "this is happening: co-astro-fingido: SSLError … self-signed certificate … Can i avoid this
+  somehow?" then "yes, group them in one line. Also, what are the "x new" numbes - are they
+  actions?" → folded into [T-013](tasks/T-013-producer-and-company-sources.md)
