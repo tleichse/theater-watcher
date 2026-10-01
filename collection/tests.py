@@ -18,9 +18,15 @@ from .sources import SOURCES, company_sources, load_companies
 
 
 class FakeResponse:
-    def __init__(self, status_code, text):
+    def __init__(self, status_code, text, headers=None):
         self.status_code = status_code
-        self.text = text
+        self.content = text.encode('utf-8')
+        self.headers = headers or {'Content-Type': 'text/html; charset=utf-8'}
+        self.encoding = 'utf-8' if 'charset' in self.headers.get('Content-Type', '') else 'ISO-8859-1'
+
+    @property
+    def text(self):
+        return self.content.decode(self.encoding)
 
     def json(self):
         return json.loads(self.text)
@@ -41,8 +47,8 @@ class FakeSession:
 
     def request(self, method, url, timeout=None, params=None):
         self.requested.append(url)
-        status, text = self.pages.get(url, (404, ''))
-        return FakeResponse(status, text)
+        status, text, *headers = self.pages.get(url, (404, ''))
+        return FakeResponse(status, text, *headers)
 
 
 def fetcher_for(pages):
@@ -93,6 +99,10 @@ class FetcherTests(SimpleTestCase):
         self.assertEqual(fetcher.get('https://a.pt/page'), 'ok')
         with self.assertRaises(Disallowed):
             fetcher.get('https://b.pt/page')
+
+    def test_utf8_page_without_charset_header_is_not_garbled(self):
+        fetcher = fetcher_for({'https://a.pt/cursos': (200, '<p>Formação de Atores</p>', {'Content-Type': 'text/html'})})
+        self.assertEqual(fetcher.get('https://a.pt/cursos'), '<p>Formação de Atores</p>')
 
     def test_waits_for_crawl_delay(self):
         waits = []

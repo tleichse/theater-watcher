@@ -101,3 +101,5 @@ today's date that ends with `→ folded into T-XXX`. -->
 - "this is happening: co-astro-fingido: SSLError … self-signed certificate … Can i avoid this
   somehow?" then "yes, group them in one line. Also, what are the "x new" numbes - are they
   actions?" → folded into [T-013](tasks/T-013-producer-and-company-sources.md)
+- "fix the encoding" (accents garbled as "Ã§" on JAT and A Oficina) → folded into
+  [T-013](tasks/T-013-producer-and-company-sources.md)

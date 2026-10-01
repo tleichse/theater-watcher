@@ -56,6 +56,17 @@ network and collect normally from any other. Don't try to get around the filter.
 looked like breakage. `collect` now recognises the filter (a self-signed certificate, or
 `Server: Cato`) and groups those sites in one line at the end.
 
+### Accents come out as "Ã§" and "Ã£" on some sites
+JAT (`colectivojat.com`) and A Oficina (`aoficina.pt`) send `Content-Type: text/html` with no
+charset, and declare UTF-8 only in a `<meta>` tag. With no charset in the header, `requests`
+falls back to ISO-8859-1, so "Formação" was stored as "FormaÃ§Ã£o". Found during the first
+`/extract` over the new company sources in
+[T-013](tasks/T-013-producer-and-company-sources.md).
+**Fix:** `Fetcher.get` decodes as UTF-8 when the header has no charset and the bytes are valid
+UTF-8. The four listings already stored were repaired in place, so they weren't queued for
+extraction again. To look for this, search for "Ã§" or "Ã£", not a bare "Ã", which is a real
+letter ("NÃO").
+
 ## Extraction
 
 ### A feed's publish date can be years older than the offer

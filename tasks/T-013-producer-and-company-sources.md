@@ -187,3 +187,7 @@ two years counts as validated. What changed:
   into one line at the end, instead of listing each in red (`blocked_by_network_filter` in
   `collection/collect.py`). The certificate check stays on, because getting around the filter
   goes against the network owner's policy.
+- *Follow-up, same day:* the first `/extract` over the new sources gave 5 draft actions from 109
+  listings (most were old blog posts). It also found garbled accents on two sites, so
+  `Fetcher.get` now decodes undeclared UTF-8 correctly (see GOTCHAS). The 4 affected listings
+  were repaired in place.

@@ -23,7 +23,12 @@ class Fetcher:
         self._last_request = {}
 
     def get(self, url, **params):
-        return self._request('GET', url, params=params or None).text
+        response = self._request('GET', url, params=params or None)
+        # With no charset in the header, requests assumes ISO-8859-1, which garbles UTF-8 pages
+        # (JAT and A Oficina declare UTF-8 only in a <meta> tag).
+        if 'charset' not in response.headers.get('Content-Type', '').lower() and is_utf8(response.content):
+            response.encoding = 'utf-8'
+        return response.text
 
     def get_json(self, url, **params):
         return self._request('GET', url, params=params or None).json()
@@ -67,3 +72,11 @@ class Fetcher:
     def _origin(url):
         parts = urlsplit(url)
         return f'{parts.scheme}://{parts.netloc}'
+
+
+def is_utf8(content):
+    try:
+        content.decode('utf-8')
+    except UnicodeDecodeError:
+        return False
+    return True
