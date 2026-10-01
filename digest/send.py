@@ -16,7 +16,7 @@ class CannotSend(Exception):
 
 def send_issue(send_at, test=False):
     if not settings.GMAIL_ADDRESS or not settings.DIGEST_RECIPIENT:
-        raise CannotSend('Set GMAIL_ADDRESS, GMAIL_APP_PASSWORD and DIGEST_RECIPIENT in .env (see HOWTO.md).')
+        raise CannotSend('Set GMAIL_ADDRESS and DIGEST_RECIPIENT in .env (see HOWTO.md).')
     if not test and Digest.objects.filter(scheduled_for=send_at).exists():
         raise CannotSend(f'The issue for {send_at:%Y-%m-%d %H:%M} was already sent.')
     selection = select(send_at)

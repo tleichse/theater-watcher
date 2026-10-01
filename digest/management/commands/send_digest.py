@@ -1,9 +1,9 @@
 from datetime import datetime
-from smtplib import SMTPAuthenticationError, SMTPException
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
+from digest.gmail import GmailAuthRequired
 from digest.render import write
 from digest.schedule import LISBON, current_issue_at
 from digest.send import GMAIL_CLIP_BYTES, CannotSend, send_issue
@@ -22,13 +22,10 @@ class Command(BaseCommand):
             rendered, selection = send_issue(send_at, test=options['test'])
         except CannotSend as error:
             raise CommandError(str(error))
-        except SMTPAuthenticationError as error:
-            raise CommandError(f'Gmail refused the login, so check GMAIL_APP_PASSWORD. Nothing was recorded. ({error})')
-        except (SMTPException, OSError) as error:
-            raise CommandError(
-                f'Could not reach Gmail ({error}). Nothing was recorded. If this network blocks email '
-                'ports (see GOTCHAS.md), send from another network.'
-            )
+        except GmailAuthRequired as error:
+            raise CommandError(f'{error} Run: uv run python manage.py authorize_gmail. Nothing was recorded.')
+        except OSError as error:
+            raise CommandError(f'Gmail did not accept the email ({error}). Nothing was recorded.')
         html_path, _ = write(rendered, send_at)
         self.stdout.write(f'Sent "{rendered.subject}" to {settings.DIGEST_RECIPIENT}: {selection.total} items.')
         self.stdout.write('Test send: nothing recorded.' if options['test'] else f'Recorded as issue #{rendered.number}. Copy kept at {html_path}')

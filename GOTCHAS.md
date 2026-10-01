@@ -73,10 +73,19 @@ Connection unexpectedly closed: [WinError 10054]` before Gmail even greeted. Pro
 HTTPS (443) works, which is why collection and Gmail in the browser are fine. Credentials
 were never reached, so this isn't a password problem. Found on the first real send in
 [T-010](tasks/T-010-send-and-weekly-run.md).
-**Fix:** send from a network that allows SMTP (home Wi-Fi, a phone hotspot). If sending has to
-work from the work network, it needs a delivery path over HTTPS (e.g. the Gmail API), which
-is a separate decision. Don't try to get around the firewall's certificate: that inspection
-is the network owner's policy.
+**Fix:** sending now goes through the Gmail API over HTTPS (`digest/gmail.py`), which this
+network allows with valid certificates. If you ever go back to SMTP, use a network that allows
+it (home Wi-Fi, a phone hotspot). Don't try to get around the firewall's certificate: that
+inspection is the network owner's policy.
+
+### Gmail API logins expire every 7 days while the app is in "Testing"
+`gmail.send` is a "sensitive" scope. An OAuth app left in **Testing** with an **External**
+audience gets its refresh token revoked after exactly 7 days, so a weekly digest would need a
+new browser login almost every week. Found while planning the Gmail API switch in
+[T-010](tasks/T-010-send-and-weekly-run.md).
+**Fix:** publish the app (Audience › **Publish app**, "In production") without submitting it
+for verification. That's fine for personal use, at the cost of a one-time "unverified app"
+warning. If it ever expires anyway, `send_digest` says to run `authorize_gmail`.
 
 ## Repository & paths
 

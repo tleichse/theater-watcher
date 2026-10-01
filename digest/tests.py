@@ -6,7 +6,9 @@ from decimal import Decimal
 from pathlib import Path
 from unittest import mock
 
-from smtplib import SMTPAuthenticationError
+import base64
+
+from google.auth.exceptions import RefreshError
 
 from django.core import mail
 from django.core.management import CommandError, call_command
@@ -14,6 +16,7 @@ from django.test import SimpleTestCase, TestCase, override_settings
 
 from catalog.models import Action, Organisation, Source
 
+from .gmail import SEND_URL, GmailApiBackend, GmailAuthRequired, load_credentials
 from .models import Digest, DigestItem
 from .render import deadline_chip, facts, render
 from .schedule import LISBON, current_issue_at, misses_next_issue, next_send_at
@@ -213,15 +216,15 @@ class SendDigestTests(DigestDataMixin, TestCase):
     def test_failed_send_records_nothing(self):
         self.make()
         with mock.patch('digest.send.EmailMultiAlternatives.send', side_effect=ConnectionResetError(10054, 'reset')):
-            with self.assertRaisesMessage(CommandError, 'Could not reach Gmail'):
+            with self.assertRaisesMessage(CommandError, 'Gmail did not accept the email'):
                 self.send()
         self.assertEqual(Digest.objects.count(), 0)
 
-    def test_wrong_password_is_explained(self):
+    def test_expired_authorisation_asks_to_authorise_again(self):
         self.make()
-        error = SMTPAuthenticationError(535, b'Username and Password not accepted')
+        error = GmailAuthRequired('The Gmail authorisation expired or was revoked.')
         with mock.patch('digest.send.EmailMultiAlternatives.send', side_effect=error):
-            with self.assertRaisesMessage(CommandError, 'GMAIL_APP_PASSWORD'):
+            with self.assertRaisesMessage(CommandError, 'authorize_gmail'):
                 self.send()
         self.assertEqual(Digest.objects.count(), 0)
 
@@ -236,3 +239,35 @@ class SendDigestTests(DigestDataMixin, TestCase):
         with self.assertRaisesMessage(CommandError, 'GMAIL_ADDRESS'):
             self.send()
         self.assertEqual(len(mail.outbox), 0)
+
+
+class GmailBackendTests(SimpleTestCase):
+    def test_posts_the_encoded_message_to_the_gmail_api(self):
+        from django.core.mail import EmailMultiAlternatives
+
+        message = EmailMultiAlternatives('Assunto ção', 'texto', 'from@example.org', ['to@example.org'])
+        message.attach_alternative('<p>html</p>', 'text/html')
+        session = mock.Mock()
+        with mock.patch('digest.gmail.load_credentials'), mock.patch('digest.gmail.AuthorizedSession', return_value=session):
+            sent = GmailApiBackend(token_file='token.json').send_messages([message])
+        self.assertEqual(sent, 1)
+        url, = session.post.call_args.args
+        raw = base64.urlsafe_b64decode(session.post.call_args.kwargs['json']['raw'])
+        self.assertEqual(url, SEND_URL)
+        self.assertIn(b'to@example.org', raw)
+        self.assertIn(b'text/html', raw)
+        session.post.return_value.raise_for_status.assert_called_once()
+
+    def test_missing_token_needs_authorisation(self):
+        with self.assertRaisesMessage(GmailAuthRequired, 'not been authorised'):
+            load_credentials(Path(tempfile.gettempdir()) / 'no-such-gmail-token.json')
+
+    def test_failed_refresh_needs_authorisation(self):
+        token = Path(tempfile.mkdtemp()) / 'token.json'
+        self.addCleanup(shutil.rmtree, token.parent)
+        token.write_text('{}', encoding='utf-8')
+        credentials = mock.Mock(valid=False)
+        credentials.refresh.side_effect = RefreshError('invalid_grant: Token has been expired or revoked.')
+        with mock.patch('digest.gmail.Credentials.from_authorized_user_file', return_value=credentials):
+            with self.assertRaisesMessage(GmailAuthRequired, 'expired or was revoked'):
+                load_credentials(token)

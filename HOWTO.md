@@ -22,19 +22,38 @@ or screen changes, update the step in the same change. -->
    ```sh
    uv run python manage.py createsuperuser
    ```
-3. Connect Gmail for sending:
-   1. In your Google Account, turn on **2-Step Verification** (Security).
-   2. Go to **Security › App passwords**, create one called "theater-watcher", and copy the
-      16-character password.
-   3. In `.env`, fill in:
+3. Connect Gmail for sending. It goes through the Gmail API over HTTPS, because the work
+   network blocks normal email sending ([GOTCHAS.md](GOTCHAS.md#the-work-network-blocks-sending-email-smtp)).
+   It's free. This takes 10–15 minutes, once. Google sometimes renames menu items, so look for
+   the closest match.
+   1. Open <https://console.cloud.google.com/> with the Gmail account that will send the
+      digest. Create a **new project** called `theater-watcher`. No billing account is needed.
+   2. **APIs & Services › Library**: search for **Gmail API** and click **Enable**.
+   3. **Google Auth Platform** (formerly "OAuth consent screen"), then **Get started**:
+      - App name `theater-watcher`, and your email as the support address.
+      - Audience: **External**.
+      - Contact email: yours. Accept the policy, then **Create**.
+   4. **Audience**: click **Publish app** and confirm, so the status becomes **In production**.
+      This stops Google from expiring your login every 7 days, which it does in "Testing".
+      You don't need to submit it for verification: it's only for you.
+   5. **Clients › Create client**: Application type **Desktop app**, name `theater-watcher`,
+      **Create**. Then **Download JSON** and save the file as `data/gmail-client.json` in this
+      repo (git-ignored).
+   6. In `.env`, fill in:
       ```
       GMAIL_ADDRESS=you@gmail.com
-      GMAIL_APP_PASSWORD=the16characterpassword
       DIGEST_RECIPIENT=where-the-digest-goes@example.com
       ```
-      `.env` is git-ignored. Never commit it, and never paste the password into a chat.
-   4. Check the connection by sending yourself the current issue as a test (nothing gets
-      recorded):
+   7. Authorise sending:
+      ```sh
+      uv run python manage.py authorize_gmail
+      ```
+      A browser window opens. Pick the account. Google warns **"Google hasn't verified this
+      app"**: click **Advanced › Go to theater-watcher (unsafe)**. It's safe, because it's your
+      own app. Then **Continue** to allow sending email. The terminal prints `Authorised.`
+      and saves `data/gmail-token.json` (git-ignored). Never commit it or share it: it lets
+      anyone send email as you.
+   8. Check everything by sending yourself the current issue as a test (nothing gets recorded):
       ```sh
       uv run python manage.py send_digest --test
       ```
@@ -129,6 +148,7 @@ later in the week, it's the next Monday's issue. To send a specific one, add
 | `/extract` reports import errors | It fixes and re-imports them itself. If errors remain, they're listed with the listing id. Ask Claude Code to fix those entries. |
 | An action can't be approved | It has no **Organização** (see step 3). |
 | `build_digest` shows `0 items`, or `send_digest` says "Nothing to send" | Nothing is approved, or every approved action closes within 24 hours of the send time. |
-| `send_digest` says "Set GMAIL_ADDRESS…" | Fill in the three Gmail lines in `.env` (one-time setup, step 3). |
-| `send_digest` fails with `SMTPAuthenticationError` | The app password is wrong or was revoked. Create a new one (one-time setup, step 3). Nothing was recorded, so just run it again. |
+| `send_digest` says "Set GMAIL_ADDRESS…" | Fill in the two Gmail lines in `.env` (one-time setup, step 3.6). |
+| `send_digest` says to run `authorize_gmail` | The login expired or was revoked (or never happened on this machine). Run `uv run python manage.py authorize_gmail`, then send again. Nothing was recorded. If this happens every week, the Google Cloud app is still in "Testing" (step 3.4). |
+| `send_digest` says "Gmail did not accept the email" | A network or Gmail error. Nothing was recorded, so try again. If it persists, check that <https://gmail.googleapis.com> opens in the browser. |
 | `send_digest` warns the HTML is over 100 KB | Gmail will show "Mensagem cortada" with a link to the rest. Fine occasionally. If it happens every week, tell Claude so the template gets lighter. |

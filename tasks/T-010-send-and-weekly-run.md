@@ -17,8 +17,15 @@
 - Which address receives the digest, and has the app password been created?
   **Partly answered (2026-10-01):** the user will put both in `.env` themselves (HOWTO.md,
   one-time setup step 3). They were deliberately not shared in chat.
-- If the digest must be sent from the work network (which blocks SMTP), should delivery
-  switch to the Gmail API over HTTPS? That needs a one-time Google Cloud OAuth setup.
+- ~~If the digest must be sent from the work network (which blocks SMTP), should delivery
+  switch to the Gmail API over HTTPS? That needs a one-time Google Cloud OAuth setup.~~
+  **Answer (2026-10-01):** yes, the Gmail API **replaces** SMTP. It costs nothing at this
+  volume (standard use is free, and one email a week is far below quota). The `gmail.send`
+  scope is "sensitive", so while the OAuth app is in "Testing" Google expires its refresh
+  token after 7 days. The plan is to publish the app to "In production" without verification
+  (personal use, under 100 users), and to fall back to a weekly re-authorisation if that
+  doesn't stop the expiry. Checked from the work network: `oauth2.googleapis.com`,
+  `gmail.googleapis.com`, and `accounts.google.com` are reachable with valid TLS.
 - Can `run_week` launch extraction itself through Claude Code's non-interactive mode
   (`claude -p "/extract"`), or should it stop and ask the user to run `/extract`? To be
   checked when building it.
@@ -72,3 +79,25 @@ and settings weren't at fault: the connection was cut before login. `send_digest
 connection and login failures into a short message saying nothing was recorded, instead of a
 traceback. Next step: retry from a network that allows SMTP. If sending must work from the
 work network, decide on a delivery path over HTTPS (open question below).
+**2026-10-01, Gmail API:** SMTP was replaced by the Gmail API, as decided above.
+- `digest/gmail.py` is a Django email backend (`GmailApiBackend`, set in `MAILERS`) that posts
+  the full MIME message, base64url-encoded, to `users/me/messages/send` with an
+  `AuthorizedSession`. `send_digest` and `send_issue` didn't change, apart from the error
+  messages.
+- `authorize_gmail` runs the one-time browser login (`InstalledAppFlow.run_local_server`)
+  with the OAuth "Desktop app" client in `data/gmail-client.json`, and saves
+  `data/gmail-token.json`. Both are git-ignored through `data/*`. The backend refreshes the
+  token itself. If the refresh fails, it raises `GmailAuthRequired`, which `send_digest`
+  turns into "run authorize_gmail".
+- `GMAIL_APP_PASSWORD` is gone from `.env`. Only `GMAIL_ADDRESS` and `DIGEST_RECIPIENT`
+  remain.
+- New dependencies: `google-auth` and `google-auth-oauthlib`. No Google API client library
+  (one REST call doesn't need it).
+- `HOWTO.md` one-time setup step 3 walks through the Google Cloud setup: project, Gmail API,
+  auth platform (External), **Publish app** to avoid the 7-day expiry, Desktop client, then
+  `authorize_gmail` and a test send.
+- Tests: 65, all pass. The backend is tested with a mocked session (checks the URL and the
+  encoded MIME content), plus a missing token, a failed refresh, and the "authorise again"
+  message. On this machine, `authorize_gmail` without the client file explains where to put
+  it.
+- **Still open:** the user's Google Cloud setup and the first real send, and `run_week`.

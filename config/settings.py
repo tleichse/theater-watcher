@@ -136,19 +136,16 @@ GMAIL_ADDRESS = os.environ.get('GMAIL_ADDRESS', '')
 DIGEST_RECIPIENT = os.environ.get('DIGEST_RECIPIENT', '')
 DEFAULT_FROM_EMAIL = f'theater-watcher <{GMAIL_ADDRESS}>' if GMAIL_ADDRESS else 'webmaster@localhost'
 
-# Without Gmail credentials in .env, mail is printed to the console instead of sent.
+GMAIL_CLIENT_FILE = DATA_DIR / 'gmail-client.json'
+GMAIL_TOKEN_FILE = DATA_DIR / 'gmail-token.json'
+
+# Sending goes through the Gmail API over HTTPS because the work network blocks SMTP (GOTCHAS.md).
+# Without GMAIL_ADDRESS in .env, mail is printed to the console instead of sent.
 if GMAIL_ADDRESS:
     MAILERS = {
         'default': {
-            'BACKEND': 'django.core.mail.backends.smtp.EmailBackend',
-            'OPTIONS': {
-                'host': 'smtp.gmail.com',
-                'port': 587,
-                'use_tls': True,
-                'username': GMAIL_ADDRESS,
-                'password': os.environ.get('GMAIL_APP_PASSWORD', ''),
-                'timeout': 30,
-            },
+            'BACKEND': 'digest.gmail.GmailApiBackend',
+            'OPTIONS': {'token_file': GMAIL_TOKEN_FILE},
         },
     }
 else:

@@ -69,3 +69,5 @@ today's date that ends with `→ folded into T-XXX`. -->
   brief for the chat with Claude Design, and also build what is needed to do the link with the
   email account." → [T-011](tasks/T-011-email-design-brief.md) for the brief; the email link
   is [T-010](tasks/T-010-send-and-weekly-run.md)
+- Chose sending through the Gmail API (quoting the proposed option), asked "would it have
+  associated costs?", then "let's work!" → folded into [T-010](tasks/T-010-send-and-weekly-run.md)
