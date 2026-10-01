@@ -52,3 +52,8 @@ today's date that ends with `→ folded into T-XXX`. -->
 - "one thing that i really need is that the sources of the action have to be traceable. You
   have to know who is posting." → [T-006](tasks/T-006-traceable-poster.md); it also settles
   the becasting question, folded into [T-002](tasks/T-002-casting-sources-research.md)
+- "how do we make a first run now? ist here something missing? Do we have to work on more
+  sources?" then "let's do all sources we have at the moment. I have to show value from the
+  very beginning. Let's create the necessary tasks-"
+  → [T-007](tasks/T-007-collectors.md), [T-008](tasks/T-008-extraction.md),
+  [T-009](tasks/T-009-digest-builder.md), [T-010](tasks/T-010-send-and-weekly-run.md)
