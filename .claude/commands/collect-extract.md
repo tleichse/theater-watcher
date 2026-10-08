@@ -12,8 +12,12 @@ Run the first half of the Monday routine for **theater-watcher** in one go.
      come through from another network);
    - every source shown as a real failure, with its error.
 
+   - the path of the report it wrote (`data/digests/reports/<date>-report.md`), and its
+     "Visited this run" and "Active sources that have ever produced a listing" lines.
+
    If `collect` itself crashes, stop and report. Don't extract.
 2. **Extract.** Follow every instruction in `.claude/commands/extract.md` exactly, as if the
    user had typed `/extract`, until nothing is left.
-3. **Report.** End with the extraction totals from `/extract`, then one line pointing to the
-   next step: review the drafts in the Django admin (HOWTO step 3).
+3. **Report.** Run `uv run python manage.py run_report`, which rewrites the collect report with
+   what extraction made of it. End with the extraction totals from `/extract`, the report's path,
+   then one line pointing to the next step: review the drafts in the Django admin (HOWTO step 3).

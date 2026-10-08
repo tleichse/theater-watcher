@@ -22,6 +22,8 @@ old one; a later change to an old section is added as a dated note. -->
   One-off project grants don't go here; they go in `lists`.
 - `website`: the site that's collected. If it's blank, the company is kept on record but not
   collected (usually because it only has Facebook or Instagram).
+- `collect`: blank to collect the website; `no` when a dedicated source in `sources.py` already
+  collects the company (Visões Úteis: its news page, [T-016](../../tasks/T-016-silent-sources.md)).
 - `lists`: the IDs of the lists below that include the company, separated by `;`.
 - `last_active`: the year of the most recent sign of activity found: a funding decision, a show,
   or dated content on its site. Blank if none was found.

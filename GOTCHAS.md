@@ -94,6 +94,31 @@ Found while building the contacts database in [T-015](tasks/T-015-exhaustive-con
 share a host, keep both and set `collect` to `no` on the one that isn't the site's owner. After a
 merge, read the skip list for big names before trusting a rule.
 
+### A site with a feed looked silent because the feed was empty
+`site_watch` used to read only the feed when a homepage advertised one. WordPress advertises
+`/feed/` even when the site never posts, so 97 sites with an empty or years-old feed were never
+read past it, while 36 of their homepages linked a current matching page. Found in
+[T-016](tasks/T-016-silent-sources.md), auditing the 413 sources that had never collected anything.
+**Fix:** `site_watch` reads the feed and the homepage links (and a few sections), skipping
+addresses already collected. A feed is a bonus, never a replacement for the page.
+
+### Only the first link to a page was checked for keywords
+A card links the same page several times: an image (no text), the title, then "Ler mais".
+`site_watch` and `html_list` kept the text of the first anchor only, which was empty, so
+Visões Úteis's "Estão abertas as inscrições…" never matched. Found in
+[T-016](tasks/T-016-silent-sources.md).
+**Fix:** match against every anchor text of a link, and against its address.
+
+### A keyword stem matches inside unrelated words
+`INSTITUTION_KEYWORDS` uses stems (`curso`, `audiç`) so one pattern catches plurals and
+inflections. A stem also matches inside other words: `curso` matched "Re**curso**s Humanos", which
+almost every institution links, and filled extraction with ESMAE staff pages. Matching the whole
+address had the same effect (every page under Jobra's `/cursos-…-inscricoes-abertas/` matched).
+Found extracting the first big collect in [T-016](tasks/T-016-silent-sources.md).
+**Fix:** anchor a stem that is also a common word ending with `` (`curso`), and match only
+the last segment of an address. Check a new stem against "Recursos", "concurso" and similar
+before adding it.
+
 ## Extraction
 
 ### A feed's publish date can be years older than the offer
@@ -104,6 +129,17 @@ deadline or event date but an old `published_at` expires on import and never rea
 digest. Found during the first extraction ([T-008](tasks/T-008-extraction.md)).
 **Fix:** take dates from the page text, not the feed. A workshop with no dates at all is
 skipped ("dates to be announced") instead of imported with a stale publish date.
+
+## Review
+
+### A placeholder organisation gets an anonymous action past the poster rule
+An action can't be approved without an `organisation` ([T-006](tasks/T-006-traceable-poster.md)).
+On 2026-10-01 an organisation named "Sem organização" was created in the admin and set on an
+enCAST call that only said "Associação Cultural", so it was approved and went out in issue #2
+with no traceable poster. Found on 2026-10-08 while checking the sources database
+([T-016](tasks/T-016-silent-sources.md)).
+**Fix:** when a listing doesn't name who posts it, reject the action; don't create a stand-in
+organisation. The action was set to *Rejeitada* and the placeholder deleted.
 
 ## Django
 

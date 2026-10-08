@@ -1,8 +1,10 @@
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 
-from catalog.models import Source
+from catalog.models import Action, Source
 from collection.collect import collect_source, prune_raw_text, sync_sources
 from collection.http import Fetcher
+from collection.report import save_run, write_report
 
 
 class Command(BaseCommand):
@@ -12,6 +14,8 @@ class Command(BaseCommand):
         parser.add_argument('--source', action='append', help='Only this source slug (repeatable).')
 
     def handle(self, *args, **options):
+        started_at = timezone.now()
+        last_action_id = Action.objects.order_by('-pk').values_list('pk', flat=True).first() or 0
         self.stdout.write(f'{sync_sources()} sources synced.')
         sources = Source.objects.filter(active=True)
         if options['source']:
@@ -19,8 +23,10 @@ class Command(BaseCommand):
         fetcher = Fetcher()
         failed = 0
         blocked = []
+        results = []
         for source in sources:
             result = collect_source(source, fetcher)
+            results.append(result)
             if result.blocked:
                 blocked.append(source.slug)
             elif result.error:
@@ -36,3 +42,5 @@ class Command(BaseCommand):
             )
         if failed:
             self.stdout.write(self.style.WARNING(f'{failed} source(s) failed.'))
+        run = save_run(results, started_at, timezone.now(), bool(options['source']), last_action_id)
+        self.stdout.write(f'Report: {write_report(run)}')

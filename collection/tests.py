@@ -14,6 +14,7 @@ from .collect import collect_source, prune_raw_text, sync_sources
 from .extraction import export_pending, import_drafts
 from .http import Disallowed, Fetcher
 from .models import RawListing
+from .report import render
 from .sources import ORGANISATION_FILES, SOURCES, company_sources, load_organisations
 
 
@@ -73,9 +74,11 @@ class KeywordTests(SimpleTestCase):
             'Recrutamento de atores para a temporada 2027',
             'Concurso para jovens criadores',
             'Inscrições abertas para o laboratório de verão',
+            'Cursos de iniciação teatral',
         ]:
             self.assertTrue(matches(INSTITUTION_KEYWORDS, headline), headline)
         self.assertFalse(matches(INSTITUTION_KEYWORDS, 'Edições do TNSJ regressam à Feira do Livro'))
+        self.assertFalse(matches(INSTITUTION_KEYWORDS, 'Recursos Humanos'))
         self.assertTrue(matches(TV_NEWS_KEYWORDS, 'SIC prepara nova ficção e já começou a rodagem'))
         self.assertFalse(matches(TV_NEWS_KEYWORDS, 'Audiências: empate marca último dia do mês'))
 
@@ -387,6 +390,72 @@ class CompanySourceTests(TestCase):
         self.assertEqual([listing.url for listing in listings], ['https://co.pt/1'])
         self.assertIn('Até 20 out', listings[0].text)
 
+    def test_site_with_an_empty_feed_still_reads_its_homepage(self):
+        homepage = """<link rel="alternate" type="application/rss+xml" href="/feed/">
+        <a href="/noticias/audicoes-2027">Audições 2027</a>"""
+        fetcher = fetcher_for({
+            'https://co.pt/': (200, homepage),
+            'https://co.pt/feed/': (200, '<?xml version="1.0"?><rss version="2.0"><channel><title>Co</title></channel></rss>'),
+            'https://co.pt/noticias/audicoes-2027': (200, '<main><h1>Audições 2027</h1></main>'),
+        })
+        listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç'}, set()))
+        self.assertEqual([listing.url for listing in listings], ['https://co.pt/noticias/audicoes-2027'])
+
+    def test_site_matches_keywords_in_the_link_address(self):
+        homepage = """<a href="/cursos/curso-de-interprete">Saber mais</a>
+        <a href="/cursos/estatutos">Saber mais</a>"""
+        fetcher = fetcher_for({
+            'https://co.pt/': (200, homepage),
+            'https://co.pt/cursos/curso-de-interprete': (200, '<main><h1>Curso de intérprete</h1></main>'),
+        })
+        listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'curso'}, set()))
+        self.assertEqual([listing.url for listing in listings], ['https://co.pt/cursos/curso-de-interprete'])
+
+    def test_site_reads_its_sections_for_calls(self):
+        homepage = """<a href="/oportunidades">Oportunidades</a><a href="/noticias">Notícias</a>
+        <a href="/sobre">Sobre</a>"""
+        fetcher = fetcher_for({
+            'https://co.pt/': (200, homepage),
+            'https://co.pt/oportunidades': (200, '<main><h1>Oportunidades</h1><p>Elenco para 2027</p></main>'),
+            'https://co.pt/noticias': (200, '<a href="/noticias/audicoes-2027">Audições 2027</a><a href="/noticias/estreia">Estreia</a>'),
+            'https://co.pt/noticias/audicoes-2027': (200, '<main><h1>Audições 2027</h1></main>'),
+        })
+        listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç'}, set()))
+        self.assertEqual(
+            [listing.url for listing in listings],
+            ['https://co.pt/oportunidades', 'https://co.pt/noticias/audicoes-2027'],
+        )
+
+    def test_site_skips_a_malformed_link(self):
+        homepage = """<a href="http://[acf field=link_bilheteira]">Bilhetes</a>
+        <a href="/audicoes">Audições</a>"""
+        fetcher = fetcher_for({
+            'https://co.pt/': (200, homepage),
+            'https://co.pt/audicoes': (200, '<main><h1>Audições</h1></main>'),
+        })
+        listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç'}, set()))
+        self.assertEqual([listing.url for listing in listings], ['https://co.pt/audicoes'])
+
+    def test_site_skips_a_page_its_robots_refuses(self):
+        homepage = """<a href="/concurso/regulamento">Regulamento do concurso</a>
+        <a href="/audicoes">Audições</a>"""
+        fetcher = fetcher_for({
+            'https://co.pt/robots.txt': (200, 'User-agent: *\nDisallow: /concurso/'),
+            'https://co.pt/': (200, homepage),
+            'https://co.pt/audicoes': (200, '<main><h1>Audições</h1></main>'),
+        })
+        listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç|concurso'}, set()))
+        self.assertEqual([listing.url for listing in listings], ['https://co.pt/audicoes'])
+
+    def test_site_follows_a_homepage_that_only_redirects(self):
+        fetcher = fetcher_for({
+            'https://co.pt/': (200, "<script>window.location = '/2026/';</script>"),
+            'https://co.pt/2026/': (200, '<a href="/2026/audicoes">Audições</a>'),
+            'https://co.pt/2026/audicoes': (200, '<main><h1>Audições</h1></main>'),
+        })
+        listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç'}, set()))
+        self.assertEqual([listing.url for listing in listings], ['https://co.pt/2026/audicoes'])
+
     def test_site_without_a_feed_follows_matching_own_links(self):
         homepage = """<a href="/noticias/audicoes-2027">Audições 2027</a>
         <a href="/espetaculos/hamlet">Hamlet</a>
@@ -397,6 +466,17 @@ class CompanySourceTests(TestCase):
         })
         listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'audiç'}, set()))
         self.assertEqual([listing.url for listing in listings], ['https://co.pt/noticias/audicoes-2027'])
+
+    def test_site_matches_any_anchor_text_of_a_link(self):
+        homepage = """<a href="/noticia/inscricoes"><img src="card.jpg"></a>
+        <a href="/noticia/inscricoes">Estão abertas as inscrições</a>
+        <a href="/noticia/inscricoes">Ler mais</a>"""
+        fetcher = fetcher_for({
+            'https://co.pt/': (200, homepage),
+            'https://co.pt/noticia/inscricoes': (200, '<main><p>Programa de associação</p></main>'),
+        })
+        listings = list(site_watch.collect(fetcher, {'url': 'https://co.pt/', 'keywords': 'inscriç'}, set()))
+        self.assertEqual([listing.title for listing in listings], ['Estão abertas as inscrições'])
 
     def test_site_with_a_dead_feed_falls_back_to_its_links(self):
         homepage = """<link rel="alternate" type="application/rss+xml" href="/feed/">
@@ -423,7 +503,7 @@ class CompanySourceTests(TestCase):
     def test_companies_file_becomes_sources_with_unique_short_slugs(self):
         companies = load_organisations('co-')
         sources = company_sources(companies)
-        self.assertEqual(len(sources), sum(1 for company in companies if company['website']))
+        self.assertEqual(len(sources), sum(1 for company in companies if company['website'] and company['collect'] != 'no'))
         slugs = [source['slug'] for source in sources]
         self.assertEqual(len(slugs), len(set(slugs)))
         self.assertTrue(all(len(slug) <= 50 and slug.startswith('co-') for slug in slugs))
@@ -470,3 +550,55 @@ class CompanySourceTests(TestCase):
         viriato = Organisation.objects.get(name='Teatro Viriato')
         self.assertEqual((viriato.kind, viriato.region), ('venue', 'centre'))
 
+
+class RunReportTests(TestCase):
+    def run_for(self, results, filtered=False):
+        started = dj_timezone.now() - timedelta(minutes=5)
+        return {
+            'started_at': started.isoformat(), 'finished_at': dj_timezone.now().isoformat(),
+            'filtered': filtered, 'results': results,
+        }
+
+    def result(self, slug, **fields):
+        return {'source': slug, 'new': 0, 'updated': 0, 'error': '', 'blocked': False, 'pages': 1, 'seconds': 1.0, **fields}
+
+    def setUp(self):
+        for slug in ('co-a', 'co-b', 'pr-c'):
+            Source.objects.create(slug=slug, name=slug, url=f'https://{slug}.pt/', tier='A', method='html')
+
+    def test_report_counts_visited_productive_and_silent_sources(self):
+        RawListing.objects.create(source=Source.objects.get(slug='co-a'), url='https://co-a.pt/1', raw_text='Audições')
+        report = render(self.run_for([
+            self.result('co-a', new=1, pages=3),
+            self.result('co-b'),
+            self.result('pr-c', error='SSLError: self-signed certificate', blocked=True, pages=0),
+        ]))
+        self.assertIn('| Visited this run | 3 |', report)
+        self.assertIn('| Pages fetched | 4 (2.0 per reached source) |', report)
+        self.assertIn('| Sources with new or changed content | 1 |', report)
+        self.assertIn('Reached, but never produced a listing (1)', report)
+        self.assertIn('| Not extracted yet | 1 |', report)
+        self.assertNotIn('Partial run', report)
+
+    def test_report_counts_actions_from_older_listings_apart(self):
+        source = Source.objects.get(slug='co-a')
+        old = dj_timezone.now() - timedelta(days=3)
+        def action(title, **fields):
+            return Action.objects.create(
+                kind='training', pillar='theatre', title=title, region='centre',
+                source=source, source_url='https://co-a.pt/x', **fields
+            )
+        known = action('Já existia', first_seen_at=old, last_seen_at=dj_timezone.now())
+        action('Do arquivo', first_seen_at=old)
+        run = self.run_for([self.result('co-a')])
+        run['last_action_id'] = known.pk
+        RawListing.objects.create(source=source, url='https://co-a.pt/old', raw_text='x', fetched_at=old, extracted_at=dj_timezone.now())
+        RawListing.objects.create(source=source, url='https://co-a.pt/new', raw_text='x', extracted_at=dj_timezone.now())
+        report = render(run)
+        self.assertIn('| Already-known actions seen again | 1 |', report)
+        self.assertIn('| Older listings extracted since this run started | 1 |', report)
+        self.assertIn('| New actions from those older listings | 1 |', report)
+
+    def test_report_warns_when_only_some_sources_were_visited(self):
+        report = render(self.run_for([self.result('co-a')], filtered=True))
+        self.assertIn('**Partial run: 1 of 3 active sources were visited** (`--source` filter).', report)

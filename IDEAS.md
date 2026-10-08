@@ -138,3 +138,23 @@ today's date that ends with `→ folded into T-XXX`. -->
 - "i just approced the atores 25-80 anos para campanha de nataland it is not appearing in the
   newsletter. I have to remove all the sources from the newsletter and state that the sources are
   gathered by the relATOR team." → folded into [T-010](tasks/T-010-send-and-weekly-run.md)
+
+## 2026-10-08
+- "i have a new source to add: it is visoesuteis.pt . can you see if it matters and add it if
+  considered relevant?" then "there should be interesting thing under the tab /noticias"
+  → [T-016](tasks/T-016-silent-sources.md)
+- "I need you to look into other sources that aren't collecting anything and see if there are
+  misunderstandings suchs as this one", with the goal "maximize the active sources that actually
+  get tangible results / can source content to be filtered out and potentially get new items for
+  the newsletter" → [T-016](tasks/T-016-silent-sources.md)
+- "optimize the html search to try to guarantee that contents are gathered from the most probable
+  pages to have posts for auditions and programmes" and "you may use playwright mcp if it helps"
+  → [T-016](tasks/T-016-silent-sources.md)
+- "at the end of each collect and extract run i need a report in md that states how many sites
+  where visited, how many did actually get any new content, and more numbers that are important
+  for me to know if the process is actually going through the sources correctly, so that i do not
+  think i am going throuh all the sources when i am just using a few. When we collect do we get all
+  pages again?" then "write them into a /reports folder inside data/digests"
+  → folded into [T-016](tasks/T-016-silent-sources.md)
+- "yes, fix the "Sem organização" action" (an approved action whose organisation was a
+  placeholder) → no task; recorded in [GOTCHAS](GOTCHAS.md#review)

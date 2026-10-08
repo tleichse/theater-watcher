@@ -21,6 +21,7 @@ class Fetcher:
         self.clock = clock
         self._robots = {}
         self._last_request = {}
+        self.pages = 0
 
     def get(self, url, **params):
         response = self._request('GET', url, params=params or None)
@@ -40,6 +41,7 @@ class Fetcher:
             raise Disallowed(url)
         self._wait(origin, robots)
         response = self.session.request(method, url, timeout=TIMEOUT, **kwargs)
+        self.pages += 1
         self._last_request[origin] = self.clock()
         response.raise_for_status()
         return response

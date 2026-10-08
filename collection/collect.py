@@ -1,3 +1,4 @@
+import time
 from dataclasses import dataclass
 from datetime import timedelta
 
@@ -21,6 +22,8 @@ class Result:
     updated: int = 0
     error: str = ''
     blocked: bool = False
+    pages: int = 0
+    seconds: float = 0
 
 
 def sync_sources():
@@ -56,6 +59,7 @@ def collect_source(source, fetcher):
         result.error = 'not in collection/sources.py'
         return result
     existing = {listing.url: listing for listing in RawListing.objects.filter(source=source)}
+    pages, started = fetcher.pages, time.monotonic()
     try:
         for listing in ADAPTERS[entry['adapter']](fetcher, entry['config'], set(existing)):
             current = existing.get(listing.url)
@@ -78,6 +82,8 @@ def collect_source(source, fetcher):
     except Exception as exc:
         result.error = f'{type(exc).__name__}: {exc}'
         result.blocked = blocked_by_network_filter(exc)
+    result.pages = fetcher.pages - pages
+    result.seconds = time.monotonic() - started
     return result
 
 

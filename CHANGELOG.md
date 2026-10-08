@@ -8,6 +8,24 @@ Enhancements / Ops. Write one bullet per shipped change, starting with `[area]` 
 the result a user sees, not internal reasoning. Add the bullet in the same change that flips
 the task to `done`. -->
 
+## 2026-10-08
+
+### Enhancements
+- [collection] Far more sources now yield listings: company, venue and school sites are read
+  through their feed and homepage together, plus up to three sections likely to hold calls
+  (auditions, training, news). Sources that ever produced a listing went from 175 to 251.
+- [collection] Visões Úteis is collected from its news page; EPTC Cascais from its posts.
+
+### Features
+- [collection] Every `collect` writes a report to `data/digests/reports/` (sources visited,
+  reached, blocked, failed, pages fetched, new content by group), flags partial runs, and
+  `run_report` adds what extraction made of it.
+
+### Fixes
+- [collection] Calls hidden behind image links, in addresses, or behind redirecting homepages are
+  no longer missed; one broken or robots-refused page no longer stops a whole site.
+- [collection] Moved, parked and duplicate websites corrected in the contact lists.
+
 ## 2026-10-01
 
 ### Docs

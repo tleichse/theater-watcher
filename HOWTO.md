@@ -78,6 +78,14 @@ come through when you collect from another network (home Wi-Fi, a phone hotspot)
 week: Coffeepaste only shows about the last 5 days of posts
 ([GOTCHAS.md](GOTCHAS.md#coffeepaste-only-shows-its-newest-20-classifieds-to-a-plain-http-client)).
 
+At the end, `collect` writes a report to `data/digests/reports/<date>-<time>-report.md`. Check
+two lines in it. **Visited this run** should equal **Active sources**; if it's lower, the report
+says so at the top. **Active sources that have ever produced a listing** is the share of sources
+that actually yield something. Its tables split the numbers by group (companies, producers,
+venues, schools), and the folded lists name the silent, blocked and unvisited sources. A repeat
+collect fetches each site's homepage, its feed, up to three section pages and only the links it
+hasn't collected before, so the page count shows how much was really read.
+
 ## Monday morning
 
 **Shortcut for steps 1 and 2:** open Claude Code in this repo and type `/collect-extract`. It
@@ -97,6 +105,11 @@ Open Claude Code in this repo and type:
 It works through the new listings in batches and ends with a report: how many actions were
 created, how many listings were skipped, and the main skip reasons. Everything it creates
 lands as **"Por rever"**. Nothing reaches the email without your approval.
+
+Then add the extraction numbers to the collect report (`/collect-extract` does this for you):
+```sh
+uv run python manage.py run_report
+```
 
 ### 3. Review and approve (Django admin)
 1. Start the admin:

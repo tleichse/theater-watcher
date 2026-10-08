@@ -14,7 +14,8 @@ ORGANISATION_FILES = {
 INSTITUTION_KEYWORDS = (
     r'audiç|casting|elenco|candidatura|open call|oficina|workshop|formaç|estágio|masterclass'
     r'|residência|bolsa|intérpret|ator|atriz|actor|actriz|procura|recrut|concurso|seleç|convocat'
-    r'|inscriç|laboratório|curso'
+    # \b: 'curso' alone also matched 'Recursos Humanos', linked from almost every institution's site.
+    r'|inscriç|laboratório|\bcurso'
 )
 TV_NEWS_KEYWORDS = (
     r'casting|elenco|audiç|gravaç|gravar|nova novela|nova série|arranc|figura|procura|recrut'
@@ -59,12 +60,32 @@ SOURCES = [
         },
     },
     {
+        # No keywords: open calls hide behind titles like "Clube de teatro", and it posts a few a month.
+        'slug': 'visoes-uteis', 'name': 'Visões Úteis (notícias)', 'tier': 'A', 'method': 'html',
+        'url': 'https://visoesuteis.pt/pt/noticias',
+        'adapter': 'html_list',
+        'config': {
+            'list_url': 'https://visoesuteis.pt/pt/noticias',
+            'link_pattern': r'/pt/noticia/',
+        },
+    },
+    {
         'slug': 'sao-luiz', 'name': 'Teatro São Luiz', 'tier': 'A', 'method': 'api',
         'url': 'https://www.teatrosaoluiz.pt/',
         'adapter': 'wordpress',
         'config': {
             'endpoint': 'https://www.teatrosaoluiz.pt/wp-json/wp/v2/espetaculo',
             'search_terms': ['audição', 'audições', 'open call', 'casting'],
+        },
+    },
+    {
+        # Its homepage is built in JavaScript, so site_watch sees no links; the posts API has the auditions.
+        'slug': 'eptc', 'name': 'EPTC (notícias)', 'tier': 'A', 'method': 'api',
+        'url': 'https://www.eptc.pt/',
+        'adapter': 'wordpress',
+        'config': {
+            'endpoint': 'https://www.eptc.pt/wp-json/wp/v2/posts',
+            'search_terms': ['audição', 'audições', 'curso', 'workshop', 'semana aberta'],
         },
     },
     {
