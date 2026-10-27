@@ -77,6 +77,13 @@ work network's filter blocks aren't listed in red; they're grouped in one line a
 come through when you collect from another network (home Wi-Fi, a phone hotspot). Why twice a
 week: Coffeepaste only shows about the last 5 days of posts
 ([GOTCHAS.md](GOTCHAS.md#coffeepaste-only-shows-its-newest-20-classifieds-to-a-plain-http-client)).
+If there's no time for the full run (about an hour), collect at least Coffeepaste, which takes
+seconds:
+```sh
+uv run python manage.py collect --source coffeepaste
+```
+If more than 5 days have gone by anyway, posts in between are lost silently. The same gotcha
+entry explains how to recover them through a browser.
 
 At the end, `collect` writes a report to `data/digests/reports/<date>-<time>-report.md`. Check
 two lines in it. **Visited this run** should equal **Active sources**; if it's lower, the report

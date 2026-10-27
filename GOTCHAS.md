@@ -40,6 +40,13 @@ private CMS endpoint (`repeater.bondlayer.com/fetch`) that rejects a hand-built 
 **Fix:** read the page's content bundle (`cdn.bndlyr.com/…/_p/content.*.js`), which holds
 those items as structured JSON, and collect often enough that no more than about 20 posts
 appear between runs (about every 5 days at current volume).
+**Recurred:** 2026-10-27, Monday routine. Runs on 10-18 and 10-27 (9 days apart) left posts from
+10-16 to 10-20 uncollected, including an NPS casting call, and an earlier gap had lost posts from
+10-12. Nobody noticed, because `collect` reports nothing about posts it never saw. To backfill:
+in a real browser the list's "PROXIMO" button does page back (5 pages ≈ 100 posts); copy the
+`/classificado/` links, then pass each missing URL to the coffeepaste adapter as `list_url`.
+Every detail page carries its own item in the same content bundle. `latest.xml` exists but is
+empty.
 
 ### Some company sites look dead from the work network but aren't
 On the work network, a few theatre company sites (Escola de Mulheres, Teatro das Beiras,
